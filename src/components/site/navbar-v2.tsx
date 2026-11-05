@@ -35,12 +35,14 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-[20px] px-3 sm:px-4 pointer-events-none">
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+          ? "bg-white/80 backdrop-blur-md border-b border-[#E5E7EB]/80 shadow-[0_4px_20px_rgba(16,24,40,0.04)]"
+          : "bg-transparent border-b border-transparent"
+          }`}
+      >
         <nav
-          className={`pointer-events-auto w-[94vw] lg:w-[92vw] xl:w-[88vw] 2xl:w-[84vw] max-w-[1440px] h-[74px] rounded-[50px] transition-all duration-500 flex items-center px-4 sm:px-6 lg:px-7 2xl:px-8 ${scrolled
-            ? "bg-white/70 backdrop-blur-2xl border border-white/60 shadow-[0_16px_40px_rgba(16,24,40,0.08),inset_0_1px_0_rgba(255,255,255,0.9)]"
-            : "bg-white/10 backdrop-blur-xl border border-white/40 shadow-[0_8px_32px_rgba(16,24,40,0.04),inset_0_1px_0_rgba(255,255,255,0.7)]"
-            }`}
+          className="w-full max-w-[1440px] mx-auto h-[74px] flex items-center justify-between px-6 sm:px-10 lg:px-[5.5vw]"
           aria-label="Primary"
         >
           <div className="relative w-full flex items-center justify-between">
@@ -70,13 +72,13 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
               </span>
             </button>
 
-            {/* Center nav links (Perfect resolution scaling: 12.5-14.5px font, 12-28px gap) */}
-            <div className="hidden lg:flex items-center gap-[12px] xl:gap-[20px] 2xl:gap-[28px] absolute left-1/2 -translate-x-1/2 pointer-events-auto">
+            {/* Center nav links (Fully transparent header layout) */}
+            <div className="hidden lg:flex items-center gap-[14px] xl:gap-[22px] 2xl:gap-[30px] absolute left-1/2 -translate-x-1/2">
               {NAV_ITEMS.map((l) => (
                 <button
                   key={l.view}
                   onClick={() => go(l.view)}
-                  className="group relative py-1 text-[12.5px] xl:text-[13.5px] 2xl:text-[14.5px] font-medium whitespace-nowrap transition-colors duration-200 cursor-pointer"
+                  className="group relative py-1 text-[13px] xl:text-[14px] 2xl:text-[15px] font-medium whitespace-nowrap transition-colors duration-200 cursor-pointer"
                 >
                   <span
                     className={`transition-colors duration-200 ${current === l.view
@@ -104,7 +106,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
               ))}
             </div>
 
-            {/* Right CTA + mobile menu (CTA: 40px height, 50px border radius) */}
+            {/* Right CTA + mobile menu */}
             <div className="flex items-center gap-2 sm:gap-3 shrink-0">
               <Magnetic
                 as="button"
@@ -113,7 +115,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                 className="hidden sm:block"
                 aria-label="Let's collaborate"
               >
-                <span className="inline-flex items-center gap-1.5 2xl:gap-2 h-[40px] rounded-[50px] bg-[#4F46E5] text-white text-[13px] 2xl:text-[14px] font-semibold px-4 2xl:px-5 hover:bg-[#4338CA] transition-all duration-300 shadow-[0_2px_12px_rgba(79,70,229,0.28)] hover:shadow-[0_4px_18px_rgba(79,70,229,0.4)] cursor-pointer whitespace-nowrap">
+                <span className="inline-flex items-center gap-1.5 2xl:gap-2 h-[42px] rounded-full bg-[#4F46E5] text-white text-[13.5px] 2xl:text-[14px] font-semibold px-5 hover:bg-[#4338CA] transition-all duration-300 shadow-[0_2px_12px_rgba(79,70,229,0.28)] hover:shadow-[0_4px_18px_rgba(79,70,229,0.4)] cursor-pointer whitespace-nowrap">
                   Let&rsquo;s Collaborate
                   <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2.5} />
                 </span>
@@ -121,7 +123,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
 
               <button
                 onClick={() => setOpen(true)}
-                className="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-full bg-white border border-[#E5E7EB] text-[#101828] hover:text-[#4F46E5] shadow-sm cursor-pointer"
+                className="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/80 border border-[#E5E7EB] text-[#101828] hover:text-[#4F46E5] shadow-sm cursor-pointer"
                 aria-label="Open menu"
               >
                 <Menu className="w-5 h-5" />
