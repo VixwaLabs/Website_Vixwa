@@ -210,20 +210,20 @@ export default function CinematicHero() {
       <section
         ref={root}
         data-hero-section
-        className="relative min-h-[760px] lg:h-[800px] w-full overflow-hidden flex flex-col justify-between bg-[#F8FAFC] text-[#1F2937] pt-[120px] pb-6 sm:pb-8 border-b border-[#E5E7EB]"
+        className="relative min-h-[820px] lg:min-h-[860px] w-full overflow-hidden flex flex-col justify-between bg-[#F8FAFC] dark:bg-[#070A12] text-[#1F2937] dark:text-[#F8FAFC] pt-36 sm:pt-44 lg:pt-[170px] xl:pt-[185px] pb-8 border-b border-[#E5E7EB] dark:border-[#1E293B] transition-colors duration-500"
       >
         {/* Background architectural depth — #F8FAFC Base with Subtle Indigo Gradients */}
         <div
-          className="pointer-events-none absolute inset-0 z-0"
+          className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-500"
           style={{
             background:
-              "radial-gradient(circle at 80% 45%, rgba(79,70,229,0.08) 0%, rgba(245,158,11,0.03) 40%, transparent 70%), radial-gradient(circle at 18% 55%, rgba(255,255,255,0.9) 0%, transparent 60%), #F8FAFC",
+              "radial-gradient(circle at 80% 45%, rgba(79,70,229,0.08) 0%, rgba(245,158,11,0.03) 40%, transparent 70%), radial-gradient(circle at 18% 55%, rgba(255,255,255,0.9) 0%, transparent 60%)",
           }}
         />
 
         {/* Grid overlay texture */}
         <div
-          className="pointer-events-none absolute inset-0 opacity-[0.035] z-0"
+          className="pointer-events-none absolute inset-0 opacity-[0.035] dark:opacity-[0.05] z-0"
           style={{
             backgroundImage:
               "linear-gradient(rgba(16,24,40,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(16,24,40,0.15) 1px, transparent 1px)",
@@ -233,7 +233,7 @@ export default function CinematicHero() {
 
         {/* Main Two-Column Full-Page Layout matching exact specs:
             Max-width 1440px, Horizontal padding 5.5vw, Left 58%, Right 42% */}
-        <div className="relative z-10 flex-1 flex flex-col lg:flex-row items-center justify-between w-full max-w-[1440px] mx-auto px-[5.5vw] my-auto gap-8 lg:gap-0">
+        <div className="relative z-10 flex-1 flex flex-col lg:flex-row items-center justify-between w-full max-w-[1440px] mx-auto px-[5.5vw] my-auto gap-10 lg:gap-0">
           
           {/* ============================================================
               LEFT COLUMN (58% width, max-width 800px)
@@ -253,25 +253,25 @@ export default function CinematicHero() {
                   style={{ background: COLOR_AMBER }}
                 />
               </span>
-              <span className="font-mono text-[10px] sm:text-[11.5px] uppercase tracking-[0.32em] text-[#64748B] font-bold">
+              <span className="font-mono text-[10px] sm:text-[11.5px] uppercase tracking-[0.32em] text-[#64748B] dark:text-[#94A3B8] font-bold">
                 VIXWA LABS / Research &amp; Innovation
               </span>
             </div>
 
             {/* Headline — 76–82px, weight 800, line-height 0.98 */}
-            <h1 className="font-display font-[800] text-[40px] sm:text-[58px] lg:text-[76px] xl:text-[80px] leading-[0.98] tracking-[-0.035em] select-none text-[#101828]">
+            <h1 className="font-display font-[800] text-[40px] sm:text-[58px] lg:text-[76px] xl:text-[80px] leading-[0.98] tracking-[-0.035em] select-none text-[#101828] dark:text-[#F8FAFC]">
               
-              {/* LINE 01 — ENGINEERING (Solid Ink Black / Deep Navy #101828) */}
+              {/* LINE 01 — ENGINEERING */}
               <span data-hero-line className="block overflow-hidden pb-0.5">
-                <span className="block uppercase font-[800] text-[#101828]">
+                <span className="block uppercase font-[800] text-[#101828] dark:text-[#F8FAFC]">
                   ENGINEERING
                 </span>
               </span>
 
-              {/* LINE 02 — INTELLIGENCE. (Solid Deep Indigo) */}
+              {/* LINE 02 — INTELLIGENCE. */}
               <span data-hero-line className="block overflow-hidden pb-0.5">
                 <span
-                  className="block uppercase font-[800] text-[#4F46E5]"
+                  className="block uppercase font-[800] text-[#4F46E5] dark:text-[#818CF8]"
                   style={{
                     textShadow: "0 0 30px rgba(79, 70, 229, 0.18)",
                   }}
@@ -280,9 +280,9 @@ export default function CinematicHero() {
                 </span>
               </span>
 
-              {/* LINE 03 — SHAPING TOMORROW. (Dark Navy / Ink Black) */}
+              {/* LINE 03 — SHAPING TOMORROW. */}
               <span data-hero-line className="block overflow-hidden pb-0.5">
-                <span className="block uppercase font-[800] text-[#101828]">
+                <span className="block uppercase font-[800] text-[#101828] dark:text-[#F8FAFC]">
                   SHAPING TOMORROW.
                 </span>
               </span>
@@ -291,7 +291,7 @@ export default function CinematicHero() {
             {/* Supporting description (19–20px font, max-width 650px) */}
             <p
               data-hero-desc
-              className="mt-4 sm:mt-5 text-[17px] sm:text-[19px] lg:text-[20px] text-[#1F2937] max-w-[650px] font-normal leading-[1.5] opacity-0"
+              className="mt-4 sm:mt-5 text-[17px] sm:text-[19px] lg:text-[20px] text-[#1F2937] dark:text-[#94A3B8] max-w-[650px] font-normal leading-[1.5] opacity-0"
             >
               Exploring intelligent systems, advanced engineering, and
               research-driven innovation to shape the technologies of tomorrow.
@@ -314,7 +314,7 @@ export default function CinematicHero() {
               <div data-hero-cta className="opacity-0">
                 <button
                   onClick={() => scrollTo("intro")}
-                  className="w-full sm:w-auto inline-flex items-center justify-center h-[56px] px-8 rounded-full bg-white border border-[#E5E7EB] hover:border-[#4F46E5] text-[#101828] hover:text-[#4F46E5] font-semibold text-sm sm:text-[15px] hover:bg-[#4F46E5]/5 transition-all duration-300 hover:scale-[1.02] cursor-pointer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center h-[56px] px-8 rounded-full bg-white dark:bg-[#111827] border border-[#E5E7EB] dark:border-[#334155] hover:border-[#4F46E5] dark:hover:border-[#818CF8] text-[#101828] dark:text-[#F8FAFC] hover:text-[#4F46E5] dark:hover:text-[#818CF8] font-semibold text-sm sm:text-[15px] hover:bg-[#4F46E5]/5 transition-all duration-300 hover:scale-[1.02] cursor-pointer"
                 >
                   DISCOVER OUR VISION
                 </button>
@@ -324,7 +324,7 @@ export default function CinematicHero() {
             {/* Metadata strip */}
             <div
               data-hero-meta
-              className="mt-6 sm:mt-8 flex items-center gap-6 sm:gap-10 border-t border-[#E5E7EB] pt-4 max-w-lg opacity-0"
+              className="mt-6 sm:mt-8 flex items-center gap-6 sm:gap-10 border-t border-[#E5E7EB] dark:border-[#1E293B] pt-4 max-w-lg opacity-0"
             >
               {[
                 { k: "Focus", v: "Frontier Intelligence" },
@@ -332,10 +332,10 @@ export default function CinematicHero() {
                 { k: "Horizon", v: "Next Gen" },
               ].map((m) => (
                 <div key={m.k} className="flex-1">
-                  <div className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-[#64748B] font-semibold mb-1">
+                  <div className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-[#64748B] dark:text-[#94A3B8] font-semibold mb-1">
                     {m.k}
                   </div>
-                  <div className="font-display text-sm sm:text-base font-bold text-[#101828] whitespace-nowrap">
+                  <div className="font-display text-sm sm:text-base font-bold text-[#101828] dark:text-[#F8FAFC] whitespace-nowrap">
                     {m.v}
                   </div>
                 </div>
@@ -355,13 +355,13 @@ export default function CinematicHero() {
         <div className="relative z-10 w-full flex flex-col items-center justify-center pb-3 pt-1">
           <button
             onClick={() => scrollTo("intro")}
-            className="group flex flex-col items-center gap-1.5 text-[#64748B] hover:text-[#4F46E5] transition-colors duration-300 cursor-pointer"
+            className="group flex flex-col items-center gap-1.5 text-[#64748B] dark:text-[#94A3B8] hover:text-[#4F46E5] dark:hover:text-[#818CF8] transition-colors duration-300 cursor-pointer"
             aria-label="Scroll to introduction"
           >
             <span className="font-mono text-[8.5px] sm:text-[9.5px] uppercase tracking-[0.28em] font-semibold">
               SCROLL TO EXPLORE
             </span>
-            <span className="grid place-items-center w-7 h-7 rounded-full border border-[#E5E7EB] bg-white text-[#4F46E5] shadow-sm group-hover:border-[#4F46E5] group-hover:bg-[#4F46E5]/10 transition-all duration-300">
+            <span className="grid place-items-center w-7 h-7 rounded-full border border-[#E5E7EB] dark:border-[#1E293B] bg-white dark:bg-[#111827] text-[#4F46E5] dark:text-[#818CF8] shadow-sm group-hover:border-[#4F46E5] group-hover:bg-[#4F46E5]/10 transition-all duration-300">
               <svg
                 width="11"
                 height="11"

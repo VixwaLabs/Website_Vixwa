@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { useTheme } from "next-themes";
+import { ArrowUpRight, Menu, X, Sun, Moon } from "lucide-react";
 import { NAV_ITEMS, type ViewKey } from "./nav-config";
 import Magnetic from "./magnetic";
 
@@ -14,6 +15,12 @@ interface NavbarProps {
 export default function Navbar({ current, onNavigate }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -37,7 +44,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-          ? "bg-white/80 backdrop-blur-md border-b border-[#E5E7EB]/80 shadow-[0_4px_20px_rgba(16,24,40,0.04)]"
+          ? "bg-white/80 dark:bg-[#070A12]/80 backdrop-blur-md border-b border-[#E5E7EB]/80 dark:border-[#1E293B]/80 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)]"
           : "bg-transparent border-b border-transparent"
           }`}
       >
@@ -63,16 +70,16 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                 />
               </span>
               <span className="flex flex-col leading-none text-left">
-                <span className="font-display font-black tracking-[0.06em] text-[#101828] text-base sm:text-[18px] 2xl:text-[20px] transition-colors group-hover:text-[#4F46E5] whitespace-nowrap">
+                <span className="font-display font-black tracking-[0.06em] text-[#101828] dark:text-[#F8FAFC] text-base sm:text-[18px] 2xl:text-[20px] transition-colors group-hover:text-[#4F46E5] dark:group-hover:text-[#818CF8] whitespace-nowrap">
                   VIXWA LABS
                 </span>
-                <span className="font-mono-tech text-[7px] sm:text-[7.5px] 2xl:text-[8px] uppercase tracking-[0.2em] text-[#64748B] mt-0.5 sm:mt-1 font-semibold hidden sm:block whitespace-nowrap">
+                <span className="font-mono-tech text-[7px] sm:text-[7.5px] 2xl:text-[8px] uppercase tracking-[0.2em] text-[#64748B] dark:text-[#94A3B8] mt-0.5 sm:mt-1 font-semibold hidden sm:block whitespace-nowrap">
                   Makes Matter Matter
                 </span>
               </span>
             </button>
 
-            {/* Center nav links (Fully transparent header layout) */}
+            {/* Center nav links (Clear case transparent header layout) */}
             <div className="hidden lg:flex items-center gap-[14px] xl:gap-[22px] 2xl:gap-[30px] absolute left-1/2 -translate-x-1/2">
               {NAV_ITEMS.map((l) => (
                 <button
@@ -82,8 +89,8 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                 >
                   <span
                     className={`transition-colors duration-200 ${current === l.view
-                      ? "text-[#4F46E5] font-semibold"
-                      : "text-[#1F2937] hover:text-[#4F46E5]"
+                      ? "text-[#4F46E5] dark:text-[#818CF8] font-semibold"
+                      : "text-[#1F2937] dark:text-[#CBD5E1] hover:text-[#4F46E5] dark:hover:text-[#818CF8]"
                       }`}
                   >
                     {l.view === "rd" ? (
@@ -98,16 +105,34 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                   {/* animated indigo underline */}
                   <span
                     className={`absolute left-0 right-0 -bottom-1 h-[2px] rounded-full origin-left transition-transform duration-200 ${current === l.view
-                      ? "scale-x-100 bg-[#4F46E5]"
-                      : "scale-x-0 bg-[#4F46E5] group-hover:scale-x-100"
+                      ? "scale-x-100 bg-[#4F46E5] dark:bg-[#818CF8]"
+                      : "scale-x-0 bg-[#4F46E5] dark:bg-[#818CF8] group-hover:scale-x-100"
                       }`}
                   />
                 </button>
               ))}
             </div>
 
-            {/* Right CTA + mobile menu */}
+            {/* Right CTA + Theme Toggle + mobile menu */}
             <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+              {/* Dark Mode / Light Mode Toggle */}
+              <button
+                onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                aria-label="Toggle theme"
+                className="w-10 h-10 rounded-full border border-[#E5E7EB] dark:border-[#1E293B] bg-white/70 dark:bg-[#111827]/70 backdrop-blur-md flex items-center justify-center text-[#101828] dark:text-[#F8FAFC] hover:border-[#4F46E5] dark:hover:border-[#818CF8] hover:text-[#4F46E5] dark:hover:text-[#818CF8] transition-all cursor-pointer shadow-sm hover:scale-105"
+                title={mounted && resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              >
+                {mounted ? (
+                  resolvedTheme === "dark" ? (
+                    <Sun className="w-4 h-4 text-[#F59E0B] transition-transform duration-300" />
+                  ) : (
+                    <Moon className="w-4 h-4 text-[#4F46E5] transition-transform duration-300" />
+                  )
+                ) : (
+                  <span className="w-4 h-4" />
+                )}
+              </button>
+
               <Magnetic
                 as="button"
                 strength={0.4}
@@ -123,7 +148,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
 
               <button
                 onClick={() => setOpen(true)}
-                className="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/80 border border-[#E5E7EB] text-[#101828] hover:text-[#4F46E5] shadow-sm cursor-pointer"
+                className="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/80 dark:bg-[#111827]/80 border border-[#E5E7EB] dark:border-[#1E293B] text-[#101828] dark:text-[#F8FAFC] hover:text-[#4F46E5] dark:hover:text-[#818CF8] shadow-sm cursor-pointer"
                 aria-label="Open menu"
               >
                 <Menu className="w-5 h-5" />
@@ -143,7 +168,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
           onClick={() => setOpen(false)}
         />
         <div
-          className={`absolute top-0 right-0 h-full w-full sm:w-[420px] bg-white border-l border-[#E5E7EB] shadow-2xl transition-transform duration-300 ease-out ${open ? "translate-x-0" : "translate-x-full"
+          className={`absolute top-0 right-0 h-full w-full sm:w-[420px] bg-white dark:bg-[#0B0F17] border-l border-[#E5E7EB] dark:border-[#1E293B] shadow-2xl transition-transform duration-300 ease-out ${open ? "translate-x-0" : "translate-x-full"
             }`}
         >
           <div className="h-full flex flex-col p-6 sm:p-8">
@@ -159,21 +184,34 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                   />
                 </span>
                 <span className="flex flex-col leading-none text-left">
-                  <span className="font-display font-black tracking-[0.06em] text-[#101828] text-xl">
+                  <span className="font-display font-black tracking-[0.06em] text-[#101828] dark:text-[#F8FAFC] text-xl">
                     VIXWA LABS
                   </span>
-                  <span className="font-mono-tech text-[8px] uppercase tracking-[0.24em] text-[#64748B] mt-1 font-semibold">
+                  <span className="font-mono-tech text-[8px] uppercase tracking-[0.24em] text-[#64748B] dark:text-[#94A3B8] mt-1 font-semibold">
                     Makes Matter Matter
                   </span>
                 </span>
               </div>
-              <button
-                onClick={() => setOpen(false)}
-                className="w-10 h-10 rounded-full border border-[#E5E7EB] bg-[#F8FAFC] flex items-center justify-center text-[#101828] hover:text-[#4F46E5] transition-colors"
-                aria-label="Close menu"
-              >
-                <X className="w-5 h-5" />
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                  aria-label="Toggle theme"
+                  className="w-10 h-10 rounded-full border border-[#E5E7EB] dark:border-[#1E293B] bg-[#F8FAFC] dark:bg-[#141B2D] flex items-center justify-center text-[#101828] dark:text-[#F8FAFC]"
+                >
+                  {mounted && resolvedTheme === "dark" ? (
+                    <Sun className="w-4 h-4 text-[#F59E0B]" />
+                  ) : (
+                    <Moon className="w-4 h-4 text-[#4F46E5]" />
+                  )}
+                </button>
+                <button
+                  onClick={() => setOpen(false)}
+                  className="w-10 h-10 rounded-full border border-[#E5E7EB] dark:border-[#1E293B] bg-[#F8FAFC] dark:bg-[#141B2D] flex items-center justify-center text-[#101828] dark:text-[#F8FAFC] hover:text-[#4F46E5] transition-colors"
+                  aria-label="Close menu"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
             </div>
 
             <nav className="mt-10 flex flex-col gap-1" aria-label="Mobile">
@@ -181,17 +219,17 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                 <button
                   key={l.view}
                   onClick={() => go(l.view)}
-                  className="group flex items-center justify-between py-4 border-b border-[#E5E7EB] text-left"
+                  className="group flex items-center justify-between py-4 border-b border-[#E5E7EB] dark:border-[#1E293B] text-left"
                 >
                   <span
                     className={`font-display text-2xl sm:text-3xl font-semibold transition-colors duration-200 ${current === l.view
-                      ? "text-[#4F46E5]"
-                      : "text-[#101828] group-hover:text-[#4F46E5]"
+                      ? "text-[#4F46E5] dark:text-[#818CF8]"
+                      : "text-[#101828] dark:text-[#F8FAFC] group-hover:text-[#4F46E5] dark:group-hover:text-[#818CF8]"
                       }`}
                   >
                     {l.label}
                   </span>
-                  <span className="font-mono-tech text-xs text-[#64748B]">
+                  <span className="font-mono-tech text-xs text-[#64748B] dark:text-[#94A3B8]">
                     0{i + 1}
                   </span>
                 </button>
@@ -199,7 +237,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
             </nav>
 
             <div className="mt-auto pt-6">
-              <p className="font-mono-tech text-[11px] uppercase tracking-[0.25em] text-[#64748B] mb-3">
+              <p className="font-mono-tech text-[11px] uppercase tracking-[0.25em] text-[#64748B] dark:text-[#94A3B8] mb-3">
                 Have an idea worth exploring?
               </p>
               <button
