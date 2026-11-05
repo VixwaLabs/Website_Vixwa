@@ -76,7 +76,7 @@ export default function Footer({ onNavigate }: FooterProps) {
               </span>
             </div>
             <span className="font-mono-tech text-[10.5px] sm:text-[12px] uppercase tracking-[0.25em] text-[#94A3B8] font-semibold mt-2.5">
-              VIXWA LABS PVT. LTD. &middot; Engineering Intelligence. Shaping Tomorrow.
+              VIXWA LABS PVT. LTD. &middot; Makes Matter Matter.
             </span>
           </div>
         </button>

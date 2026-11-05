@@ -37,9 +37,9 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
     <>
       <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-[20px] px-3 sm:px-4 pointer-events-none">
         <nav
-          className={`pointer-events-auto w-[94vw] lg:w-[92vw] xl:w-[88vw] 2xl:w-[84vw] max-w-[1440px] h-[74px] rounded-[50px] bg-white border border-[#E5E7EB] transition-all duration-300 flex items-center px-4 sm:px-6 lg:px-7 2xl:px-8 ${scrolled
-            ? "shadow-[0_4px_24px_rgba(16,24,40,0.08)] bg-white/95 backdrop-blur-md"
-            : "shadow-[0_2px_12px_rgba(16,24,40,0.03)]"
+          className={`pointer-events-auto w-[94vw] lg:w-[92vw] xl:w-[88vw] 2xl:w-[84vw] max-w-[1440px] h-[74px] rounded-[50px] transition-all duration-300 flex items-center px-4 sm:px-6 lg:px-7 2xl:px-8 ${scrolled
+            ? "bg-white/85 backdrop-blur-md border border-[#E5E7EB] shadow-[0_4px_24px_rgba(16,24,40,0.08)]"
+            : "bg-transparent backdrop-blur-sm border border-[#E5E7EB]/60 shadow-none"
             }`}
           aria-label="Primary"
         >
