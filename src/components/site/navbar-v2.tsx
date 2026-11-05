@@ -70,7 +70,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                 />
               </span>
               <span className="flex flex-col leading-none text-left">
-                <span className="font-display font-black tracking-[0.06em] text-[#101828] dark:text-[#F8FAFC] text-base sm:text-[18px] 2xl:text-[20px] transition-colors group-hover:text-[#4F46E5] dark:group-hover:text-[#818CF8] whitespace-nowrap">
+                <span className="font-display font-black tracking-[0.06em] text-[#101828] dark:text-[#F8FAFC] text-base sm:text-[18px] 2xl:text-[20px] transition-colors group-hover:text-[#4F46E5] dark:group-hover:text-[#00D2FF] whitespace-nowrap">
                   VIXWA LABS
                 </span>
                 <span className="font-mono-tech text-[7px] sm:text-[7.5px] 2xl:text-[8px] uppercase tracking-[0.2em] text-[#64748B] dark:text-[#94A3B8] mt-0.5 sm:mt-1 font-semibold hidden sm:block whitespace-nowrap">
@@ -79,7 +79,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
               </span>
             </button>
 
-            {/* Center nav links (Clear case transparent header layout) */}
+            {/* Center nav links (Clear case transparent header layout, adaptive to Electric Blue in dark mode) */}
             <div className="hidden lg:flex items-center gap-[14px] xl:gap-[22px] 2xl:gap-[30px] absolute left-1/2 -translate-x-1/2">
               {NAV_ITEMS.map((l) => (
                 <button
@@ -89,8 +89,8 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                 >
                   <span
                     className={`transition-colors duration-200 ${current === l.view
-                      ? "text-[#4F46E5] dark:text-[#818CF8] font-semibold"
-                      : "text-[#1F2937] dark:text-[#CBD5E1] hover:text-[#4F46E5] dark:hover:text-[#818CF8]"
+                      ? "text-[#4F46E5] dark:text-[#00D2FF] font-semibold"
+                      : "text-[#1F2937] dark:text-[#CBD5E1] hover:text-[#4F46E5] dark:hover:text-[#00D2FF]"
                       }`}
                   >
                     {l.view === "rd" ? (
@@ -102,11 +102,11 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                       l.label
                     )}
                   </span>
-                  {/* animated indigo underline */}
+                  {/* animated underline adapting to theme */}
                   <span
                     className={`absolute left-0 right-0 -bottom-1 h-[2px] rounded-full origin-left transition-transform duration-200 ${current === l.view
-                      ? "scale-x-100 bg-[#4F46E5] dark:bg-[#818CF8]"
-                      : "scale-x-0 bg-[#4F46E5] dark:bg-[#818CF8] group-hover:scale-x-100"
+                      ? "scale-x-100 bg-[#4F46E5] dark:bg-[#00D2FF] dark:shadow-[0_0_10px_rgba(0,210,255,0.9)]"
+                      : "scale-x-0 bg-[#4F46E5] dark:bg-[#00D2FF] group-hover:scale-x-100"
                       }`}
                   />
                 </button>
@@ -119,7 +119,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
               <button
                 onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
                 aria-label="Toggle theme"
-                className="w-10 h-10 rounded-full border border-[#E5E7EB] dark:border-[#1E293B] bg-white/70 dark:bg-[#111827]/70 backdrop-blur-md flex items-center justify-center text-[#101828] dark:text-[#F8FAFC] hover:border-[#4F46E5] dark:hover:border-[#818CF8] hover:text-[#4F46E5] dark:hover:text-[#818CF8] transition-all cursor-pointer shadow-sm hover:scale-105"
+                className="w-10 h-10 rounded-full border border-[#E5E7EB] dark:border-[#1E293B] bg-white/70 dark:bg-[#111827]/70 backdrop-blur-md flex items-center justify-center text-[#101828] dark:text-[#F8FAFC] hover:border-[#4F46E5] dark:hover:border-[#00D2FF] hover:text-[#4F46E5] dark:hover:text-[#00D2FF] transition-all cursor-pointer shadow-sm hover:scale-105"
                 title={mounted && resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
               >
                 {mounted ? (
@@ -140,7 +140,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                 className="hidden sm:block"
                 aria-label="Let's collaborate"
               >
-                <span className="inline-flex items-center gap-1.5 2xl:gap-2 h-[42px] rounded-full bg-[#4F46E5] text-white text-[13.5px] 2xl:text-[14px] font-semibold px-5 hover:bg-[#4338CA] transition-all duration-300 shadow-[0_2px_12px_rgba(79,70,229,0.28)] hover:shadow-[0_4px_18px_rgba(79,70,229,0.4)] cursor-pointer whitespace-nowrap">
+                <span className="inline-flex items-center gap-1.5 2xl:gap-2 h-[42px] rounded-full bg-[#4F46E5] dark:bg-[#0066FF] text-white text-[13.5px] 2xl:text-[14px] font-semibold px-5 hover:bg-[#4338CA] dark:hover:bg-[#0055DD] transition-all duration-300 shadow-[0_2px_12px_rgba(79,70,229,0.28)] dark:shadow-[0_0_24px_rgba(0,102,255,0.55)] cursor-pointer whitespace-nowrap">
                   Let&rsquo;s Collaborate
                   <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2.5} />
                 </span>
@@ -223,8 +223,8 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                 >
                   <span
                     className={`font-display text-2xl sm:text-3xl font-semibold transition-colors duration-200 ${current === l.view
-                      ? "text-[#4F46E5] dark:text-[#818CF8]"
-                      : "text-[#101828] dark:text-[#F8FAFC] group-hover:text-[#4F46E5] dark:group-hover:text-[#818CF8]"
+                      ? "text-[#4F46E5] dark:text-[#00D2FF]"
+                      : "text-[#101828] dark:text-[#F8FAFC] group-hover:text-[#4F46E5] dark:group-hover:text-[#00D2FF]"
                       }`}
                   >
                     {l.label}
@@ -242,7 +242,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
               </p>
               <button
                 onClick={() => go("contact")}
-                className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-[#4F46E5] text-white font-semibold py-3.5 hover:bg-[#4338CA] transition-colors duration-200 shadow-[0_4px_16px_rgba(79,70,229,0.3)] cursor-pointer"
+                className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-[#4F46E5] dark:bg-[#0066FF] text-white font-semibold py-3.5 hover:bg-[#4338CA] dark:hover:bg-[#0055DD] transition-colors duration-200 shadow-[0_4px_16px_rgba(79,70,229,0.3)] dark:shadow-[0_0_20px_rgba(0,102,255,0.5)] cursor-pointer"
               >
                 Let&rsquo;s Collaborate
                 <ArrowUpRight className="w-4 h-4" strokeWidth={2.5} />

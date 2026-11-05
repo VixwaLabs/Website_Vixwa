@@ -130,7 +130,7 @@
   --card-foreground: #FFFFFF;
   --popover: #0D1322;
   --popover-foreground: #FFFFFF;
-  --primary: #6366F1;
+  --primary: #0066FF;
   --primary-foreground: #FFFFFF;
   --secondary: #1E293B;
   --secondary-foreground: #F8FAFC;
@@ -141,15 +141,15 @@
   --destructive: #F87171;
   --border: #1E293B;
   --input: #1E293B;
-  --ring: #6366F1;
+  --ring: #00D2FF;
   --sidebar: #070A12;
   --sidebar-foreground: #FFFFFF;
-  --sidebar-primary: #6366F1;
+  --sidebar-primary: #0066FF;
   --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent: #141B2D;
   --sidebar-accent-foreground: #FFFFFF;
   --sidebar-border: #1E293B;
-  --sidebar-ring: #6366F1;
+  --sidebar-ring: #00D2FF;
 }
 
 @layer base {

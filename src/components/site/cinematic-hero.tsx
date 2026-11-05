@@ -69,19 +69,19 @@ function SpatialOrbitalDisplay() {
   return (
     <div className="relative w-full flex flex-col items-center justify-center select-none py-2">
       
-      {/* Ambient Indigo & Amber radiance behind orbital system */}
+      {/* Ambient Electric Blue & Indigo radiance behind orbital system */}
       <div
-        className="pointer-events-none absolute w-[340px] h-[340px] sm:w-[440px] sm:h-[440px] lg:w-[520px] lg:h-[520px] rounded-full blur-[100px] opacity-35"
+        className="pointer-events-none absolute w-[360px] h-[360px] sm:w-[460px] sm:h-[460px] lg:w-[540px] lg:h-[540px] rounded-full blur-[110px] opacity-45 dark:opacity-65"
         style={{
           background:
-            "radial-gradient(circle, rgba(79, 70, 229, 0.25) 0%, rgba(245, 158, 11, 0.08) 50%, transparent 75%)",
+            "radial-gradient(circle, rgba(0, 102, 255, 0.45) 0%, rgba(0, 240, 255, 0.22) 35%, rgba(79, 70, 229, 0.15) 60%, transparent 75%)",
         }}
       />
       <div
-        className="pointer-events-none absolute w-[240px] h-[240px] sm:w-[320px] sm:h-[320px] lg:w-[380px] lg:h-[380px] rounded-full blur-[70px] opacity-25"
+        className="pointer-events-none absolute w-[260px] h-[260px] sm:w-[340px] sm:h-[340px] lg:w-[400px] lg:h-[400px] rounded-full blur-[70px] opacity-35 dark:opacity-55"
         style={{
           background:
-            "radial-gradient(circle, rgba(79, 70, 229, 0.28) 0%, transparent 80%)",
+            "radial-gradient(circle, rgba(0, 240, 255, 0.45) 0%, rgba(0, 102, 255, 0.25) 50%, transparent 80%)",
         }}
       />
 
@@ -90,53 +90,53 @@ function SpatialOrbitalDisplay() {
         
         {/* ============================================================
             LAYER 2: OUTER CIRCULAR ORBIT (Counter-Clockwise, 38s)
-            Dashed Amber trajectory with pulsing Amber beacon
+            Dashed Electric Blue & Amber trajectory with pulsing beacon
             ============================================================ */}
         <div
-          className="absolute w-[340px] h-[340px] sm:w-[430px] sm:h-[430px] lg:w-[520px] lg:h-[520px] rounded-full border border-dashed border-[#F59E0B]/40 animate-[spin_38s_linear_infinite_reverse] pointer-events-none"
+          className="absolute w-[340px] h-[340px] sm:w-[430px] sm:h-[430px] lg:w-[520px] lg:h-[520px] rounded-full border border-dashed border-[#F59E0B]/40 dark:border-[#0066FF]/60 animate-[spin_38s_linear_infinite_reverse] pointer-events-none"
         >
-          {/* Satellite 2A (Amber beacon with animated ping aura) */}
+          {/* Satellite 2A (Pulsing Electric Blue beacon in dark, amber in light) */}
           <div className="absolute top-[14%] right-[14%] translate-x-1/2 -translate-y-1/2">
             <span className="relative flex h-4 w-4">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F59E0B] opacity-75" />
-              <span className="relative inline-flex rounded-full h-4 w-4 bg-[#F59E0B] shadow-[0_0_12px_rgba(245,158,11,0.9)]" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F59E0B] dark:bg-[#00D2FF] opacity-75" />
+              <span className="relative inline-flex rounded-full h-4 w-4 bg-[#F59E0B] dark:bg-[#00D2FF] shadow-[0_0_16px_rgba(0,210,255,0.95)]" />
             </span>
           </div>
 
-          {/* Satellite 2B (Indigo Satellite with double ring) */}
+          {/* Satellite 2B (Indigo/Electric Satellite with double ring) */}
           <div className="absolute bottom-[14%] left-[14%] -translate-x-1/2 translate-y-1/2">
-            <span className="flex items-center justify-center w-4 h-4 rounded-full bg-white border-2 border-[#4F46E5] shadow-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#4F46E5]" />
+            <span className="flex items-center justify-center w-4 h-4 rounded-full bg-white dark:bg-[#070A12] border-2 border-[#4F46E5] dark:border-[#0066FF] shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#4F46E5] dark:bg-[#00D2FF]" />
             </span>
           </div>
 
           {/* Micro telemetry nodes */}
-          <span className="absolute top-1/2 -left-1 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#4F46E5]" />
-          <span className="absolute top-1/2 -right-1 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#F59E0B]" />
+          <span className="absolute top-1/2 -left-1 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#4F46E5] dark:bg-[#00D2FF]" />
+          <span className="absolute top-1/2 -right-1 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#F59E0B] dark:bg-[#0066FF]" />
         </div>
 
         {/* ============================================================
             LAYER 1: INNER CIRCULAR ORBIT (Clockwise, 22s)
-            Smooth Indigo orbit directly embracing the video portal
+            Smooth Electric Blue & Indigo orbit embracing video portal
             ============================================================ */}
         <div
-          className="absolute w-[300px] h-[300px] sm:w-[380px] sm:h-[380px] lg:w-[460px] lg:h-[460px] rounded-full border border-[#4F46E5]/30 animate-[spin_22s_linear_infinite] pointer-events-none"
+          className="absolute w-[300px] h-[300px] sm:w-[380px] sm:h-[380px] lg:w-[460px] lg:h-[460px] rounded-full border border-[#4F46E5]/30 dark:border-[#00D2FF]/40 animate-[spin_22s_linear_infinite] pointer-events-none"
         >
-          {/* Satellite 1A: Glowing Indigo nucleus */}
+          {/* Satellite 1A: Glowing Electric Blue nucleus */}
           <div className="absolute -top-2 left-1/2 -translate-x-1/2">
-            <span className="relative flex items-center justify-center w-4 h-4 rounded-full bg-[#4F46E5] shadow-[0_0_10px_rgba(79,70,229,0.8)]">
+            <span className="relative flex items-center justify-center w-4 h-4 rounded-full bg-[#4F46E5] dark:bg-[#00D2FF] shadow-[0_0_12px_rgba(0,210,255,0.95)]">
               <span className="w-1.5 h-1.5 rounded-full bg-white" />
             </span>
           </div>
 
-          {/* Satellite 1B: Amber glowing bead */}
+          {/* Satellite 1B: Amber / Electric glowing bead */}
           <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2">
-            <span className="block w-3 h-3 rounded-full bg-[#F59E0B] shadow-[0_0_8px_rgba(245,158,11,0.8)]" />
+            <span className="block w-3 h-3 rounded-full bg-[#F59E0B] dark:bg-[#0066FF] shadow-[0_0_10px_rgba(0,102,255,0.9)]" />
           </div>
 
           {/* Lateral micro anchors */}
-          <span className="absolute top-1/2 -left-1 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#4F46E5]" />
-          <span className="absolute top-1/2 -right-1 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#F59E0B]" />
+          <span className="absolute top-1/2 -left-1 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#4F46E5] dark:bg-[#00D2FF]" />
+          <span className="absolute top-1/2 -right-1 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#F59E0B] dark:bg-[#00D2FF]" />
         </div>
 
         {/* ============================================================
@@ -144,7 +144,7 @@ function SpatialOrbitalDisplay() {
             Desktop Visual size: exactly 400 × 400 px
             ============================================================ */}
         <div
-          className="group relative w-[260px] h-[260px] sm:w-[330px] sm:h-[330px] lg:w-[400px] lg:h-[400px] rounded-full flex items-center justify-center bg-[#070A12] border-2 border-[#4F46E5]/40 p-2 sm:p-2.5 shadow-[0_20px_60px_rgba(79,70,229,0.22),0_4px_20px_rgba(16,24,40,0.1)] transition-all duration-500 hover:scale-[1.02] hover:border-[#4F46E5] hover:shadow-[0_24px_70px_rgba(79,70,229,0.32)] z-20 overflow-hidden"
+          className="group relative w-[260px] h-[260px] sm:w-[330px] sm:h-[330px] lg:w-[400px] lg:h-[400px] rounded-full flex items-center justify-center bg-[#070A12] border-2 border-[#4F46E5]/40 dark:border-[#00D2FF]/60 p-2 sm:p-2.5 shadow-[0_20px_60px_rgba(79,70,229,0.22),0_4px_20px_rgba(16,24,40,0.1)] dark:shadow-[0_0_60px_rgba(0,102,255,0.4),0_0_120px_rgba(0,240,255,0.18)] transition-all duration-500 hover:scale-[1.02] hover:border-[#4F46E5] dark:hover:border-[#00D2FF] z-20 overflow-hidden"
         >
           {/* Internal video chamber with circular mask & subtle inset glow */}
           <div className="relative w-full h-full rounded-full overflow-hidden flex items-center justify-center bg-[#070A12] shadow-inner">
@@ -212,12 +212,20 @@ export default function CinematicHero() {
         data-hero-section
         className="relative min-h-[820px] lg:min-h-[860px] w-full overflow-hidden flex flex-col justify-between bg-[#F8FAFC] dark:bg-[#070A12] text-[#1F2937] dark:text-[#F8FAFC] pt-36 sm:pt-44 lg:pt-[170px] xl:pt-[185px] pb-8 border-b border-[#E5E7EB] dark:border-[#1E293B] transition-colors duration-500"
       >
-        {/* Background architectural depth — #F8FAFC Base with Subtle Indigo Gradients */}
+        {/* Background architectural depth — Electric Blue & Logo Colors */}
         <div
           className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-500"
           style={{
             background:
-              "radial-gradient(circle at 80% 45%, rgba(79,70,229,0.08) 0%, rgba(245,158,11,0.03) 40%, transparent 70%), radial-gradient(circle at 18% 55%, rgba(255,255,255,0.9) 0%, transparent 60%)",
+              "radial-gradient(circle at 78% 45%, rgba(0, 102, 255, 0.22) 0%, rgba(0, 240, 255, 0.10) 35%, transparent 70%), radial-gradient(circle at 18% 55%, rgba(0, 102, 255, 0.14) 0%, transparent 60%), radial-gradient(circle at 50% 15%, rgba(0, 240, 255, 0.08) 0%, transparent 55%)",
+          }}
+        />
+
+        {/* Ambient Electric Blue volumetric flare from top/pedestal */}
+        <div
+          className="pointer-events-none absolute top-[-50px] right-[10%] w-[600px] h-[500px] rounded-full blur-[130px] opacity-35 dark:opacity-55"
+          style={{
+            background: "radial-gradient(circle, #0066FF 0%, #00D2FF 40%, transparent 75%)",
           }}
         />
 
@@ -268,12 +276,12 @@ export default function CinematicHero() {
                 </span>
               </span>
 
-              {/* LINE 02 — INTELLIGENCE. */}
+              {/* LINE 02 — INTELLIGENCE. (Vibrant Electric Blue) */}
               <span data-hero-line className="block overflow-hidden pb-0.5">
                 <span
-                  className="block uppercase font-[800] text-[#4F46E5] dark:text-[#818CF8]"
+                  className="block uppercase font-[800] text-[#0066FF] dark:text-[#00D2FF]"
                   style={{
-                    textShadow: "0 0 30px rgba(79, 70, 229, 0.18)",
+                    textShadow: "0 0 35px rgba(0, 210, 255, 0.45)",
                   }}
                 >
                   INTELLIGENCE.
@@ -297,16 +305,16 @@ export default function CinematicHero() {
               research-driven innovation to shape the technologies of tomorrow.
             </p>
 
-            {/* CTA Buttons: Amber High-Impact (#F59E0B) CTA + Secondary (Height 56px, Gap 18px) */}
+            {/* CTA Buttons: Electric Blue CTA + Secondary (Height 56px, Gap 18px) */}
             <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-[18px]">
               <div data-hero-cta className="opacity-0">
                 <button
                   onClick={() => scrollTo("intro")}
-                  className="group relative w-full sm:w-auto inline-flex items-center justify-between sm:justify-start gap-4 h-[56px] px-8 rounded-full bg-[#F59E0B] text-[#101828] font-bold text-sm sm:text-[15px] hover:bg-[#D97706] transition-all duration-300 shadow-[0_4px_20px_rgba(245,158,11,0.32)] hover:shadow-[0_6px_25px_rgba(245,158,11,0.45)] hover:scale-[1.02] cursor-pointer"
+                  className="group relative w-full sm:w-auto inline-flex items-center justify-between sm:justify-start gap-4 h-[56px] px-8 rounded-full bg-[#0066FF] text-white font-bold text-sm sm:text-[15px] hover:bg-[#0052CC] transition-all duration-300 shadow-[0_4px_25px_rgba(0,102,255,0.45)] hover:shadow-[0_6px_35px_rgba(0,102,255,0.65)] hover:scale-[1.02] cursor-pointer"
                 >
                   <span>EXPLORE VIXWA</span>
-                  <span className="grid place-items-center w-8 h-8 rounded-full bg-[#101828] text-white group-hover:rotate-45 transition-transform duration-300">
-                    <ArrowUpRight className="w-4 h-4" strokeWidth={2.5} />
+                  <span className="grid place-items-center w-8 h-8 rounded-full bg-[#070A12] text-white group-hover:rotate-45 transition-transform duration-300">
+                    <ArrowUpRight className="w-4 h-4 text-[#00D2FF]" strokeWidth={2.5} />
                   </span>
                 </button>
               </div>
@@ -314,7 +322,7 @@ export default function CinematicHero() {
               <div data-hero-cta className="opacity-0">
                 <button
                   onClick={() => scrollTo("intro")}
-                  className="w-full sm:w-auto inline-flex items-center justify-center h-[56px] px-8 rounded-full bg-white dark:bg-[#111827] border border-[#E5E7EB] dark:border-[#334155] hover:border-[#4F46E5] dark:hover:border-[#818CF8] text-[#101828] dark:text-[#F8FAFC] hover:text-[#4F46E5] dark:hover:text-[#818CF8] font-semibold text-sm sm:text-[15px] hover:bg-[#4F46E5]/5 transition-all duration-300 hover:scale-[1.02] cursor-pointer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center h-[56px] px-8 rounded-full bg-white dark:bg-[#111827] border border-[#E5E7EB] dark:border-[#334155] hover:border-[#0066FF] dark:hover:border-[#00D2FF] text-[#101828] dark:text-[#F8FAFC] hover:text-[#0066FF] dark:hover:text-[#00D2FF] font-semibold text-sm sm:text-[15px] hover:bg-[#0066FF]/5 transition-all duration-300 hover:scale-[1.02] cursor-pointer"
                 >
                   DISCOVER OUR VISION
                 </button>
