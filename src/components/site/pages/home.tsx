@@ -117,7 +117,7 @@ export default function HomePage({ onNavigate }: { onNavigate: (v: ViewKey) => v
         />
         {/* Sticky pinned content */}
         <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
-          <div className="max-w-5xl mx-auto px-5 sm:px-8 lg:px-14 text-center">
+          <div className="max-w-5xl mx-auto px-4 min-[375px]:px-5 sm:px-8 lg:px-14 text-center">
             <div className="font-mono-tech text-[11px] uppercase tracking-[0.32em] text-[#4F46E5] dark:text-[#00D2FF] mb-5 flex items-center justify-center gap-2.5 font-semibold">
               <span className="w-1.5 h-1.5 rounded-full bg-[#4F46E5] dark:bg-[#00D2FF]" />
               The VIXWA Principle
@@ -356,7 +356,7 @@ export default function HomePage({ onNavigate }: { onNavigate: (v: ViewKey) => v
 
       {/* ============ STATS BAND ============ */}
       <SectionShell className="border-t border-[#E5E7EB] dark:border-[#1E293B] bg-[#F8FAFC] dark:bg-[#070A12]">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+        <div className="grid grid-cols-1 min-[360px]:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-3.5">
           {[
             { v: "12", k: "Research Domains", accent: "#4F46E5" },
             { v: "03", k: "Intelligence Layers", accent: "#6366F1" },
@@ -366,14 +366,14 @@ export default function HomePage({ onNavigate }: { onNavigate: (v: ViewKey) => v
             <TiltCard key={i} max={5} className="h-full">
               <div
                 data-reveal
-                className="group relative p-5 sm:p-7 bg-white dark:bg-[#070A12] hover:bg-white dark:hover:bg-[#070A12] border border-[#E5E7EB] dark:border-[#1E293B] hover:border-[#4F46E5] dark:hover:border-[#00D2FF] rounded-2xl shadow-[0_4px_20px_rgba(16,24,40,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:shadow-[0_8px_30px_rgba(79,70,229,0.12)] transition-all duration-300 h-full flex flex-col justify-between gap-4"
+                className="group relative p-4 min-[375px]:p-5 sm:p-7 bg-white dark:bg-[#070A12] hover:bg-white dark:hover:bg-[#070A12] border border-[#E5E7EB] dark:border-[#1E293B] hover:border-[#4F46E5] dark:hover:border-[#00D2FF] rounded-2xl shadow-[0_4px_20px_rgba(16,24,40,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:shadow-[0_8px_30px_rgba(79,70,229,0.12)] transition-all duration-300 h-full flex flex-col justify-between gap-3 sm:gap-4"
               >
                 <div className="flex items-center justify-between">
                   <span className="font-mono-tech text-[10px] uppercase tracking-[0.2em] text-[#64748B] dark:text-[#94A3B8]">0{i + 1} / 04</span>
                   <span className="w-2 h-2 rounded-full transition-all duration-300 group-hover:scale-125" style={{ background: s.accent }} />
                 </div>
                 <div>
-                  <div className="font-display text-4xl sm:text-5xl font-bold text-[#101828] dark:text-[#F8FAFC] mb-1">{s.v}</div>
+                  <div className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-[#101828] dark:text-[#F8FAFC] mb-1">{s.v}</div>
                   <div className="text-[#64748B] dark:text-[#94A3B8] text-xs sm:text-sm font-medium">{s.k}</div>
                 </div>
               </div>

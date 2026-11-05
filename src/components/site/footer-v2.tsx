@@ -48,16 +48,16 @@ export default function Footer({ onNavigate }: FooterProps) {
       </div>
 
       {/* Brand Header with Glowing Emblem & Interactive Home Link */}
-      <div className="relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 pt-16 sm:pt-20">
+      <div className="relative max-w-7xl mx-auto px-4 min-[375px]:px-5 sm:px-8 lg:px-16 pt-12 sm:pt-20">
         <button
           onClick={() => {
             onNavigate("home");
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
-          className="group inline-flex items-center gap-4 sm:gap-6 cursor-pointer text-left focus:outline-none transition-transform duration-300 hover:scale-[1.01]"
+          className="group inline-flex items-center gap-3 sm:gap-6 cursor-pointer text-left focus:outline-none transition-transform duration-300 hover:scale-[1.01]"
           aria-label="VIXWA Home - Back to top"
         >
-          <div className="relative w-14 h-14 sm:w-18 sm:h-18 lg:w-20 lg:h-20 rounded-full shrink-0 shadow-[0_0_32px_rgba(79,70,229,0.5)] transition-transform duration-300 group-hover:scale-105">
+          <div className="relative w-12 h-12 min-[375px]:w-14 min-[375px]:h-14 sm:w-18 sm:h-18 lg:w-20 lg:h-20 rounded-full shrink-0 shadow-[0_0_32px_rgba(79,70,229,0.5)] transition-transform duration-300 group-hover:scale-105">
             <Image
               src="/vixwa-brand-emblem.png"
               alt="VIXWA Emblem"
@@ -67,15 +67,15 @@ export default function Footer({ onNavigate }: FooterProps) {
             />
           </div>
           <div className="flex flex-col">
-            <div className="flex items-center gap-3">
-              <span className="font-display font-black text-3xl sm:text-5xl lg:text-6xl text-white tracking-[0.06em] group-hover:text-[#4F46E5] transition-colors leading-none">
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              <span className="font-display font-black text-2xl min-[375px]:text-3xl sm:text-5xl lg:text-6xl text-white tracking-[0.06em] group-hover:text-[#4F46E5] transition-colors leading-none">
                 VIXWA
               </span>
-              <span className="inline-flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/10 text-white/70 group-hover:bg-[#4F46E5] group-hover:text-white transition-all group-hover:rotate-45">
-                <ArrowUpRight className="w-4 h-4" />
+              <span className="inline-flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-white/10 text-white/70 group-hover:bg-[#4F46E5] group-hover:text-white transition-all group-hover:rotate-45">
+                <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </span>
             </div>
-            <span className="font-mono-tech text-[10.5px] sm:text-[12px] uppercase tracking-[0.25em] text-[#94A3B8] font-semibold mt-2.5">
+            <span className="font-mono-tech text-[9.5px] min-[375px]:text-[10.5px] sm:text-[12px] uppercase tracking-[0.2em] sm:tracking-[0.25em] text-[#94A3B8] font-semibold mt-1.5 sm:mt-2.5">
               VIXWA LABS PVT. LTD. &middot; Makes Matter Matter.
             </span>
           </div>
@@ -83,8 +83,8 @@ export default function Footer({ onNavigate }: FooterProps) {
       </div>
 
       {/* Main grid with white headings and hover links */}
-      <div className="relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 py-16 sm:py-20">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
+      <div className="relative max-w-7xl mx-auto px-4 min-[375px]:px-5 sm:px-8 lg:px-16 py-12 sm:py-20">
+        <div className="grid grid-cols-1 min-[360px]:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12">
           {/* Explore */}
           <div>
             <div className="font-mono-tech text-[11px] uppercase tracking-[0.25em] text-[#4F46E5] mb-5 font-bold flex items-center gap-2">

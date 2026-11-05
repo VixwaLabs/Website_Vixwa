@@ -50,7 +50,7 @@ export function SectionShell({
   return (
     <section
       id={id}
-      className={`relative w-full px-5 sm:px-8 lg:px-14 py-10 sm:py-14 lg:py-16 text-[#1F2937] dark:text-[#CBD5E1] ${className}`}
+      className={`relative w-full px-4 min-[375px]:px-5 sm:px-8 lg:px-14 py-8 sm:py-14 lg:py-16 text-[#1F2937] dark:text-[#CBD5E1] ${className}`}
     >
       <div className="max-w-7xl mx-auto w-full">{children}</div>
     </section>
