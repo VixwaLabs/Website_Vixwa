@@ -65,7 +65,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                   VIXWA LABS
                 </span>
                 <span className="font-mono-tech text-[7px] sm:text-[7.5px] 2xl:text-[8px] uppercase tracking-[0.2em] text-[#64748B] mt-0.5 sm:mt-1 font-semibold hidden sm:block whitespace-nowrap">
-                  Engineering Intelligence
+                  Makes Matter Matter
                 </span>
               </span>
             </button>
@@ -161,7 +161,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                     VIXWA LABS
                   </span>
                   <span className="font-mono-tech text-[8px] uppercase tracking-[0.24em] text-[#64748B] mt-1 font-semibold">
-                    MAKES MATTER MATTER
+                    Makes Matter Matter
                   </span>
                 </span>
               </div>
