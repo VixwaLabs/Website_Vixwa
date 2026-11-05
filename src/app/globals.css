@@ -67,19 +67,19 @@
   --color-accent-cta: #F59E0B;          /* Amber high-impact CTA */
 
   /* Semantic UI Aliases */
-  --color-obsidian: #101828;            /* Deep Navy anchor / footer */
-  --color-graphite: #FFFFFF;            /* White card surface */
-  --color-elevated: #FFFFFF;            /* Elevated pure surface */
-  --color-porcelain: #101828;           /* Primary text / heading */
-  --color-silver: #64748B;              /* Slate gray muted text */
-  --color-body: #1F2937;                /* Graphite body text */
+  --color-obsidian: var(--obsidian);
+  --color-graphite: var(--graphite);
+  --color-elevated: var(--elevated);
+  --color-porcelain: var(--porcelain);
+  --color-silver: var(--silver);
+  --color-body: var(--body);
   --color-violet: #4F46E5;              /* Deep indigo */
-  --color-ice: #FFFFFF;                 /* White card background */
+  --color-ice: var(--ice);
   --color-rose: #F59E0B;                /* Amber accent */
   --color-ceramic: #4F46E5;             /* Deep indigo */
   --color-mid-blue: #4F46E5;            /* Deep indigo */
-  --color-warm-white: #F8FAFC;          /* Clean off-white page */
-  --color-border-grey: #E5E7EB;
+  --color-warm-white: var(--warm-white);
+  --color-border-grey: var(--border-grey);
 }
 
 :root {
@@ -121,20 +121,32 @@
   --sidebar-accent-foreground: #FFFFFF;
   --sidebar-border: #1E293B;
   --sidebar-ring: #4F46E5;
+
+  /* Aliases in root */
+  --obsidian: #101828;
+  --graphite: #FFFFFF;
+  --elevated: #FFFFFF;
+  --porcelain: #101828;
+  --silver: #64748B;
+  --body: #1F2937;
+  --ice: #FFFFFF;
+  --warm-white: #F8FAFC;
+  --border-grey: #E5E7EB;
 }
 
 .dark {
+  /* Unified single dark mode background matching Hero section: #070A12 */
   --background: #070A12;
   --foreground: #F8FAFC;
-  --card: #0D1322;
+  --card: #070A12;
   --card-foreground: #FFFFFF;
-  --popover: #0D1322;
+  --popover: #070A12;
   --popover-foreground: #FFFFFF;
   --primary: #0066FF;
   --primary-foreground: #FFFFFF;
-  --secondary: #1E293B;
+  --secondary: #070A12;
   --secondary-foreground: #F8FAFC;
-  --muted: #141B2D;
+  --muted: #070A12;
   --muted-foreground: #94A3B8;
   --accent: #F59E0B;
   --accent-foreground: #070A12;
@@ -146,10 +158,21 @@
   --sidebar-foreground: #FFFFFF;
   --sidebar-primary: #0066FF;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #141B2D;
+  --sidebar-accent: #070A12;
   --sidebar-accent-foreground: #FFFFFF;
   --sidebar-border: #1E293B;
   --sidebar-ring: #00D2FF;
+
+  /* Unified Hero single color #070A12 across all semantic aliases */
+  --obsidian: #070A12;
+  --graphite: #070A12;
+  --elevated: #070A12;
+  --porcelain: #F8FAFC;
+  --silver: #94A3B8;
+  --body: #CBD5E1;
+  --ice: #070A12;
+  --warm-white: #070A12;
+  --border-grey: #1E293B;
 }
 
 @layer base {
@@ -229,6 +252,12 @@
   border: 1px solid #E5E7EB;
   box-shadow: 0 10px 30px rgba(16, 24, 40, 0.04), inset 0 1px 0 rgba(255, 255, 255, 1);
 }
+.dark .glass-panel {
+  background: rgba(7, 10, 18, 0.85);
+  border-color: #1E293B;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
 .glass-panel-strong {
   background: #FFFFFF;
   backdrop-filter: blur(28px) saturate(200%);
@@ -236,6 +265,12 @@
   border: 1px solid #E5E7EB;
   box-shadow: 0 20px 50px rgba(16, 24, 40, 0.08);
 }
+.dark .glass-panel-strong {
+  background: #070A12;
+  border-color: #1E293B;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+}
+
 .glass-nav {
   background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(24px) saturate(180%);
@@ -243,12 +278,22 @@
   border: 1px solid #E5E7EB;
   box-shadow: 0 4px 20px rgba(16, 24, 40, 0.04);
 }
+.dark .glass-nav {
+  background: rgba(7, 10, 18, 0.85);
+  border-color: #1E293B;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
 
 /* Card Utility — Clean White card with subtle border */
 .glass-spatial {
   background: #FFFFFF;
   border: 1px solid #E5E7EB;
   box-shadow: 0 10px 30px rgba(16, 24, 40, 0.04);
+}
+.dark .glass-spatial {
+  background: #070A12;
+  border-color: #1E293B;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 /* Gradient Utilities */
@@ -373,11 +418,20 @@
 .hairline {
   border: 1px solid #E5E7EB;
 }
+.dark .hairline {
+  border-color: #1E293B;
+}
 .hairline-t {
   border-top: 1px solid #E5E7EB;
 }
+.dark .hairline-t {
+  border-top-color: #1E293B;
+}
 .hairline-b {
   border-bottom: 1px solid #E5E7EB;
+}
+.dark .hairline-b {
+  border-bottom-color: #1E293B;
 }
 
 /* ===== Futuristic Vector Art Utilities ===== */

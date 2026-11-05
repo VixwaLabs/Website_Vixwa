@@ -19,9 +19,9 @@ const ENQUIRY_CATEGORIES = [
 ];
 
 const fieldLabelClass =
-  "font-mono-tech text-[10px] uppercase tracking-[0.25em] text-[#64748B] flex items-center gap-1.5 font-semibold";
+  "font-mono-tech text-[10px] uppercase tracking-[0.25em] text-[#64748B] dark:text-[#94A3B8] flex items-center gap-1.5 font-semibold";
 const inputClass =
-  "w-full bg-[#FFFFFF] border border-[#E5E7EB] rounded-xl focus:border-[#4F46E5] focus:ring-2 focus:ring-[#4F46E5]/20 transition-colors py-2.5 px-3.5 text-[#101828] placeholder:text-[#94A3B8] focus:outline-none text-sm shadow-sm";
+  "w-full bg-[#FFFFFF] dark:bg-[#070A12] border border-[#E5E7EB] dark:border-[#1E293B] rounded-xl focus:border-[#4F46E5] dark:focus:border-[#00D2FF] focus:ring-2 focus:ring-[#4F46E5]/20 dark:focus:ring-[#00D2FF]/20 transition-colors py-2.5 px-3.5 text-[#101828] dark:text-[#F8FAFC] placeholder:text-[#94A3B8] focus:outline-none text-sm shadow-sm";
 
 export default function ContactPage({
   onNavigate,
@@ -79,7 +79,7 @@ export default function ContactPage({
   };
 
   return (
-    <div className="bg-[#F8FAFC] text-[#1F2937]">
+    <div className="bg-[#F8FAFC] dark:bg-[#070A12] text-[#1F2937] dark:text-[#CBD5E1] transition-colors duration-300">
       {/* ============ HERO ============ */}
       <PageHero
         eyebrow="Contact Us"
@@ -98,7 +98,7 @@ export default function ContactPage({
           titleAccent="professional enquiries."
           accent="#4F46E5"
           body={
-            <div className="space-y-2.5 text-[#1F2937]">
+            <div className="space-y-2.5 text-[#1F2937] dark:text-[#CBD5E1]">
               <p>
                 VIXWA LABS welcomes considered professional enquiries that
                 align with responsible research, intelligent systems, and
@@ -108,7 +108,7 @@ export default function ContactPage({
                 For direct professional correspondence, email{" "}
                 <a
                   href="mailto:labs@vixwa.com"
-                  className="text-[#4F46E5] hover:text-[#4338CA] font-semibold transition-colors"
+                  className="text-[#4F46E5] dark:text-[#00D2FF] hover:text-[#4338CA] dark:hover:text-[#38BDF8] font-semibold transition-colors"
                 >
                   labs@vixwa.com
                 </a>
@@ -123,21 +123,21 @@ export default function ContactPage({
       </SectionShell>
 
       {/* ============ ENQUIRY CATEGORIES ============ */}
-      <SectionShell className="hairline-t bg-white">
+      <SectionShell className="hairline-t bg-white dark:bg-[#070A12]">
         <div className="mb-5 sm:mb-6">
           <div data-reveal>
             <SectionLabel index="02" label="Enquiry Categories" />
           </div>
           <h2
             data-reveal
-            className="mt-2.5 font-display font-bold text-fluid-section text-[#101828] max-w-3xl tracking-tight"
+            className="mt-2.5 font-display font-bold text-fluid-section text-[#101828] dark:text-[#F8FAFC] max-w-3xl tracking-tight"
           >
             <span className="reveal-line block">
               <span className="block">Categories</span>
             </span>
             <span className="reveal-line block">
               <span
-                className="block font-serif-editorial italic text-[#4F46E5]"
+                className="block font-serif-editorial italic text-[#4F46E5] dark:text-[#00D2FF]"
               >
                 of enquiry.
               </span>
@@ -149,9 +149,9 @@ export default function ContactPage({
             <div
               key={label}
               data-reveal
-              className="p-4 sm:p-5 rounded-2xl border border-[#E5E7EB] bg-white shadow-sm text-center hover:border-[#4F46E5] transition-colors"
+              className="p-4 sm:p-5 rounded-2xl border border-[#E5E7EB] dark:border-[#1E293B] bg-white dark:bg-[#070A12] shadow-sm text-center hover:border-[#4F46E5] dark:hover:border-[#00D2FF] transition-colors"
             >
-              <p className="text-[#101828] font-medium text-xs sm:text-sm">{label}</p>
+              <p className="text-[#101828] dark:text-[#F8FAFC] font-medium text-xs sm:text-sm">{label}</p>
             </div>
           ))}
         </div>
@@ -165,14 +165,14 @@ export default function ContactPage({
           </div>
           <h2
             data-reveal
-            className="mt-2.5 font-display font-bold text-fluid-section text-[#101828] max-w-3xl tracking-tight"
+            className="mt-2.5 font-display font-bold text-fluid-section text-[#101828] dark:text-[#F8FAFC] max-w-3xl tracking-tight"
           >
             <span className="reveal-line block">
               <span className="block">Send an</span>
             </span>
             <span className="reveal-line block">
               <span
-                className="block font-serif-editorial italic text-[#4F46E5]"
+                className="block font-serif-editorial italic text-[#4F46E5] dark:text-[#00D2FF]"
               >
                 enquiry.
               </span>
@@ -183,24 +183,24 @@ export default function ContactPage({
         {status === "success" ? (
           <div
             data-reveal
-            className="bg-white border border-[#E5E7EB] rounded-2xl p-6 sm:p-8 max-w-2xl text-center shadow-lg"
+            className="bg-white dark:bg-[#070A12] border border-[#E5E7EB] dark:border-[#1E293B] rounded-2xl p-6 sm:p-8 max-w-2xl text-center shadow-lg"
           >
             <div className="flex justify-center mb-4">
-              <div className="grid place-items-center w-12 h-12 rounded-full bg-[#4F46E5]/10 border border-[#4F46E5]/20">
-                <Check className="w-6 h-6 text-[#4F46E5]" strokeWidth={2.5} />
+              <div className="grid place-items-center w-12 h-12 rounded-full bg-[#4F46E5]/10 dark:bg-[#0066FF]/20 border border-[#4F46E5]/20 dark:border-[#0066FF]/40">
+                <Check className="w-6 h-6 text-[#4F46E5] dark:text-[#00D2FF]" strokeWidth={2.5} />
               </div>
             </div>
-            <h3 className="font-display font-bold text-2xl text-[#101828]">
+            <h3 className="font-display font-bold text-2xl text-[#101828] dark:text-[#F8FAFC]">
               Message received.
             </h3>
-            <p className="mt-2 text-[#64748B] text-sm max-w-md mx-auto">
+            <p className="mt-2 text-[#64748B] dark:text-[#94A3B8] text-sm max-w-md mx-auto">
               Thank you for reaching out. We will review your enquiry and
               respond as appropriate.
             </p>
             <div className="mt-5">
               <button
                 onClick={() => setStatus("idle")}
-                className="inline-flex items-center gap-2 rounded-full border border-[#E5E7EB] px-5 py-2 text-xs font-semibold text-[#4F46E5] hover:bg-[#4F46E5]/10 transition-colors"
+                className="inline-flex items-center gap-2 rounded-full border border-[#E5E7EB] dark:border-[#1E293B] px-5 py-2 text-xs font-semibold text-[#4F46E5] dark:text-[#00D2FF] hover:bg-[#4F46E5]/10 dark:hover:bg-[#0066FF]/20 transition-colors"
               >
                 Send another
               </button>
@@ -209,7 +209,7 @@ export default function ContactPage({
         ) : (
           <div
             data-reveal
-            className="bg-white border border-[#E5E7EB] rounded-2xl p-5 sm:p-8 max-w-2xl shadow-sm"
+            className="bg-white dark:bg-[#070A12] border border-[#E5E7EB] dark:border-[#1E293B] rounded-2xl p-5 sm:p-8 max-w-2xl shadow-sm"
           >
             <form className="flex flex-col gap-4" onSubmit={onSubmit}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -328,21 +328,21 @@ export default function ContactPage({
       </SectionShell>
 
       {/* ============ STAY INFORMED (WHITE & NAVY UI) ============ */}
-      <SectionShell className="hairline-t bg-[#F8FAFC]">
+      <SectionShell className="hairline-t bg-[#F8FAFC] dark:bg-[#070A12]">
         <div
           data-reveal
-          className="bg-white border border-[#E5E7EB] rounded-2xl p-6 sm:p-8 lg:p-10 shadow-sm"
+          className="bg-white dark:bg-[#070A12] border border-[#E5E7EB] dark:border-[#1E293B] rounded-2xl p-6 sm:p-8 lg:p-10 shadow-sm"
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
             <div className="lg:col-span-6">
               <SectionLabel index="04" label="Stay Informed" />
-              <h3 className="mt-2.5 font-display font-bold text-2xl sm:text-3xl text-[#101828] tracking-tight">
+              <h3 className="mt-2.5 font-display font-bold text-2xl sm:text-3xl text-[#101828] dark:text-[#F8FAFC] tracking-tight">
                 Ideas{" "}
-                <span className="font-serif-editorial italic text-[#4F46E5]">
+                <span className="font-serif-editorial italic text-[#4F46E5] dark:text-[#00D2FF]">
                   worth following.
                 </span>
               </h3>
-              <p className="mt-1.5 text-sm sm:text-base text-[#64748B] leading-relaxed max-w-md">
+              <p className="mt-1.5 text-sm sm:text-base text-[#64748B] dark:text-[#94A3B8] leading-relaxed max-w-md">
                 Receive occasional research perspectives and future-oriented
                 updates from VIXWA LABS.
               </p>
@@ -350,15 +350,15 @@ export default function ContactPage({
 
             <div className="lg:col-span-6">
               {newsletterStatus === "success" ? (
-                <div className="flex items-center gap-3 p-4 rounded-xl border border-[#E5E7EB] bg-[#F8FAFC]">
-                  <div className="grid place-items-center w-8 h-8 rounded-full bg-[#4F46E5]/10 shrink-0">
-                    <Check className="w-4 h-4 text-[#4F46E5]" strokeWidth={2.5} />
+                <div className="flex items-center gap-3 p-4 rounded-xl border border-[#E5E7EB] dark:border-[#1E293B] bg-[#F8FAFC] dark:bg-[#070A12]">
+                  <div className="grid place-items-center w-8 h-8 rounded-full bg-[#4F46E5]/10 dark:bg-[#0066FF]/20 shrink-0">
+                    <Check className="w-4 h-4 text-[#4F46E5] dark:text-[#00D2FF]" strokeWidth={2.5} />
                   </div>
                   <div>
-                    <p className="text-[#101828] font-bold text-sm">
+                    <p className="text-[#101828] dark:text-[#F8FAFC] font-bold text-sm">
                       Subscribed
                     </p>
-                    <p className="text-[#64748B] text-xs">
+                    <p className="text-[#64748B] dark:text-[#94A3B8] text-xs">
                       Thank you. We will be in touch occasionally.
                     </p>
                   </div>
@@ -375,13 +375,13 @@ export default function ContactPage({
                       name="email"
                       type="email"
                       placeholder="you@example.com"
-                      className="w-full bg-[#F8FAFC] border border-[#E5E7EB] rounded-xl focus:border-[#4F46E5] focus:ring-2 focus:ring-[#4F46E5]/20 transition-colors py-2.5 px-3.5 text-[#101828] placeholder:text-[#94A3B8] focus:outline-none text-sm h-11 shadow-sm"
+                      className="w-full bg-[#F8FAFC] dark:bg-[#070A12] border border-[#E5E7EB] dark:border-[#1E293B] rounded-xl focus:border-[#4F46E5] dark:focus:border-[#00D2FF] focus:ring-2 focus:ring-[#4F46E5]/20 dark:focus:ring-[#00D2FF]/20 transition-colors py-2.5 px-3.5 text-[#101828] dark:text-[#F8FAFC] placeholder:text-[#94A3B8] focus:outline-none text-sm h-11 shadow-sm"
                     />
                   </div>
                   <button
                     type="submit"
                     disabled={newsletterStatus === "loading"}
-                    className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[#101828] text-white font-semibold text-xs sm:text-sm px-6 py-2.5 hover:bg-[#1F2937] shadow-sm transition-all duration-200 whitespace-nowrap h-11 shrink-0 cursor-pointer"
+                    className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[#101828] dark:bg-[#0066FF] text-white font-semibold text-xs sm:text-sm px-6 py-2.5 hover:bg-[#1F2937] dark:hover:bg-[#0052CC] shadow-sm transition-all duration-200 whitespace-nowrap h-11 shrink-0 cursor-pointer"
                   >
                     {newsletterStatus === "loading" ? "Subscribing..." : "Subscribe"}
                     <ArrowUpRight className="w-4 h-4 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />

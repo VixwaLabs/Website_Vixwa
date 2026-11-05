@@ -26,12 +26,12 @@ export function SectionLabel({
       }`}
     >
       {index && (
-        <span className="font-mono-tech text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-[#4F46E5] font-bold">
+        <span className="font-mono-tech text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-[#4F46E5] dark:text-[#00D2FF] font-bold">
           {index}
         </span>
       )}
-      <span className="h-px w-6 bg-[#4F46E5]/30" />
-      <span className="font-mono-tech text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-[#64748B] font-semibold">
+      <span className="h-px w-6 bg-[#4F46E5]/30 dark:bg-[#00D2FF]/30" />
+      <span className="font-mono-tech text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-[#64748B] dark:text-[#94A3B8] font-semibold">
         {label}
       </span>
     </div>
@@ -50,7 +50,7 @@ export function SectionShell({
   return (
     <section
       id={id}
-      className={`relative w-full px-5 sm:px-8 lg:px-14 py-10 sm:py-14 lg:py-16 text-[#1F2937] ${className}`}
+      className={`relative w-full px-5 sm:px-8 lg:px-14 py-10 sm:py-14 lg:py-16 text-[#1F2937] dark:text-[#CBD5E1] ${className}`}
     >
       <div className="max-w-7xl mx-auto w-full">{children}</div>
     </section>
@@ -72,10 +72,10 @@ export function PageHero({
   accent?: string;
 }) {
   return (
-    <section className="relative w-full px-5 sm:px-8 lg:px-14 pt-24 sm:pt-28 lg:pt-30 pb-8 sm:pb-10 overflow-hidden bg-[#F8FAFC] border-b border-[#E5E7EB]">
+    <section className="relative w-full px-5 sm:px-8 lg:px-14 pt-24 sm:pt-28 lg:pt-30 pb-8 sm:pb-10 overflow-hidden bg-[#F8FAFC] dark:bg-[#070A12] border-b border-[#E5E7EB] dark:border-[#1E293B]">
       {/* Ambient soft glow */}
       <div
-        className="pointer-events-none absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[140px] opacity-[0.12]"
+        className="pointer-events-none absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[140px] opacity-[0.12] dark:opacity-[0.25]"
         style={{ background: accent }}
       />
       <div className="relative max-w-7xl mx-auto w-full">
@@ -84,7 +84,7 @@ export function PageHero({
         </div>
         <h2
           data-reveal
-          className="mt-3 sm:mt-3.5 font-display font-bold text-fluid-display text-[#101828] max-w-4xl tracking-tight"
+          className="mt-3 sm:mt-3.5 font-display font-bold text-fluid-display text-[#101828] dark:text-[#F8FAFC] max-w-4xl tracking-tight"
         >
           <span className="reveal-line block">
             <span className="block">{title}</span>
@@ -103,7 +103,7 @@ export function PageHero({
         {lede && (
           <p
             data-reveal
-            className="mt-2.5 sm:mt-3 text-fluid-lead text-[#1F2937] max-w-2xl leading-relaxed"
+            className="mt-2.5 sm:mt-3 text-fluid-lead text-[#1F2937] dark:text-[#CBD5E1] max-w-2xl leading-relaxed"
           >
             {lede}
           </p>
@@ -139,7 +139,7 @@ export function EditorialBlock({
         </div>
         <h3
           data-reveal
-          className="mt-2.5 sm:mt-3 font-display font-bold text-fluid-section text-[#101828] tracking-tight"
+          className="mt-2.5 sm:mt-3 font-display font-bold text-fluid-section text-[#101828] dark:text-[#F8FAFC] tracking-tight"
         >
           <span className="reveal-line block">
             <span className="block">{title}</span>
@@ -158,7 +158,7 @@ export function EditorialBlock({
       </div>
       <div className="lg:col-span-7">
         {body && (
-          <div data-reveal className="text-fluid-lead text-[#1F2937] leading-relaxed">
+          <div data-reveal className="text-fluid-lead text-[#1F2937] dark:text-[#CBD5E1] leading-relaxed">
             {body}
           </div>
         )}
@@ -184,7 +184,7 @@ export function FeatureCard({
     <TiltCard max={5} data-reveal className="h-full">
       <GlowFollow
         color={`${accent}18`}
-        className="group relative p-5 sm:p-6 rounded-2xl bg-[#FFFFFF] hover:bg-[#FFFFFF] transition-all duration-300 h-full border border-[#E5E7EB] hover:border-[#4F46E5] shadow-[0_4px_20px_rgba(16,24,40,0.04)] hover:shadow-[0_10px_35px_rgba(79,70,229,0.12)]"
+        className="group relative p-5 sm:p-6 rounded-2xl bg-[#FFFFFF] dark:bg-[#070A12] hover:bg-[#FFFFFF] dark:hover:bg-[#070A12] transition-all duration-300 h-full border border-[#E5E7EB] dark:border-[#1E293B] hover:border-[#4F46E5] dark:hover:border-[#00D2FF] shadow-[0_4px_20px_rgba(16,24,40,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:shadow-[0_10px_35px_rgba(79,70,229,0.12)]"
       >
         {index && (
           <div className="flex items-center justify-between mb-2.5">
@@ -200,10 +200,10 @@ export function FeatureCard({
             />
           </div>
         )}
-        <h4 className="font-display text-lg sm:text-xl text-[#101828] font-bold mb-2 transition-transform duration-300 group-hover:translate-x-1">
+        <h4 className="font-display text-lg sm:text-xl text-[#101828] dark:text-[#F8FAFC] font-bold mb-2 transition-transform duration-300 group-hover:translate-x-1">
           {title}
         </h4>
-        <p className="text-[#64748B] text-sm leading-relaxed">
+        <p className="text-[#64748B] dark:text-[#94A3B8] text-sm leading-relaxed">
           {description}
         </p>
         <span
@@ -231,7 +231,7 @@ export function AccentList({
             className="mt-2 w-1.5 h-1.5 rounded-full shrink-0"
             style={{ background: accent }}
           />
-          <span className="text-[#1F2937] text-sm sm:text-base leading-snug">{item}</span>
+          <span className="text-[#1F2937] dark:text-[#CBD5E1] text-sm sm:text-base leading-snug">{item}</span>
         </li>
       ))}
     </ul>
@@ -255,7 +255,7 @@ export function CtaBand({
   onClick: () => void;
 }) {
   return (
-    <section className="relative w-full px-5 sm:px-8 lg:px-14 py-12 sm:py-16 overflow-hidden bg-[#101828] text-[#FFFFFF] border-t border-[#1E293B]">
+    <section className="relative w-full px-5 sm:px-8 lg:px-14 py-12 sm:py-16 overflow-hidden bg-[#101828] dark:bg-[#070A12] text-[#FFFFFF] border-t border-[#1E293B]">
       <div
         className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[360px] rounded-full blur-[140px] opacity-[0.25]"
         style={{ background: `radial-gradient(circle, #4F46E5 0%, rgba(245,158,11,0.1) 60%, transparent 100%)` }}

@@ -111,7 +111,7 @@ export default function AppShell() {
       <Navbar current={view} onNavigate={navigate} />
       <main
         ref={main}
-        className={`transition-opacity duration-300 ${
+        className={`transition-opacity duration-300 bg-background ${
           transitioning ? "opacity-0" : "opacity-100"
         }`}
       >

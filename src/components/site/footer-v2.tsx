@@ -16,7 +16,7 @@ interface FooterProps {
 
 export default function Footer({ onNavigate }: FooterProps) {
   return (
-    <footer className="relative bg-[#101828] text-[#FFFFFF] border-t border-[#1E293B] overflow-hidden">
+    <footer className="relative bg-[#101828] dark:bg-[#070A12] text-[#FFFFFF] border-t border-[#1E293B] overflow-hidden">
       {/* Ambient background Indigo soft glow */}
       <div
         className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[400px] rounded-full blur-[140px] opacity-[0.22]"

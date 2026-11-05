@@ -42,8 +42,8 @@ const QUALITIES = [
   },
 ];
 
-const fieldLabelClass = "font-mono-tech text-[10px] uppercase tracking-[0.25em] text-[#64748B] flex items-center gap-2 font-semibold";
-const inputClass = "w-full bg-[#FFFFFF] border border-[#E5E7EB] rounded-xl focus:border-[#4F46E5] focus:ring-1 focus:ring-[#4F46E5] transition-colors py-3 px-3.5 text-[#101828] placeholder:text-[#94A3B8] focus:outline-none";
+const fieldLabelClass = "font-mono-tech text-[10px] uppercase tracking-[0.25em] text-[#64748B] dark:text-[#94A3B8] flex items-center gap-2 font-semibold";
+const inputClass = "w-full bg-[#FFFFFF] dark:bg-[#070A12] border border-[#E5E7EB] dark:border-[#1E293B] rounded-xl focus:border-[#4F46E5] dark:focus:border-[#00D2FF] focus:ring-1 focus:ring-[#4F46E5] dark:focus:ring-[#00D2FF] transition-colors py-3 px-3.5 text-[#101828] dark:text-[#F8FAFC] placeholder:text-[#94A3B8] focus:outline-none";
 
 export default function CareersPage({
   onNavigate,
@@ -51,7 +51,7 @@ export default function CareersPage({
   onNavigate: (v: ViewKey) => void;
 }) {
   return (
-    <div>
+    <div className="bg-[#F8FAFC] dark:bg-[#070A12] text-[#1F2937] dark:text-[#CBD5E1] transition-colors duration-300">
       {/* ============ HERO ============ */}
       <PageHero
         eyebrow="Careers"

@@ -53,7 +53,7 @@ export default function RdPage({
   onNavigate: (v: ViewKey) => void;
 }) {
   return (
-    <div>
+    <div className="bg-[#F8FAFC] dark:bg-[#070A12] text-[#1F2937] dark:text-[#CBD5E1] transition-colors duration-300">
       {/* ============ HERO ============ */}
       <PageHero
         eyebrow="Research & Development"

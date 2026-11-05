@@ -60,7 +60,7 @@ export default function IntelligencePage({
   onNavigate: (v: ViewKey) => void;
 }) {
   return (
-    <div>
+    <div className="bg-[#F8FAFC] dark:bg-[#070A12] text-[#1F2937] dark:text-[#CBD5E1] transition-colors duration-300">
       {/* ============ HERO ============ */}
       <PageHero
         eyebrow="Intelligence"
@@ -83,13 +83,13 @@ export default function IntelligencePage({
       </SectionShell>
 
       {/* ============ DIMENSION CARDS ============ */}
-      <SectionShell className="hairline-t bg-graphite/30">
+      <SectionShell className="hairline-t bg-graphite/30 dark:bg-[#070A12]">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {DIMENSIONS.map((d) => (
             <div
               key={d.number}
               data-reveal
-              className="group relative p-8 rounded-2xl hairline bg-graphite/30 hover:bg-graphite/60 transition-colors duration-300 flex flex-col"
+              className="group relative p-8 rounded-2xl hairline bg-graphite/30 hover:bg-graphite/60 dark:bg-[#070A12] dark:hover:bg-[#070A12] dark:border-[#1E293B] transition-colors duration-300 flex flex-col"
             >
               <div
                 className="font-mono-tech text-xs mb-4"
@@ -107,7 +107,7 @@ export default function IntelligencePage({
               <div className="mt-8">
                 <button
                   onClick={() => onNavigate(d.view)}
-                  className="inline-flex items-center gap-2 rounded-full border border-[#4F46E5]/30 px-5 py-2.5 text-sm font-medium text-[#1F2937] hover:text-[#4F46E5] hover:bg-[#4F46E5]/10 transition-colors"
+                  className="inline-flex items-center gap-2 rounded-full border border-[#4F46E5]/30 dark:border-[#0066FF]/50 px-5 py-2.5 text-sm font-medium text-[#1F2937] dark:text-[#F8FAFC] hover:text-[#4F46E5] dark:hover:text-[#00D2FF] hover:bg-[#4F46E5]/10 dark:hover:bg-[#0066FF]/20 transition-colors cursor-pointer"
                 >
                   {d.buttonLabel}
                   <ArrowUpRight className="w-4 h-4" strokeWidth={2} />
