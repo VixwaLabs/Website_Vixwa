@@ -43,20 +43,20 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 box-border ${scrolled
           ? "bg-white/80 dark:bg-[#070A12]/80 backdrop-blur-md border-b border-[#E5E7EB]/80 dark:border-[#1E293B]/80 shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)]"
           : "bg-transparent border-b border-transparent"
           }`}
       >
         <nav
-          className="w-full max-w-[1440px] mx-auto h-[74px] flex items-center justify-between px-6 sm:px-10 lg:px-[5.5vw]"
+          className="w-full max-w-[1440px] mx-auto h-[74px] flex items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-10 box-border overflow-x-clip"
           aria-label="Primary"
         >
-          <div className="relative w-full flex items-center justify-between">
-            {/* Brand Logo Anchor (42x42px Emblem + VIXWA LABS) */}
+          {/* 1. Brand Logo Anchor (Fixed width, never shrinks) */}
+          <div className="shrink-0 flex-shrink-0 flex items-center">
             <button
               onClick={() => go("home")}
-              className="group flex items-center gap-3 sm:gap-3.5 focus:outline-none cursor-pointer shrink-0"
+              className="group flex items-center gap-3 sm:gap-3.5 focus:outline-none cursor-pointer"
               aria-label="VIXWA LABS home"
             >
               <span className="relative w-[42px] h-[42px] rounded-full shrink-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-105 shadow-[0_0_18px_rgba(79,70,229,0.32)]">
@@ -78,9 +78,13 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                 </span>
               </span>
             </button>
+          </div>
 
-            {/* Center nav links (Clear case transparent header layout, adaptive to Electric Blue in dark mode) */}
-            <div className="hidden lg:flex items-center gap-[14px] xl:gap-[22px] 2xl:gap-[30px] absolute left-1/2 -translate-x-1/2">
+          {/* 2. Flexible Navigation Links Container (Proper Flexbox, no absolute positioning, clamp gap) */}
+          <div
+            className="hidden xl:flex flex-1 items-center justify-center min-w-0 px-3 2xl:px-6"
+            style={{ gap: "clamp(16px, 2vw, 32px)" }}
+          >
               {NAV_ITEMS.map((l) => (
                 <button
                   key={l.view}
@@ -114,12 +118,12 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
             </div>
 
             {/* Right CTA + Theme Toggle + mobile menu */}
-            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0 flex-shrink-0">
               {/* Dark Mode / Light Mode Toggle */}
               <button
                 onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
                 aria-label="Toggle theme"
-                className="w-10 h-10 rounded-full border border-[#E5E7EB] dark:border-[#1E293B] bg-white/70 dark:bg-[#111827]/70 backdrop-blur-md flex items-center justify-center text-[#101828] dark:text-[#F8FAFC] hover:border-[#4F46E5] dark:hover:border-[#00D2FF] hover:text-[#4F46E5] dark:hover:text-[#00D2FF] transition-all cursor-pointer shadow-sm hover:scale-105"
+                className="w-10 h-10 rounded-full border border-[#E5E7EB] dark:border-[#1E293B] bg-white/70 dark:bg-[#111827]/70 backdrop-blur-md flex items-center justify-center text-[#101828] dark:text-[#F8FAFC] hover:border-[#4F46E5] dark:hover:border-[#00D2FF] hover:text-[#4F46E5] dark:hover:text-[#00D2FF] transition-all cursor-pointer shadow-sm hover:scale-105 shrink-0"
                 title={mounted && resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
               >
                 {mounted ? (
@@ -137,10 +141,10 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                 as="button"
                 strength={0.4}
                 onClick={() => go("contact")}
-                className="hidden sm:block"
+                className="hidden sm:block shrink-0"
                 aria-label="Let's collaborate"
               >
-                <span className="inline-flex items-center gap-1.5 2xl:gap-2 h-[42px] rounded-full bg-[#4F46E5] dark:bg-[#0066FF] text-white text-[13.5px] 2xl:text-[14px] font-semibold px-5 hover:bg-[#4338CA] dark:hover:bg-[#0055DD] transition-all duration-300 shadow-[0_2px_12px_rgba(79,70,229,0.28)] dark:shadow-[0_0_24px_rgba(0,102,255,0.55)] cursor-pointer whitespace-nowrap">
+                <span className="inline-flex items-center gap-1.5 2xl:gap-2 h-[42px] rounded-full bg-[#4F46E5] dark:bg-[#0066FF] text-white text-[13.5px] 2xl:text-[14px] font-semibold px-5 hover:bg-[#4338CA] dark:hover:bg-[#0055DD] transition-all duration-300 shadow-[0_2px_12px_rgba(79,70,229,0.28)] dark:shadow-[0_0_24px_rgba(0,102,255,0.55)] cursor-pointer whitespace-nowrap shrink-0">
                   Let&rsquo;s Collaborate
                   <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2.5} />
                 </span>
@@ -148,19 +152,18 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
 
               <button
                 onClick={() => setOpen(true)}
-                className="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/80 dark:bg-[#111827]/80 border border-[#E5E7EB] dark:border-[#1E293B] text-[#101828] dark:text-[#F8FAFC] hover:text-[#4F46E5] dark:hover:text-[#818CF8] shadow-sm cursor-pointer"
+                className="xl:hidden inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/80 dark:bg-[#111827]/80 border border-[#E5E7EB] dark:border-[#1E293B] text-[#101828] dark:text-[#F8FAFC] hover:text-[#4F46E5] dark:hover:text-[#00D2FF] shadow-sm cursor-pointer shrink-0"
                 aria-label="Open menu"
               >
                 <Menu className="w-5 h-5" />
               </button>
             </div>
-          </div>
         </nav>
       </header>
 
       {/* Mobile fullscreen menu */}
       <div
-        className={`fixed inset-0 z-[60] lg:hidden transition-all duration-300 ease-out ${open ? "visible opacity-100" : "invisible opacity-0"
+        className={`fixed inset-0 z-[60] xl:hidden transition-all duration-300 ease-out ${open ? "visible opacity-100" : "invisible opacity-0"
           }`}
       >
         <div
