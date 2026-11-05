@@ -1,0 +1,597 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-space-grotesk);
+  --font-serif: var(--font-instrument-serif);
+  --font-mono: var(--font-plex-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* VIXWA SaaS + AI + Research System (White & Deep Navy UI):
+     Main background:  #F8FAFC (Clean off-white)
+     Card background:  #FFFFFF (Pure white surface)
+     Primary brand:    #4F46E5 (Deep indigo)
+     Dark color:       #101828 (Deep Navy / Ink black)
+     CTA accent:       #F59E0B (Amber CTA)
+     Body text:        #1F2937 (Graphite body)
+     Muted text:       #64748B (Slate gray)
+     Border:           #E5E7EB (Light gray border) */
+  --color-bg-page: #F8FAFC;             /* Clean off-white page background */
+  --color-bg-card: #FFFFFF;             /* Pure white card surface */
+  --color-primary-brand: #4F46E5;       /* Deep indigo */
+  --color-primary-dark: #101828;        /* Deep Navy / Ink black */
+  --color-dark: #101828;                /* Deep Navy */
+  --color-primary-btn: #4F46E5;         /* Deep indigo button */
+  --color-deep-gradient: #101828;       /* Deep Navy sections */
+  --color-secondary-link: #4F46E5;      /* Deep indigo links */
+  --color-body-text: #1F2937;           /* Graphite body text */
+  --color-muted-text: #64748B;          /* Slate gray secondary text */
+  --color-border-subtle: #E5E7EB;       /* Light gray border */
+  --color-accent-cta: #F59E0B;          /* Amber high-impact CTA */
+
+  /* Semantic UI Aliases */
+  --color-obsidian: #101828;            /* Deep Navy anchor / footer */
+  --color-graphite: #FFFFFF;            /* White card surface */
+  --color-elevated: #FFFFFF;            /* Elevated pure surface */
+  --color-porcelain: #101828;           /* Primary text / heading */
+  --color-silver: #64748B;              /* Slate gray muted text */
+  --color-body: #1F2937;                /* Graphite body text */
+  --color-violet: #4F46E5;              /* Deep indigo */
+  --color-ice: #FFFFFF;                 /* White card background */
+  --color-rose: #F59E0B;                /* Amber accent */
+  --color-ceramic: #4F46E5;             /* Deep indigo */
+  --color-mid-blue: #4F46E5;            /* Deep indigo */
+  --color-warm-white: #F8FAFC;          /* Clean off-white page */
+  --color-border-grey: #E5E7EB;
+}
+
+:root {
+  --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-space-grotesk: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-instrument-serif: 'Instrument Serif', Georgia, serif;
+  --font-plex-mono: 'IBM Plex Mono', Menlo, Monaco, Consolas, monospace;
+  --radius: 0.625rem;
+
+  /* White & Deep Navy Theme Tokens */
+  --background: #F8FAFC;             /* Clean off-white */
+  --foreground: #1F2937;             /* Graphite text */
+  --card: #FFFFFF;                   /* Pure white card */
+  --card-foreground: #101828;        /* Deep Navy headings */
+  --popover: #FFFFFF;
+  --popover-foreground: #101828;
+  --primary: #4F46E5;                /* Deep indigo */
+  --primary-foreground: #FFFFFF;     /* White on indigo */
+  --secondary: #FFFFFF;              /* Secondary button */
+  --secondary-foreground: #4F46E5;
+  --muted: #F1F5F9;
+  --muted-foreground: #64748B;       /* Slate gray text */
+  --accent: #F59E0B;                 /* Amber accent */
+  --accent-foreground: #101828;      /* Dark on amber */
+  --destructive: #EF4444;
+  --border: #E5E7EB;
+  --input: #E5E7EB;
+  --ring: #4F46E5;
+  --chart-1: #4F46E5;
+  --chart-2: #F59E0B;
+  --chart-3: #101828;
+  --chart-4: #64748B;
+  --chart-5: #0EA5E9;
+  --sidebar: #101828;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #4F46E5;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #1E293B;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #1E293B;
+  --sidebar-ring: #4F46E5;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-inter), sans-serif;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: #4F46E5;
+    color: #FFFFFF;
+  }
+}
+
+/* ===== Custom scrollbar ===== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F8FAFC;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* ===== VIXWA Design System Utilities ===== */
+
+.font-display {
+  font-family: var(--font-space-grotesk), sans-serif;
+}
+.font-serif-editorial {
+  font-family: var(--font-instrument-serif), serif;
+}
+.font-mono-tech {
+  font-family: var(--font-plex-mono), monospace;
+}
+
+/* Fluid typography */
+.text-fluid-hero {
+  font-size: clamp(2.75rem, 9vw, 9rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+.text-fluid-display {
+  font-size: clamp(2rem, 5.5vw, 5rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+.text-fluid-section {
+  font-size: clamp(1.75rem, 4vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.text-fluid-lead {
+  font-size: clamp(1.05rem, 1.6vw, 1.4rem);
+  line-height: 1.55;
+}
+
+/* Glass surfaces — White & Deep Navy System */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 10px 30px rgba(16, 24, 40, 0.04), inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+.glass-panel-strong {
+  background: #FFFFFF;
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 20px 50px rgba(16, 24, 40, 0.08);
+}
+.glass-nav {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 4px 20px rgba(16, 24, 40, 0.04);
+}
+
+/* Card Utility — Clean White card with subtle border */
+.glass-spatial {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 10px 30px rgba(16, 24, 40, 0.04);
+}
+
+/* Gradient Utilities */
+.gradient-primary {
+  background: linear-gradient(135deg, #101828 0%, #4F46E5 100%);
+}
+.gradient-ai {
+  background: linear-gradient(135deg, #4F46E5 0%, #6366F1 100%);
+}
+.gradient-section {
+  background: linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%);
+}
+
+/* Premium Text Gradients */
+.text-gradient-vixwa {
+  background: linear-gradient(110deg, #101828 0%, #4F46E5 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.text-gradient-primary {
+  background: linear-gradient(110deg, #101828 0%, #4F46E5 60%, #6366F1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.text-gradient-prism {
+  background: linear-gradient(110deg, #101828 0%, #4F46E5 60%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.text-gradient-ai {
+  background: linear-gradient(110deg, #4F46E5 0%, #8B5CF6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.text-gradient-rose {
+  background: linear-gradient(110deg, #4F46E5 0%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Button System:
+   Primary Button: #4F46E5 Indigo background, #FFFFFF text
+   High-impact CTA: #F59E0B Amber background, #101828 text
+   Secondary Button: #FFFFFF background, #101828 text, #E5E7EB border
+   Dark Section Button: #101828 background, #F8FAFC text */
+.btn-primary-cta {
+  background-color: #4F46E5;
+  color: #FFFFFF;
+  font-weight: 600;
+  box-shadow: 0 4px 18px rgba(79, 70, 229, 0.28);
+  transition: all 0.3s ease;
+}
+.btn-primary-cta:hover {
+  background-color: #4338CA;
+  box-shadow: 0 6px 24px rgba(79, 70, 229, 0.4);
+}
+.btn-high-impact {
+  background-color: #F59E0B;
+  color: #101828;
+  font-weight: 700;
+  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.35);
+  transition: all 0.3s ease;
+}
+.btn-high-impact:hover {
+  background-color: #D97706;
+  box-shadow: 0 6px 24px rgba(245, 158, 11, 0.5);
+}
+.btn-secondary-cta {
+  background-color: #FFFFFF;
+  color: #101828;
+  border: 1.5px solid #E5E7EB;
+  transition: all 0.3s ease;
+}
+.btn-secondary-cta:hover {
+  background-color: #F8FAFC;
+  border-color: #4F46E5;
+  color: #4F46E5;
+}
+.btn-accent-cta {
+  background-color: #F59E0B;
+  color: #101828;
+  font-weight: 700;
+  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.35);
+  transition: all 0.3s ease;
+}
+.btn-accent-cta:hover {
+  background-color: #D97706;
+  box-shadow: 0 6px 24px rgba(245, 158, 11, 0.5);
+}
+.btn-dark {
+  background-color: #101828;
+  color: #F8FAFC;
+  border: 1px solid #1E293B;
+  transition: all 0.3s ease;
+}
+.btn-dark:hover {
+  background-color: #1F2937;
+}
+.btn-outline {
+  background-color: #FFFFFF;
+  border: 1.5px solid #E5E7EB;
+  color: #101828;
+  transition: all 0.3s ease;
+}
+.btn-outline:hover {
+  background-color: #F8FAFC;
+  border-color: #4F46E5;
+  color: #4F46E5;
+}
+
+/* Hairline borders */
+.hairline {
+  border: 1px solid #E5E7EB;
+}
+.hairline-t {
+  border-top: 1px solid #E5E7EB;
+}
+.hairline-b {
+  border-bottom: 1px solid #E5E7EB;
+}
+
+/* ===== Futuristic Vector Art Utilities ===== */
+
+/* Vector grid pattern */
+.vector-grid {
+  background-image:
+    linear-gradient(rgba(79, 70, 229, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79, 70, 229, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Dotted vector pattern */
+.vector-dots {
+  background-image: radial-gradient(circle, rgba(79, 70, 229, 0.10) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Concentric circles vector decoration */
+.vector-rings::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 80% 20%, transparent 120px, rgba(79, 70, 229, 0.04) 121px, rgba(79, 70, 229, 0.04) 122px, transparent 123px),
+    radial-gradient(circle at 80% 20%, transparent 80px, rgba(229, 231, 235, 0.04) 81px, rgba(229, 231, 235, 0.04) 82px, transparent 83px),
+    radial-gradient(circle at 80% 20%, transparent 40px, rgba(79, 70, 229, 0.06) 41px, rgba(79, 70, 229, 0.06) 42px, transparent 43px);
+}
+
+/* Clip-path shapes for vector art cards */
+.clip-bevel {
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+}
+.clip-arrow {
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%);
+}
+.clip-tag {
+  clip-path: polygon(8px 0, 100% 0, 100% 100%, 8px 100%, 0 50%);
+}
+
+/* Vector outline accent */
+.vector-outline {
+  outline: 1px solid rgba(79, 70, 229, 0.20);
+  outline-offset: 4px;
+}
+
+/* Animated vector dash (for line art) */
+@keyframes vector-dash {
+  to { stroke-dashoffset: -100; }
+}
+.vector-line-anim {
+  stroke-dasharray: 4 4;
+  animation: vector-dash 8s linear infinite;
+}
+
+/* Futuristic corner brackets */
+.corner-brackets::before,
+.corner-brackets::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: #E5E7EB;
+  border-style: solid;
+}
+.corner-brackets::before {
+  top: 0;
+  left: 0;
+  border-width: 1px 0 0 1px;
+}
+.corner-brackets::after {
+  bottom: 0;
+  right: 0;
+  border-width: 0 1px 1px 0;
+}
+
+/* Ambient glows */
+.glow-violet {
+  box-shadow: 0 0 80px -20px rgba(79, 70, 229, 0.30);
+}
+.glow-ice {
+  box-shadow: 0 0 80px -20px rgba(248, 250, 252, 0.35);
+}
+.glow-orchid {
+  box-shadow: 0 0 80px -20px rgba(245, 158, 11, 0.25);
+}
+
+/* Noise texture overlay */
+.noise-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* Magnetic / cursor — Deep Indigo #4F46E5 & Amber #F59E0B */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  border-radius: 9999px;
+  will-change: transform;
+}
+.cursor-dot {
+  width: 5px;
+  height: 5px;
+  background: #4F46E5;
+  box-shadow: 0 0 8px rgba(79, 70, 229, 0.75);
+}
+.cursor-ring {
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid rgba(79, 70, 229, 0.45);
+  box-shadow: 0 0 16px rgba(79, 70, 229, 0.15);
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), height 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+.cursor-ring.is-hovering {
+  width: 52px;
+  height: 52px;
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.85);
+  box-shadow: 0 0 24px rgba(245, 158, 11, 0.4), 0 0 35px rgba(79, 70, 229, 0.2);
+}
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}
+
+/* Spatial Orbital Keyframes */
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes orbit-spin-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+.orbit-orbit-4 {
+  animation: orbit-spin-reverse 85s linear infinite;
+}
+.orbit-orbit-3 {
+  animation: orbit-spin 50s linear infinite;
+}
+.orbit-orbit-2 {
+  animation: orbit-spin-reverse 34s linear infinite;
+}
+.orbit-orbit-1 {
+  animation: orbit-spin 22s linear infinite;
+}
+@keyframes pulse-radiance {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+    filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.8));
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+    filter: drop-shadow(0 0 22px rgba(79, 70, 229, 0.85));
+  }
+}
+
+/* Marquee */
+.marquee-track {
+  display: inline-flex;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee 38s linear infinite;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Reveal animations (GSAP-fallback / initial) */
+.reveal-line {
+  overflow: hidden;
+  display: block;
+}
+.reveal-line > span {
+  display: block;
+  transform: translateY(110%);
+  will-change: transform;
+}
+
+/* Magnetic button */
+.magnetic {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Slow rotate */
+.slow-spin {
+  animation: slowspin 40s linear infinite;
+}
+@keyframes slowspin {
+  to { transform: rotate(360deg); }
+}
+
+/* Pulse dot */
+.pulse-dot {
+  position: relative;
+}
+.pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  background: rgba(82, 217, 237, 0.4);
+  animation: pulse 2s ease-out infinite;
+}
+@keyframes pulse {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .marquee-track { animation: none !important; }
+  .slow-spin { animation: none !important; }
+}
+
+/* Preserve original native mouse pointer with custom shadow follower */
+@media (hover: hover) and (pointer: fine) {
+  body.custom-cursor-active a,
+  body.custom-cursor-active button {
+    cursor: pointer;
+  }
+}
