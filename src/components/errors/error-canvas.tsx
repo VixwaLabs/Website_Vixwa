@@ -103,6 +103,28 @@ export default function ErrorCanvas({ accent, showTrail = false }: ErrorCanvasPr
       }
     }
 
+    function resize() {
+      if (!canvas) return;
+      DPR = Math.min(window.devicePixelRatio || 1, 2);
+      W = window.innerWidth;
+      H = window.innerHeight;
+      canvas.width = Math.floor(W * DPR);
+      canvas.height = Math.floor(H * DPR);
+      canvas.style.width = W + "px";
+      canvas.style.height = H + "px";
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+
+      // Place origin off the right edge so rays bleed off-screen (exact 404.html coordinates)
+      origin.x = W * 0.96;
+      origin.y = H * 0.42;
+
+      // Trail ends near the text block (left-center area, exact 404.html coordinates)
+      trailEnd.x = Math.min(W * 0.34, 360);
+      trailEnd.y = H * 0.64;
+
+      buildRays();
+    }
+
     function quadPoint(
       t: number,
       p0: { x: number; y: number },
@@ -118,7 +140,6 @@ export default function ErrorCanvas({ accent, showTrail = false }: ErrorCanvasPr
 
     let trailPts: Array<{ x: number; y: number; t: number }> = [];
     function buildTrail() {
-      if (!showTrail) return;
       trailPts = [];
       const p0 = { x: origin.x - 70, y: origin.y + 60 };
       const p1 = {
@@ -132,27 +153,6 @@ export default function ErrorCanvas({ accent, showTrail = false }: ErrorCanvasPr
         const p = quadPoint(t, p0, p1, p2);
         trailPts.push({ x: p.x, y: p.y, t });
       }
-    }
-
-    function resize() {
-      if (!canvas) return;
-      DPR = Math.min(window.devicePixelRatio || 1, 2);
-      W = window.innerWidth;
-      H = window.innerHeight;
-      canvas.width = Math.floor(W * DPR);
-      canvas.height = Math.floor(H * DPR);
-      canvas.style.width = W + "px";
-      canvas.style.height = H + "px";
-      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-
-      origin.x = W * 0.94;
-      origin.y = H * 0.42;
-
-      trailEnd.x = Math.max(W * 0.35, Math.min(W * 0.48, 540));
-      trailEnd.y = H * 0.58;
-
-      buildRays();
-      if (showTrail) buildTrail();
     }
 
     let trailOffset = 0;
@@ -241,12 +241,12 @@ export default function ErrorCanvas({ accent, showTrail = false }: ErrorCanvasPr
         ctx.fill();
       }
 
-      // --- 404 Dotted particle trail (exact original algorithm) ---
+      // --- 404 Dotted particle trail (exact 404.html algorithm: only on 404!) ---
       if (showTrail) {
         buildTrail();
         trailOffset = (trailOffset + 0.005 * dt) % 1;
 
-        // Connecting glow band
+        // Bright connecting glow band
         ctx.lineCap = "round";
         for (let k = 0; k < trailPts.length - 1; k++) {
           const a = trailPts[k];
@@ -322,6 +322,7 @@ export default function ErrorCanvas({ accent, showTrail = false }: ErrorCanvasPr
   return (
     <canvas
       ref={canvasRef}
+      id="burst"
       className="fixed inset-0 w-full h-full pointer-events-none z-[1]"
       aria-hidden="true"
     />

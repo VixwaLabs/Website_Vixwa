@@ -9,3 +9,4 @@ export const metadata: Metadata = {
 export default function Error405Page() {
   return <UnifiedErrorPage code="405" />;
 }
+
