@@ -8,8 +8,8 @@ import { NAV_ITEMS, VIEW_PATHS, type ViewKey } from "./nav-config";
 import Magnetic from "./magnetic";
 
 interface NavbarProps {
-  current: ViewKey;
-  onNavigate: (view: ViewKey) => void;
+  current?: ViewKey;
+  onNavigate?: (view: ViewKey) => void;
 }
 
 export default function Navbar({ current, onNavigate }: NavbarProps) {
@@ -37,7 +37,13 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
 
   const go = (view: ViewKey) => {
     setOpen(false);
-    setTimeout(() => onNavigate(view), open ? 260 : 0);
+    if (onNavigate) {
+      setTimeout(() => onNavigate(view), open ? 260 : 0);
+    } else {
+      setTimeout(() => {
+        window.location.href = VIEW_PATHS[view] || "/";
+      }, open ? 260 : 0);
+    }
   };
 
   return (

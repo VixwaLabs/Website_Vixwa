@@ -1,26 +1,11 @@
 import type { Metadata } from "next";
-import ErrorTemplate from "@/components/errors/error-template";
+import UnifiedErrorPage from "@/components/errors/unified-error-page";
 
 export const metadata: Metadata = {
-  title: "404 — Lost in the Data Stream | VIXWA LABS",
-  description: "The page you're looking for drifted off the grid.",
+  title: "404 — Page Not Found | VIXWA LABS",
+  description: "This page wandered beyond what exists. Let's return to the latest research and intelligence.",
 };
 
 export default function Error404Page() {
-  return (
-    <ErrorTemplate
-      code="404"
-      eyebrow="Error · 404"
-      headlinePrefix="Lost in the"
-      headlineAccent="data stream."
-      description="The page you're looking for drifted off the grid. It may have been moved, renamed, or never existed. Let's get you back to familiar coordinates."
-      statusMessages={[
-        "Scanning known routes…",
-        "Page not found in any cluster.",
-        "Re-indexing the data stream…",
-        "404 — signal lost.",
-      ]}
-      themePreset="default"
-    />
-  );
+  return <UnifiedErrorPage code="404" />;
 }
