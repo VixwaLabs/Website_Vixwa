@@ -171,3 +171,4 @@ export function isSupabaseConfigured(): boolean {
       key !== "placeholder-anon-key"
   );
 }
+

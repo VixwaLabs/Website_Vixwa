@@ -122,3 +122,4 @@ CREATE POLICY "Allow service_role full access to posts"
     TO service_role
     USING (true)
     WITH CHECK (true);
+

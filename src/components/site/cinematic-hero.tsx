@@ -67,21 +67,21 @@ function SpatialOrbitalDisplay() {
   }, []);
 
   return (
-    <div className="relative w-full flex flex-col items-center justify-center select-none py-2 overflow-hidden">
+    <div className="relative w-full flex flex-col items-center justify-center select-none py-2">
       
-      {/* Ambient Electric Blue & Indigo radiance behind orbital system */}
+      {/* Ambient Electric Blue & Indigo radiance behind orbital system — purely circular radial gradients, no square clipping */}
       <div
-        className="pointer-events-none absolute w-[260px] h-[260px] min-[360px]:w-[300px] min-[360px]:h-[300px] sm:w-[460px] sm:h-[460px] lg:w-[540px] lg:h-[540px] rounded-full blur-[90px] sm:blur-[110px] opacity-45 dark:opacity-65"
+        className="pointer-events-none absolute w-[260px] h-[260px] min-[360px]:w-[300px] min-[360px]:h-[300px] sm:w-[460px] sm:h-[460px] lg:w-[540px] lg:h-[540px] rounded-full opacity-50 dark:opacity-65"
         style={{
           background:
-            "radial-gradient(circle, rgba(0, 102, 255, 0.45) 0%, rgba(0, 240, 255, 0.22) 35%, rgba(79, 70, 229, 0.15) 60%, transparent 75%)",
+            "radial-gradient(circle closest-side, rgba(0, 102, 255, 0.40) 0%, rgba(0, 240, 255, 0.20) 45%, rgba(79, 70, 229, 0.10) 70%, transparent 100%)",
         }}
       />
       <div
-        className="pointer-events-none absolute w-[200px] h-[200px] min-[360px]:w-[240px] min-[360px]:h-[240px] sm:w-[340px] sm:h-[340px] lg:w-[400px] lg:h-[400px] rounded-full blur-[55px] sm:blur-[70px] opacity-35 dark:opacity-55"
+        className="pointer-events-none absolute w-[200px] h-[200px] min-[360px]:w-[240px] min-[360px]:h-[240px] sm:w-[340px] sm:h-[340px] lg:w-[400px] lg:h-[400px] rounded-full opacity-40 dark:opacity-55"
         style={{
           background:
-            "radial-gradient(circle, rgba(0, 240, 255, 0.45) 0%, rgba(0, 102, 255, 0.25) 50%, transparent 80%)",
+            "radial-gradient(circle closest-side, rgba(0, 240, 255, 0.42) 0%, rgba(0, 102, 255, 0.22) 55%, transparent 100%)",
         }}
       />
 
@@ -144,12 +144,14 @@ function SpatialOrbitalDisplay() {
             ============================================================ */}
         <div
           className="group relative w-[185px] h-[185px] min-[360px]:w-[210px] min-[360px]:h-[210px] min-[420px]:w-[250px] min-[420px]:h-[250px] sm:w-[330px] sm:h-[330px] lg:w-[400px] lg:h-[400px] rounded-full flex items-center justify-center bg-[#070A12] border-2 border-[#4F46E5]/40 dark:border-[#00D2FF]/60 p-1.5 sm:p-2.5 shadow-[0_20px_60px_rgba(79,70,229,0.22),0_4px_20px_rgba(16,24,40,0.1)] dark:shadow-[0_0_60px_rgba(0,102,255,0.4),0_0_120px_rgba(0,240,255,0.18)] transition-all duration-500 hover:scale-[1.02] hover:border-[#4F46E5] dark:hover:border-[#00D2FF] z-20 overflow-hidden"
+          style={{ clipPath: "circle(50% at 50% 50%)", WebkitClipPath: "circle(50% at 50% 50%)" }}
         >
           {/* Internal video chamber with circular mask & subtle inset glow */}
-          <div className="relative w-full h-full rounded-full overflow-hidden flex items-center justify-center bg-[#070A12] shadow-inner">
+          <div className="relative w-full h-full rounded-full overflow-hidden flex items-center justify-center bg-[#070A12] shadow-inner" style={{ clipPath: "circle(50% at 50% 50%)", WebkitClipPath: "circle(50% at 50% 50%)" }}>
             <video
               ref={videoRef}
               src="/hero-video.mp4"
+              poster="/vixwa-brand-emblem.png"
               autoPlay
               muted
               playsInline
@@ -167,6 +169,8 @@ function SpatialOrbitalDisplay() {
             style={{
               background:
                 "linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 45%, rgba(79,70,229,0.1) 100%)",
+              clipPath: "circle(50% at 50% 50%)",
+              WebkitClipPath: "circle(50% at 50% 50%)",
             }}
           />
         </div>
@@ -182,21 +186,21 @@ export default function CinematicHero() {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) return;
 
-    // Refined entrance timeline for left-side content
+    // Fast, ultra-snappy entrance timeline (< 0.35s total, no lag)
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+      const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
-      gsap.set("[data-hero-eyebrow]", { y: 16, opacity: 0 });
-      gsap.set("[data-hero-line] > span", { yPercent: 110, opacity: 0 });
-      gsap.set("[data-hero-desc]", { y: 18, opacity: 0 });
-      gsap.set("[data-hero-cta]", { y: 14, opacity: 0 });
-      gsap.set("[data-hero-meta]", { y: 12, opacity: 0 });
+      gsap.set("[data-hero-eyebrow]", { y: 8, opacity: 0 });
+      gsap.set("[data-hero-line] > span", { yPercent: 30, opacity: 0 });
+      gsap.set("[data-hero-desc]", { y: 8, opacity: 0 });
+      gsap.set("[data-hero-cta]", { y: 8, opacity: 0 });
+      gsap.set("[data-hero-meta]", { opacity: 0 });
 
-      tl.to("[data-hero-eyebrow]", { y: 0, opacity: 1, duration: 0.75, delay: 0.15 })
-        .to("[data-hero-line] > span", { yPercent: 0, opacity: 1, duration: 0.95, stagger: 0.1 }, "-=0.4")
-        .to("[data-hero-desc]", { y: 0, opacity: 1, duration: 0.8 }, "-=0.6")
-        .to("[data-hero-cta]", { y: 0, opacity: 1, duration: 0.65, stagger: 0.08 }, "-=0.5")
-        .to("[data-hero-meta]", { y: 0, opacity: 1, duration: 0.55 }, "-=0.4");
+      tl.to("[data-hero-eyebrow]", { y: 0, opacity: 1, duration: 0.2 })
+        .to("[data-hero-line] > span", { yPercent: 0, opacity: 1, duration: 0.25, stagger: 0.04 }, "-=0.15")
+        .to("[data-hero-desc]", { y: 0, opacity: 1, duration: 0.2 }, "-=0.15")
+        .to("[data-hero-cta]", { y: 0, opacity: 1, duration: 0.2, stagger: 0.03 }, "-=0.15")
+        .to("[data-hero-meta]", { opacity: 1, duration: 0.15 }, "-=0.1");
     }, root);
 
     return () => ctx.revert();
@@ -220,11 +224,12 @@ export default function CinematicHero() {
           }}
         />
 
-        {/* Ambient Electric Blue volumetric flare from top/pedestal */}
+        {/* Ambient Electric Blue volumetric flare from top/pedestal — pure circular radial gradient, no blur clipping */}
         <div
-          className="pointer-events-none absolute top-[-50px] right-[10%] w-[600px] h-[500px] rounded-full blur-[130px] opacity-35 dark:opacity-55"
+          className="pointer-events-none absolute top-[-60px] right-[8%] w-[600px] h-[600px] rounded-full opacity-35 dark:opacity-50"
           style={{
-            background: "radial-gradient(circle, #0066FF 0%, #00D2FF 40%, transparent 75%)",
+            background:
+              "radial-gradient(circle closest-side, rgba(0, 102, 255, 0.35) 0%, rgba(0, 210, 255, 0.15) 45%, transparent 100%)",
           }}
         />
 
@@ -249,7 +254,7 @@ export default function CinematicHero() {
           <div className="w-full lg:w-[58%] max-w-[800px] flex flex-col justify-center order-1 py-2 box-border">
             
             {/* Eyebrow badge */}
-            <div data-hero-eyebrow className="flex items-center gap-2.5 mb-3 sm:mb-4 opacity-0">
+            <div data-hero-eyebrow className="flex items-center gap-2.5 mb-3 sm:mb-4">
               <span className="relative flex h-2.5 w-2.5">
                 <span
                   className="absolute inline-flex h-full w-full rounded-full opacity-60 animate-ping"
@@ -268,14 +273,14 @@ export default function CinematicHero() {
             {/* Headline — Responsive clamp, weight 800 */}
             <h1 className="font-display font-[800] text-[28px] min-[360px]:text-[33px] min-[400px]:text-[38px] sm:text-[58px] lg:text-[76px] xl:text-[80px] leading-[1.0] sm:leading-[0.98] tracking-[-0.035em] select-none text-[#101828] dark:text-[#F8FAFC] break-words">
               
-              {/* LINE 01 — ENGINEERING */}
+              {/* LINE 01 — MAKES */}
               <span data-hero-line className="block overflow-hidden pb-0.5">
                 <span className="block uppercase font-[800] text-[#101828] dark:text-[#F8FAFC]">
-                  ENGINEERING
+                  MAKES
                 </span>
               </span>
 
-              {/* LINE 02 — INTELLIGENCE. (Vibrant Electric Blue) */}
+              {/* LINE 02 — MATTER (Vibrant Electric Blue) */}
               <span data-hero-line className="block overflow-hidden pb-0.5">
                 <span
                   className="block uppercase font-[800] text-[#0066FF] dark:text-[#00D2FF]"
@@ -283,14 +288,14 @@ export default function CinematicHero() {
                     textShadow: "0 0 35px rgba(0, 210, 255, 0.45)",
                   }}
                 >
-                  INTELLIGENCE.
+                  MATTER
                 </span>
               </span>
 
-              {/* LINE 03 — SHAPING TOMORROW. */}
+              {/* LINE 03 — MATTER. */}
               <span data-hero-line className="block overflow-hidden pb-0.5">
                 <span className="block uppercase font-[800] text-[#101828] dark:text-[#F8FAFC]">
-                  SHAPING TOMORROW.
+                  MATTER.
                 </span>
               </span>
             </h1>
@@ -298,7 +303,7 @@ export default function CinematicHero() {
             {/* Supporting description */}
             <p
               data-hero-desc
-              className="mt-3 sm:mt-5 text-[15px] sm:text-[19px] lg:text-[20px] text-[#1F2937] dark:text-[#94A3B8] max-w-[650px] font-normal leading-[1.5] opacity-0"
+              className="mt-3 sm:mt-5 text-[15px] sm:text-[19px] lg:text-[20px] text-[#1F2937] dark:text-[#94A3B8] max-w-[650px] font-normal leading-[1.5]"
             >
               Exploring intelligent systems, advanced engineering, and
               research-driven innovation to shape the technologies of tomorrow.
@@ -306,7 +311,7 @@ export default function CinematicHero() {
 
             {/* CTA Buttons: Electric Blue CTA + Secondary */}
             <div className="mt-5 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-[18px]">
-              <div data-hero-cta className="opacity-0">
+              <div data-hero-cta>
                 <button
                   onClick={() => scrollTo("intro")}
                   className="group relative w-full sm:w-auto inline-flex items-center justify-between sm:justify-start gap-4 h-[50px] sm:h-[56px] px-6 sm:px-8 rounded-full bg-[#0066FF] text-white font-bold text-sm sm:text-[15px] hover:bg-[#0052CC] transition-all duration-300 shadow-[0_4px_25px_rgba(0,102,255,0.45)] hover:shadow-[0_6px_35px_rgba(0,102,255,0.65)] hover:scale-[1.02] cursor-pointer"
@@ -318,7 +323,7 @@ export default function CinematicHero() {
                 </button>
               </div>
 
-              <div data-hero-cta className="opacity-0">
+              <div data-hero-cta>
                 <button
                   onClick={() => scrollTo("intro")}
                   className="w-full sm:w-auto inline-flex items-center justify-center h-[50px] sm:h-[56px] px-6 sm:px-8 rounded-full bg-white dark:bg-[#111827] border border-[#E5E7EB] dark:border-[#334155] hover:border-[#0066FF] dark:hover:border-[#00D2FF] text-[#101828] dark:text-[#F8FAFC] hover:text-[#0066FF] dark:hover:text-[#00D2FF] font-semibold text-sm sm:text-[15px] hover:bg-[#0066FF]/5 transition-all duration-300 hover:scale-[1.02] cursor-pointer"
@@ -331,7 +336,7 @@ export default function CinematicHero() {
             {/* Metadata strip */}
             <div
               data-hero-meta
-              className="mt-5 sm:mt-8 grid grid-cols-3 gap-2 sm:gap-10 border-t border-[#E5E7EB] dark:border-[#1E293B] pt-4 max-w-lg w-full opacity-0"
+              className="mt-5 sm:mt-8 grid grid-cols-3 gap-2 sm:gap-10 border-t border-[#E5E7EB] dark:border-[#1E293B] pt-4 max-w-lg w-full"
             >
               {[
                 { k: "Focus", v: "Frontier AI" },
