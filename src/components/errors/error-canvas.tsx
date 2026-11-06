@@ -163,11 +163,13 @@ export default function ErrorCanvas({ accent, showTrail = false }: ErrorCanvasPr
       canvas.style.height = H + "px";
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
 
-      origin.x = W * 0.94;
+      // Place origin off the right edge so rays bleed off-screen (exact 404.html parameters)
+      origin.x = W * 0.96;
       origin.y = H * 0.42;
 
-      trailEnd.x = Math.min(W * 0.34, 380);
-      trailEnd.y = H * 0.62;
+      // Trail ends near the text block (exact 404.html parameters)
+      trailEnd.x = Math.min(W * 0.34, 360);
+      trailEnd.y = H * 0.64;
 
       buildRays();
       if (showTrail) {
