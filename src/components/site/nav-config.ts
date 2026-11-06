@@ -49,3 +49,39 @@ export const FOOTER_CONNECT: NavItem[] = [
   { label: "Research Enquiries", view: "contact" },
   { label: "Professional Collaboration", view: "contact" },
 ];
+
+export const VIEW_PATHS: Record<ViewKey, string> = {
+  home: "/",
+  innovation: "/innovation",
+  "intellectual-property": "/intellectual-property",
+  intelligence: "/intelligence",
+  rd: "/rd",
+  capabilities: "/capabilities",
+  news: "/news",
+  careers: "/careers",
+  contact: "/contact",
+  vision: "/vision",
+  vocal: "/vocal",
+  vital: "/vital",
+};
+
+export const VIEW_ALIASES: Record<string, ViewKey> = {
+  home: "home",
+  about: "home",
+  innovation: "innovation",
+  rd: "rd",
+  research: "rd",
+  projects: "rd",
+  capabilities: "capabilities",
+  intelligence: "intelligence",
+  news: "news",
+  insights: "news",
+  careers: "careers",
+  contact: "contact",
+  vision: "vision",
+  vocal: "vocal",
+  vital: "vital",
+  "intellectual-property": "intellectual-property",
+  ip: "intellectual-property",
+};
+

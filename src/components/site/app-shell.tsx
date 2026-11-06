@@ -7,7 +7,7 @@ import { useSmoothScroll, useScrollReveals } from "@/lib/anim";
 import Cursor from "./cursor";
 import Navbar from "./navbar-v2";
 import Footer from "./footer-v2";
-import type { ViewKey } from "./nav-config";
+import { NAV_ITEMS, VIEW_PATHS, VIEW_ALIASES, type ViewKey } from "./nav-config";
 import HomePage from "./pages/home";
 import InnovationPage from "./pages/innovation";
 import IntellectualPropertyPage from "./pages/intellectual-property";
@@ -36,12 +36,20 @@ const VIEWS: Record<ViewKey, React.ComponentType<{ onNavigate: (v: ViewKey) => v
   vital: VitalPage,
 };
 
-export default function AppShell() {
-  // Read the initial view from the URL hash so refreshes preserve the page.
+interface AppShellProps {
+  initialView?: ViewKey;
+}
+
+export default function AppShell({ initialView }: AppShellProps) {
+  // Read the initial view: prioritize explicit route initialView, fallback to hash / path
   const [view, setView] = useState<ViewKey>(() => {
+    if (initialView && initialView in VIEWS) return initialView;
     if (typeof window === "undefined") return "home";
-    const hash = window.location.hash.replace("#/", "").replace("#", "");
-    return (hash as ViewKey) in VIEWS ? (hash as ViewKey) : "home";
+    const rawHash = window.location.hash.replace("#/", "").replace("#", "").toLowerCase();
+    if (rawHash && rawHash in VIEW_ALIASES) return VIEW_ALIASES[rawHash];
+    const rawPath = window.location.pathname.replace(/^\//, "").toLowerCase();
+    if (rawPath && rawPath in VIEW_ALIASES) return VIEW_ALIASES[rawPath];
+    return "home";
   });
   const [transitioning, setTransitioning] = useState(false);
   const main = useRef<HTMLElement>(null);
@@ -49,40 +57,64 @@ export default function AppShell() {
   useSmoothScroll();
   useScrollReveals();
 
+  // Sync view on client mount if URL contains a hash or clean path
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const rawHash = window.location.hash.replace("#/", "").replace("#", "").toLowerCase();
+    if (rawHash && rawHash in VIEW_ALIASES) {
+      const resolved = VIEW_ALIASES[rawHash];
+      if (resolved !== view) setView(resolved);
+      return;
+    }
+    if (!initialView) {
+      const rawPath = window.location.pathname.replace(/^\//, "").toLowerCase();
+      if (rawPath && rawPath in VIEW_ALIASES) {
+        const resolved = VIEW_ALIASES[rawPath];
+        if (resolved !== view) setView(resolved);
+      }
+    }
+  }, []);
+
   const navigate = (next: ViewKey) => {
     if (next === view) {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
-    // Update the URL hash so refresh / back-forward preserves the view.
+    // Update the browser URL without full-page reload
     if (typeof window !== "undefined") {
-      const newHash = next === "home" ? "" : `#/${next}`;
-      const newURL =
-        window.location.pathname +
-        window.location.search +
-        (newHash ? `#${newHash.slice(1)}` : "");
-      window.history.pushState(null, "", newURL);
+      const targetPath = VIEW_PATHS[next] || "/";
+      window.history.pushState({ view: next }, "", targetPath);
     }
     setTransitioning(true);
     setTimeout(() => {
       setView(next);
       window.scrollTo({ top: 0, behavior: "auto" });
       setTransitioning(false);
-    }, 350);
+    }, 280);
   };
 
-  // Handle browser back / forward buttons.
+  // Handle browser back / forward buttons and hash changes
   useEffect(() => {
-    const onPop = () => {
-      const hash = window.location.hash.replace("#/", "").replace("#", "");
-      const next = (hash as ViewKey) in VIEWS ? (hash as ViewKey) : "home";
-      if (next !== view) {
+    const onPop = (e: PopStateEvent) => {
+      let targetView: ViewKey = "home";
+      if (e.state && e.state.view && e.state.view in VIEWS) {
+        targetView = e.state.view as ViewKey;
+      } else {
+        const path = window.location.pathname.replace(/^\//, "").toLowerCase();
+        const hash = window.location.hash.replace("#/", "").replace("#", "").toLowerCase();
+        if (path && path in VIEW_ALIASES) {
+          targetView = VIEW_ALIASES[path];
+        } else if (hash && hash in VIEW_ALIASES) {
+          targetView = VIEW_ALIASES[hash];
+        }
+      }
+      if (targetView !== view) {
         setTransitioning(true);
         setTimeout(() => {
-          setView(next);
+          setView(targetView);
           window.scrollTo({ top: 0, behavior: "auto" });
           setTransitioning(false);
-        }, 200);
+        }, 160);
       }
     };
     window.addEventListener("popstate", onPop);
@@ -93,13 +125,34 @@ export default function AppShell() {
     };
   }, [view]);
 
-  // re-trigger scroll reveals on view change
+  // Re-trigger and bind scroll reveals whenever view changes
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) return;
     const t = setTimeout(() => {
       ScrollTrigger.refresh();
-    }, 100);
+      const uninit = document.querySelectorAll<HTMLElement>(
+        "[data-reveal]:not([data-reveal-active])"
+      );
+      uninit.forEach((el) => {
+        el.setAttribute("data-reveal-active", "true");
+        gsap.fromTo(
+          el,
+          { y: 22, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 88%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      });
+    }, 120);
     return () => clearTimeout(t);
   }, [view]);
 

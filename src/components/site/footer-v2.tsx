@@ -6,6 +6,7 @@ import {
   FOOTER_EXPLORE,
   FOOTER_DISCOVER,
   FOOTER_CONNECT,
+  VIEW_PATHS,
   type ViewKey,
 } from "./nav-config";
 import { Marquee3D, MarqueeWord } from "./marquee";
@@ -49,10 +50,14 @@ export default function Footer({ onNavigate }: FooterProps) {
 
       {/* Brand Header with Glowing Emblem & Interactive Home Link */}
       <div className="relative max-w-7xl mx-auto px-4 min-[375px]:px-5 sm:px-8 lg:px-16 pt-12 sm:pt-20">
-        <button
-          onClick={() => {
-            onNavigate("home");
-            window.scrollTo({ top: 0, behavior: "smooth" });
+        <a
+          href="/"
+          onClick={(e) => {
+            if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
+              e.preventDefault();
+              onNavigate("home");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
           }}
           className="group inline-flex items-center gap-3 sm:gap-6 cursor-pointer text-left focus:outline-none transition-transform duration-300 hover:scale-[1.01]"
           aria-label="VIXWA Home - Back to top"
@@ -79,7 +84,7 @@ export default function Footer({ onNavigate }: FooterProps) {
               VIXWA LABS PVT. LTD. &middot; Makes Matter Matter.
             </span>
           </div>
-        </button>
+        </a>
       </div>
 
       {/* Main grid with white headings and hover links */}
@@ -94,12 +99,18 @@ export default function Footer({ onNavigate }: FooterProps) {
             <ul className="flex flex-col gap-3">
               {FOOTER_EXPLORE.map((l) => (
                 <li key={l.label}>
-                  <button
-                    onClick={() => onNavigate(l.view)}
-                    className="text-[#CBD5E1] hover:text-[#FFFFFF] hover:translate-x-1 transition-all text-sm text-left"
+                  <a
+                    href={VIEW_PATHS[l.view]}
+                    onClick={(e) => {
+                      if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
+                        e.preventDefault();
+                        onNavigate(l.view);
+                      }
+                    }}
+                    className="text-[#CBD5E1] hover:text-[#FFFFFF] hover:translate-x-1 transition-all text-sm text-left block cursor-pointer"
                   >
                     {l.label}
-                  </button>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -114,12 +125,18 @@ export default function Footer({ onNavigate }: FooterProps) {
             <ul className="flex flex-col gap-3">
               {FOOTER_DISCOVER.map((l) => (
                 <li key={l.label}>
-                  <button
-                    onClick={() => onNavigate(l.view)}
-                    className="text-[#CBD5E1] hover:text-[#FFFFFF] hover:translate-x-1 transition-all text-sm text-left"
+                  <a
+                    href={VIEW_PATHS[l.view]}
+                    onClick={(e) => {
+                      if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
+                        e.preventDefault();
+                        onNavigate(l.view);
+                      }
+                    }}
+                    className="text-[#CBD5E1] hover:text-[#FFFFFF] hover:translate-x-1 transition-all text-sm text-left block cursor-pointer"
                   >
                     {l.label}
-                  </button>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -134,12 +151,18 @@ export default function Footer({ onNavigate }: FooterProps) {
             <ul className="flex flex-col gap-3">
               {FOOTER_CONNECT.map((l) => (
                 <li key={l.label}>
-                  <button
-                    onClick={() => onNavigate(l.view)}
-                    className="text-[#CBD5E1] hover:text-[#FFFFFF] hover:translate-x-1 transition-all text-sm text-left"
+                  <a
+                    href={VIEW_PATHS[l.view]}
+                    onClick={(e) => {
+                      if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
+                        e.preventDefault();
+                        onNavigate(l.view);
+                      }
+                    }}
+                    className="text-[#CBD5E1] hover:text-[#FFFFFF] hover:translate-x-1 transition-all text-sm text-left block cursor-pointer"
                   >
                     {l.label}
-                  </button>
+                  </a>
                 </li>
               ))}
               <li>
@@ -162,28 +185,46 @@ export default function Footer({ onNavigate }: FooterProps) {
             </div>
             <ul className="flex flex-col gap-3">
               <li>
-                <button
-                  onClick={() => onNavigate("intellectual-property")}
-                  className="text-[#CBD5E1] hover:text-[#FFFFFF] hover:translate-x-1 transition-all text-sm text-left"
+                <a
+                  href="/intellectual-property"
+                  onClick={(e) => {
+                    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
+                      e.preventDefault();
+                      onNavigate("intellectual-property");
+                    }
+                  }}
+                  className="text-[#CBD5E1] hover:text-[#FFFFFF] hover:translate-x-1 transition-all text-sm text-left block cursor-pointer"
                 >
                   Privacy Policy
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => onNavigate("intellectual-property")}
-                  className="text-[#CBD5E1] hover:text-[#FFFFFF] hover:translate-x-1 transition-all text-sm text-left"
+                <a
+                  href="/intellectual-property"
+                  onClick={(e) => {
+                    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
+                      e.preventDefault();
+                      onNavigate("intellectual-property");
+                    }
+                  }}
+                  className="text-[#CBD5E1] hover:text-[#FFFFFF] hover:translate-x-1 transition-all text-sm text-left block cursor-pointer"
                 >
                   Terms &amp; Conditions
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => onNavigate("intellectual-property")}
-                  className="text-[#CBD5E1] hover:text-[#FFFFFF] hover:translate-x-1 transition-all text-sm text-left"
+                <a
+                  href="/intellectual-property"
+                  onClick={(e) => {
+                    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
+                      e.preventDefault();
+                      onNavigate("intellectual-property");
+                    }
+                  }}
+                  className="text-[#CBD5E1] hover:text-[#FFFFFF] hover:translate-x-1 transition-all text-sm text-left block cursor-pointer"
                 >
                   Intellectual Property
-                </button>
+                </a>
               </li>
             </ul>
           </div>

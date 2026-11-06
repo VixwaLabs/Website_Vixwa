@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 import { ArrowUpRight, Menu, X, Sun, Moon } from "lucide-react";
-import { NAV_ITEMS, type ViewKey } from "./nav-config";
+import { NAV_ITEMS, VIEW_PATHS, type ViewKey } from "./nav-config";
 import Magnetic from "./magnetic";
 
 interface NavbarProps {
@@ -54,8 +54,14 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
         >
           {/* 1. Brand Logo Anchor (Fixed width, never shrinks) */}
           <div className="shrink-0 flex-shrink-0 flex items-center">
-            <button
-              onClick={() => go("home")}
+            <a
+              href="/"
+              onClick={(e) => {
+                if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
+                  e.preventDefault();
+                  go("home");
+                }
+              }}
               className="group flex items-center gap-2.5 sm:gap-3.5 focus:outline-none cursor-pointer"
               aria-label="VIXWA LABS home"
             >
@@ -77,7 +83,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                   Makes Matter Matter
                 </span>
               </span>
-            </button>
+            </a>
           </div>
 
           {/* 2. Flexible Navigation Links Container (Proper Flexbox, no absolute positioning, clamp gap) */}
@@ -86,9 +92,15 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
             style={{ gap: "clamp(16px, 2vw, 32px)" }}
           >
               {NAV_ITEMS.map((l) => (
-                <button
+                <a
                   key={l.view}
-                  onClick={() => go(l.view)}
+                  href={VIEW_PATHS[l.view]}
+                  onClick={(e) => {
+                    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
+                      e.preventDefault();
+                      go(l.view);
+                    }
+                  }}
                   className="group relative py-1 text-[13px] xl:text-[14px] 2xl:text-[15px] font-medium whitespace-nowrap transition-colors duration-200 cursor-pointer"
                 >
                   <span
@@ -113,7 +125,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                       : "scale-x-0 bg-[#4F46E5] dark:bg-[#00D2FF] group-hover:scale-x-100"
                       }`}
                   />
-                </button>
+                </a>
               ))}
             </div>
 
@@ -139,16 +151,24 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
 
               <div className="hidden sm:block shrink-0">
                 <Magnetic
-                  as="button"
+                  as="div"
                   strength={0.4}
-                  onClick={() => go("contact")}
                   className="shrink-0"
-                  aria-label="Let's collaborate"
                 >
-                  <span className="inline-flex items-center gap-1.5 2xl:gap-2 h-[42px] rounded-full bg-[#4F46E5] dark:bg-[#0066FF] text-white text-[13.5px] 2xl:text-[14px] font-semibold px-5 hover:bg-[#4338CA] dark:hover:bg-[#0055DD] transition-all duration-300 shadow-[0_2px_12px_rgba(79,70,229,0.28)] dark:shadow-[0_0_24px_rgba(0,102,255,0.55)] cursor-pointer whitespace-nowrap shrink-0">
+                  <a
+                    href="/contact"
+                    onClick={(e) => {
+                      if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
+                        e.preventDefault();
+                        go("contact");
+                      }
+                    }}
+                    aria-label="Let's collaborate"
+                    className="inline-flex items-center gap-1.5 2xl:gap-2 h-[42px] rounded-full bg-[#4F46E5] dark:bg-[#0066FF] text-white text-[13.5px] 2xl:text-[14px] font-semibold px-5 hover:bg-[#4338CA] dark:hover:bg-[#0055DD] transition-all duration-300 shadow-[0_2px_12px_rgba(79,70,229,0.28)] dark:shadow-[0_0_24px_rgba(0,102,255,0.55)] cursor-pointer whitespace-nowrap shrink-0"
+                  >
                     Let&rsquo;s Collaborate
                     <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2.5} />
-                  </span>
+                  </a>
                 </Magnetic>
               </div>
 
@@ -221,10 +241,16 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
 
             <nav className="mt-6 sm:mt-10 flex flex-col gap-0.5" aria-label="Mobile">
               {NAV_ITEMS.map((l, i) => (
-                <button
+                <a
                   key={l.view}
-                  onClick={() => go(l.view)}
-                  className="group flex items-center justify-between py-2.5 sm:py-3.5 border-b border-[#E5E7EB] dark:border-[#1E293B] text-left"
+                  href={VIEW_PATHS[l.view]}
+                  onClick={(e) => {
+                    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
+                      e.preventDefault();
+                      go(l.view);
+                    }
+                  }}
+                  className="group flex items-center justify-between py-2.5 sm:py-3.5 border-b border-[#E5E7EB] dark:border-[#1E293B] text-left cursor-pointer"
                 >
                   <span
                     className={`font-display text-lg min-[360px]:text-xl sm:text-2xl font-semibold transition-colors duration-200 ${current === l.view
@@ -237,7 +263,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                   <span className="font-mono-tech text-xs text-[#64748B] dark:text-[#94A3B8]">
                     0{i + 1}
                   </span>
-                </button>
+                </a>
               ))}
             </nav>
 
@@ -245,13 +271,19 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
               <p className="font-mono-tech text-[11px] uppercase tracking-[0.25em] text-[#64748B] dark:text-[#94A3B8] mb-3">
                 Have an idea worth exploring?
               </p>
-              <button
-                onClick={() => go("contact")}
+              <a
+                href="/contact"
+                onClick={(e) => {
+                  if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
+                    e.preventDefault();
+                    go("contact");
+                  }
+                }}
                 className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-[#4F46E5] dark:bg-[#0066FF] text-white font-semibold py-3.5 hover:bg-[#4338CA] dark:hover:bg-[#0055DD] transition-colors duration-200 shadow-[0_4px_16px_rgba(79,70,229,0.3)] dark:shadow-[0_0_20px_rgba(0,102,255,0.5)] cursor-pointer"
               >
                 Let&rsquo;s Collaborate
                 <ArrowUpRight className="w-4 h-4" strokeWidth={2.5} />
-              </button>
+              </a>
             </div>
           </div>
         </div>
