@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ArrowUpRight } from "lucide-react";
 import { scrollToId } from "@/lib/anim";
@@ -23,48 +23,88 @@ const COLOR_INDIGO = "#4F46E5";
 const COLOR_AMBER = "#F59E0B";
 
 /* ============================================================
-   Right Side: 2-Layer Spatial Orbital Display & Video Centerpiece
-   - Layer 2 (Outer Orbit): Dashed technical trajectory with pulsing Amber beacon (Counter-Clockwise, 38s)
-   - Layer 1 (Inner Orbit): Smooth Indigo orbit directly embracing the video portal (Clockwise, 22s)
-   - Center Visual: Exactly 400 × 400 px pedestal housing Video Project 4
-   - Behavior: Plays Video Project 4 on page load (~4.5s at 1.25x speed). When the "VIXWA" text is completed,
-     the video automatically stops and freezes on the final completed frame.
-     Only plays again when the user refreshes the page.
+   Right Side: 2-Layer Spatial Orbital Display & Centerpiece Video Sequence
+   
+   VIDEO SEQUENCE:
+   1. Page Load -> project4.mp4 plays automatically from beginning to end.
+      Hover interaction is completely disabled while project4.mp4 is playing.
+   2. Video Ended -> Detects actual video "ended" event on project4.mp4.
+      Locks initialVideoCompleted to true and enables hover interaction.
+   3. Mouse Enter Hero Ad -> Plays project5.mp4 from the beginning.
+   4. Mouse Leave Hero Ad -> Stops project5.mp4, resets to start, and restores
+      original card appearance (project4 completed frame).
+   5. Mouse Enter Again -> Replays project5.mp4 from the beginning.
    ============================================================ */
 function SpatialOrbitalDisplay() {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const initialVideoRef = useRef<HTMLVideoElement>(null);
+  const hoverVideoRef = useRef<HTMLVideoElement>(null);
 
+  // Strict state machine: hover interaction is disabled until project4.mp4 completes
+  const [initialVideoCompleted, setInitialVideoCompleted] = useState<boolean>(false);
+  const [isHovering, setIsHovering] = useState<boolean>(false);
+
+  // 1. Initial video playback (project4.mp4)
   useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
+    const iv = initialVideoRef.current;
+    if (!iv) return;
 
-    v.muted = true;
-    v.playbackRate = 1.25; // Video Project 4: 5.71s video completes in ~4.57s (below 5 seconds)
+    iv.muted = true;
+    iv.playbackRate = 1.0;
 
-    const applyPlaybackSettings = () => {
-      if (v) {
-        v.playbackRate = 1.25;
-      }
+    // Detect actual ended event to unlock hover interaction
+    const handleInitialEnded = () => {
+      iv.pause();
+      setInitialVideoCompleted(true);
     };
 
-    const handleEnded = () => {
-      if (v) {
-        v.pause();
-      }
-    };
+    iv.addEventListener("ended", handleInitialEnded);
 
-    v.addEventListener("loadedmetadata", applyPlaybackSettings);
-    v.addEventListener("ratechange", applyPlaybackSettings);
-    v.addEventListener("ended", handleEnded);
-
-    v.play().catch(() => {});
+    // If video already finished in cached scenarios
+    if (iv.ended) {
+      setInitialVideoCompleted(true);
+    } else {
+      iv.play().catch(() => {});
+    }
 
     return () => {
-      v.removeEventListener("loadedmetadata", applyPlaybackSettings);
-      v.removeEventListener("ratechange", applyPlaybackSettings);
-      v.removeEventListener("ended", handleEnded);
+      iv.removeEventListener("ended", handleInitialEnded);
     };
   }, []);
+
+  // 2. Preload and prepare hover video (project5.mp4)
+  useEffect(() => {
+    const hv = hoverVideoRef.current;
+    if (!hv) return;
+    hv.muted = true;
+    hv.currentTime = 0;
+  }, []);
+
+  // 3. Hover handlers with strict initialVideoCompleted guard
+  const handleMouseEnter = () => {
+    // STRICT REQUIREMENT: Hover feature must NOT work before project4.mp4 has completely finished
+    if (!initialVideoCompleted) return;
+
+    setIsHovering(true);
+    const hv = hoverVideoRef.current;
+    if (hv) {
+      hv.currentTime = 0;
+      const playPromise = hv.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!initialVideoCompleted) return;
+
+    setIsHovering(false);
+    const hv = hoverVideoRef.current;
+    if (hv) {
+      hv.pause();
+      hv.currentTime = 0;
+    }
+  };
 
   return (
     <div className="relative w-full flex flex-col items-center justify-center select-none py-2">
@@ -144,31 +184,59 @@ function SpatialOrbitalDisplay() {
         </div>
 
         {/* ============================================================
-            CENTER PEDESTAL: Elevated Spatial Glass Portal with Video
+            CENTER PEDESTAL / HERO ADVERTISEMENT:
+            Elevated Spatial Glass Portal with Video Sequence
             ============================================================ */}
         {/* Circular halo glow under pedestal (prevents GPU box-shadow square bounding box on clipPath) */}
         <div
-          className="pointer-events-none absolute w-[185px] h-[185px] min-[360px]:w-[210px] min-[360px]:h-[210px] min-[420px]:w-[250px] min-[420px]:h-[250px] sm:w-[330px] sm:h-[330px] lg:w-[400px] lg:h-[400px] rounded-full shadow-[0_20px_60px_rgba(79,70,229,0.22),0_4px_20px_rgba(16,24,40,0.1)] dark:shadow-[0_0_60px_rgba(0,102,255,0.4),0_0_120px_rgba(0,240,255,0.18)] z-10"
+          className={`pointer-events-none absolute w-[185px] h-[185px] min-[360px]:w-[210px] min-[360px]:h-[210px] min-[420px]:w-[250px] min-[420px]:h-[250px] sm:w-[330px] sm:h-[330px] lg:w-[400px] lg:h-[400px] rounded-full transition-opacity duration-500 z-10 ${
+            isHovering
+              ? "shadow-[0_20px_60px_rgba(0,210,255,0.35),0_4px_20px_rgba(16,24,40,0.1)] dark:shadow-[0_0_80px_rgba(0,210,255,0.6),0_0_140px_rgba(0,102,255,0.3)]"
+              : "shadow-[0_20px_60px_rgba(79,70,229,0.22),0_4px_20px_rgba(16,24,40,0.1)] dark:shadow-[0_0_60px_rgba(0,102,255,0.4),0_0_120px_rgba(0,240,255,0.18)]"
+          }`}
         />
 
         <div
-          className="group relative w-[185px] h-[185px] min-[360px]:w-[210px] min-[360px]:h-[210px] min-[420px]:w-[250px] min-[420px]:h-[250px] sm:w-[330px] sm:h-[330px] lg:w-[400px] lg:h-[400px] rounded-full flex items-center justify-center bg-[#070A12] border-2 border-[#4F46E5]/40 dark:border-[#00D2FF]/60 p-1.5 sm:p-2.5 transition-all duration-500 hover:scale-[1.02] hover:border-[#4F46E5] dark:hover:border-[#00D2FF] z-20 overflow-hidden"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          className={`group relative w-[185px] h-[185px] min-[360px]:w-[210px] min-[360px]:h-[210px] min-[420px]:w-[250px] min-[420px]:h-[250px] sm:w-[330px] sm:h-[330px] lg:w-[400px] lg:h-[400px] rounded-full flex items-center justify-center bg-[#070A12] border-2 transition-all duration-500 z-20 overflow-hidden ${
+            initialVideoCompleted
+              ? "cursor-pointer border-[#4F46E5]/40 dark:border-[#00D2FF]/60 hover:scale-[1.02] hover:border-[#4F46E5] dark:hover:border-[#00D2FF]"
+              : "cursor-default border-[#4F46E5]/40 dark:border-[#00D2FF]/60"
+          }`}
           style={{ clipPath: "circle(50% at 50% 50%)", WebkitClipPath: "circle(50% at 50% 50%)" }}
+          aria-label="Vixwa Labs Centerpiece Showcase"
         >
           {/* Internal video chamber with circular mask & subtle inset glow */}
-          <div className="relative w-full h-full rounded-full overflow-hidden flex items-center justify-center bg-[#070A12] shadow-inner" style={{ clipPath: "circle(50% at 50% 50%)", WebkitClipPath: "circle(50% at 50% 50%)" }}>
+          <div
+            className="relative w-full h-full rounded-full overflow-hidden flex items-center justify-center bg-[#070A12] shadow-inner"
+            style={{ clipPath: "circle(50% at 50% 50%)", WebkitClipPath: "circle(50% at 50% 50%)" }}
+          >
+            {/* 1. Initial Video: project4.mp4 (plays automatically once from start to end; freezes on final frame) */}
             <video
-              ref={videoRef}
-              src="/hero-video.mp4"
+              ref={initialVideoRef}
+              src="/project4.mp4"
               poster="/vixwa-brand-emblem.png"
               autoPlay
               muted
               playsInline
               preload="auto"
-              onEnded={(e) => {
-                e.currentTarget.pause();
-              }}
-              className="w-full h-full object-cover rounded-full transition-transform duration-700 group-hover:scale-105"
+              className={`w-full h-full object-cover rounded-full transition-opacity duration-300 ${
+                isHovering && initialVideoCompleted ? "opacity-0" : "opacity-100"
+              }`}
+            />
+
+            {/* 2. Hover Video: project5.mp4 (preloaded, plays on hover only after project4 completes) */}
+            <video
+              ref={hoverVideoRef}
+              src="/project5.mp4"
+              muted
+              playsInline
+              preload="auto"
+              loop
+              className={`pointer-events-none absolute inset-0 w-full h-full object-cover rounded-full transition-opacity duration-300 ${
+                isHovering && initialVideoCompleted ? "opacity-100 scale-105" : "opacity-0 scale-100"
+              }`}
             />
           </div>
 
