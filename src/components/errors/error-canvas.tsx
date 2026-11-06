@@ -7,9 +7,35 @@ interface ErrorCanvasProps {
   showTrail?: boolean;
 }
 
-function hexToRgb(hex: string): { r: number; g: number; b: number } {
-  const clean = hex.replace("#", "");
+interface RgbColor {
+  r: number;
+  g: number;
+  b: number;
+}
+
+interface Ray {
+  angle: number;
+  len: number;
+  width: number;
+  baseAlpha: number;
+  color: RgbColor;
+  phase: number;
+  speed: number;
+  tipSize: number;
+  tipBright: number;
+  drift: number;
+}
+
+interface TrailPoint {
+  x: number;
+  y: number;
+  t: number;
+}
+
+function hexToRgb(hex: string): RgbColor {
+  const clean = (hex || "#3685FF").replace("#", "");
   const num = parseInt(clean, 16);
+  if (isNaN(num)) return { r: 54, g: 133, b: 255 };
   return {
     r: (num >> 16) & 255,
     g: (num >> 8) & 255,
@@ -21,19 +47,23 @@ export default function ErrorCanvas({ accent, showTrail = false }: ErrorCanvasPr
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    const canvasElement = canvasRef.current;
+    if (!canvasElement) return;
+
+    const context = canvasElement.getContext("2d");
+    if (!context) return;
+
+    const canvas: HTMLCanvasElement = canvasElement;
+    const ctx: CanvasRenderingContext2D = context;
 
     let W = 0;
     let H = 0;
     let DPR = Math.min(window.devicePixelRatio || 1, 2);
 
-    let origin = { x: 0, y: 0 };
-    let trailEnd = { x: 0, y: 0 };
+    const origin = { x: 0, y: 0 };
+    const trailEnd = { x: 0, y: 0 };
 
-    const RAY_PALETTE_404 = [
+    const RAY_PALETTE_404: RgbColor[] = [
       { r: 59, g: 130, b: 246 },   // blue
       { r: 96, g: 165, b: 250 },  // light blue
       { r: 34, g: 211, b: 238 },  // cyan
@@ -42,7 +72,7 @@ export default function ErrorCanvas({ accent, showTrail = false }: ErrorCanvasPr
     ];
 
     const accentRgb = hexToRgb(accent);
-    const RAY_PALETTE = showTrail
+    const RAY_PALETTE: RgbColor[] = showTrail
       ? RAY_PALETTE_404
       : [
           { r: accentRgb.r, g: accentRgb.g, b: accentRgb.b },
@@ -65,18 +95,7 @@ export default function ErrorCanvas({ accent, showTrail = false }: ErrorCanvasPr
         ];
 
     const RAY_COUNT = 320;
-    let rays: Array<{
-      angle: number;
-      len: number;
-      width: number;
-      baseAlpha: number;
-      color: { r: number; g: number; b: number };
-      phase: number;
-      speed: number;
-      tipSize: number;
-      tipBright: number;
-      drift: number;
-    }> = [];
+    let rays: Ray[] = [];
     let rotation = 0;
 
     function rand(a: number, b: number) {
@@ -103,28 +122,6 @@ export default function ErrorCanvas({ accent, showTrail = false }: ErrorCanvasPr
       }
     }
 
-    function resize() {
-      if (!canvas) return;
-      DPR = Math.min(window.devicePixelRatio || 1, 2);
-      W = window.innerWidth;
-      H = window.innerHeight;
-      canvas.width = Math.floor(W * DPR);
-      canvas.height = Math.floor(H * DPR);
-      canvas.style.width = W + "px";
-      canvas.style.height = H + "px";
-      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-
-      // Place origin off the right edge so rays bleed off-screen (exact 404.html coordinates)
-      origin.x = W * 0.96;
-      origin.y = H * 0.42;
-
-      // Trail ends near the text block (left-center area, exact 404.html coordinates)
-      trailEnd.x = Math.min(W * 0.34, 360);
-      trailEnd.y = H * 0.64;
-
-      buildRays();
-    }
-
     function quadPoint(
       t: number,
       p0: { x: number; y: number },
@@ -138,8 +135,9 @@ export default function ErrorCanvas({ accent, showTrail = false }: ErrorCanvasPr
       };
     }
 
-    let trailPts: Array<{ x: number; y: number; t: number }> = [];
+    let trailPts: TrailPoint[] = [];
     function buildTrail() {
+      if (!showTrail) return;
       trailPts = [];
       const p0 = { x: origin.x - 70, y: origin.y + 60 };
       const p1 = {
@@ -152,6 +150,28 @@ export default function ErrorCanvas({ accent, showTrail = false }: ErrorCanvasPr
         const t = i / N;
         const p = quadPoint(t, p0, p1, p2);
         trailPts.push({ x: p.x, y: p.y, t });
+      }
+    }
+
+    function resize() {
+      DPR = Math.min(window.devicePixelRatio || 1, 2);
+      W = window.innerWidth;
+      H = window.innerHeight;
+      canvas.width = Math.floor(W * DPR);
+      canvas.height = Math.floor(H * DPR);
+      canvas.style.width = W + "px";
+      canvas.style.height = H + "px";
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+
+      origin.x = W * 0.94;
+      origin.y = H * 0.42;
+
+      trailEnd.x = Math.min(W * 0.34, 380);
+      trailEnd.y = H * 0.62;
+
+      buildRays();
+      if (showTrail) {
+        buildTrail();
       }
     }
 
@@ -241,16 +261,16 @@ export default function ErrorCanvas({ accent, showTrail = false }: ErrorCanvasPr
         ctx.fill();
       }
 
-      // --- 404 Dotted particle trail (exact 404.html algorithm: only on 404!) ---
-      if (showTrail) {
-        buildTrail();
+      // --- 404 Dotted particle trail (exact original algorithm) ---
+      if (showTrail && trailPts.length > 2) {
         trailOffset = (trailOffset + 0.005 * dt) % 1;
 
-        // Bright connecting glow band
+        // Connecting glow band
         ctx.lineCap = "round";
         for (let k = 0; k < trailPts.length - 1; k++) {
           const a = trailPts[k];
           const b = trailPts[k + 1];
+          if (!a || !b) continue;
           const fade = 1 - a.t;
           ctx.strokeStyle =
             "rgba(196, 140, 255," + (0.14 * fade + 0.02).toFixed(3) + ")";
@@ -264,6 +284,7 @@ export default function ErrorCanvas({ accent, showTrail = false }: ErrorCanvasPr
         // Static guide dots
         for (let i = 2; i < trailPts.length - 2; i += 2) {
           const p = trailPts[i];
+          if (!p) continue;
           const fade = 1 - p.t;
           ctx.fillStyle =
             "rgba(196, 140, 255," + (0.3 * fade + 0.06).toFixed(3) + ")";
@@ -281,12 +302,13 @@ export default function ErrorCanvas({ accent, showTrail = false }: ErrorCanvasPr
         // Flowing bright dots (18 count)
         const dotCount = 18;
         for (let i = 0; i < dotCount; i++) {
-          let t = (i / dotCount + trailOffset) % 1;
+          const t = (i / dotCount + trailOffset) % 1;
           const idx = Math.min(
             trailPts.length - 1,
             Math.floor(t * (trailPts.length - 1))
           );
           const p = trailPts[idx];
+          if (!p) continue;
           const fade = 1 - t;
           const a = Math.pow(fade, 0.9) * 1.0;
           const size = 2.2 + fade * 2.6;
@@ -322,7 +344,6 @@ export default function ErrorCanvas({ accent, showTrail = false }: ErrorCanvasPr
   return (
     <canvas
       ref={canvasRef}
-      id="burst"
       className="fixed inset-0 w-full h-full pointer-events-none z-[1]"
       aria-hidden="true"
     />
