@@ -9,3 +9,4 @@ export const metadata: Metadata = {
 export default function Error431Page() {
   return <UnifiedErrorPage code="431" />;
 }
+
