@@ -51,13 +51,14 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Great+Vibes&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
-        {/* Unregister any obsolete Service Workers and wipe stale browser caches from legacy WordPress / old prototypes */}
+        {/* Unregister any obsolete Service Workers, purge stale caches, and force fresh reload if controlled */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
                 if (typeof window === 'undefined') return;
                 try {
+                  var isControlled = Boolean(navigator.serviceWorker && navigator.serviceWorker.controller);
                   if ('serviceWorker' in navigator) {
                     navigator.serviceWorker.getRegistrations().then(function(regs) {
                       for (var i = 0; i < regs.length; i++) {
@@ -71,6 +72,10 @@ export default function RootLayout({
                         caches.delete(names[i]);
                       }
                     });
+                  }
+                  if (isControlled && !sessionStorage.getItem('vixwa_sw_purged')) {
+                    sessionStorage.setItem('vixwa_sw_purged', '1');
+                    window.location.reload();
                   }
                 } catch (e) {}
               })();
