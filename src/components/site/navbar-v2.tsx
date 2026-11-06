@@ -49,7 +49,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
           }`}
       >
         <nav
-          className="w-full max-w-[1440px] mx-auto h-[68px] sm:h-[74px] flex items-center justify-between px-3 min-[375px]:px-4 sm:px-6 lg:px-8 xl:px-10 box-border overflow-x-clip"
+          className="w-full max-w-[1440px] mx-auto h-[68px] sm:h-[74px] flex items-center justify-between px-3 min-[375px]:px-4 sm:px-6 lg:px-8 xl:px-8 2xl:px-10 box-border overflow-visible"
           aria-label="Primary"
         >
           {/* 1. Brand Logo Anchor (Fixed width, never shrinks) */}
@@ -62,10 +62,10 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                   go("home");
                 }
               }}
-              className="group flex items-center gap-2.5 sm:gap-3.5 focus:outline-none cursor-pointer"
+              className="group flex items-center gap-2.5 sm:gap-3.5 focus:outline-none cursor-pointer shrink-0 flex-shrink-0 select-none"
               aria-label="VIXWA LABS home"
             >
-              <span className="relative w-[36px] h-[36px] min-[375px]:w-[40px] min-[375px]:h-[40px] sm:w-[42px] sm:h-[42px] rounded-full shrink-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-105 shadow-[0_0_18px_rgba(79,70,229,0.32)]">
+              <span className="relative w-[36px] h-[36px] min-[375px]:w-[40px] min-[375px]:h-[40px] sm:w-[42px] sm:h-[42px] rounded-full shrink-0 flex-shrink-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-105 shadow-[0_0_18px_rgba(79,70,229,0.32)]">
                 <Image
                   src="/vixwa-brand-emblem.png"
                   alt="VIXWA LABS emblem"
@@ -75,7 +75,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                   priority
                 />
               </span>
-              <span className="flex flex-col leading-none text-left">
+              <span className="flex flex-col leading-none text-left shrink-0 flex-shrink-0">
                 <span className="font-display font-black tracking-[0.06em] text-[#101828] dark:text-[#F8FAFC] text-[15px] min-[375px]:text-base sm:text-[18px] 2xl:text-[20px] transition-colors group-hover:text-[#4F46E5] dark:group-hover:text-[#00D2FF] whitespace-nowrap">
                   VIXWA LABS
                 </span>
@@ -88,7 +88,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
 
           {/* 2. Flexible Navigation Links Container (Proper Flexbox, no absolute positioning, clamp gap) */}
           <div
-            className="hidden xl:flex flex-1 items-center justify-center min-w-0 px-3 2xl:px-6"
+            className="hidden xl:flex flex-1 items-center justify-center min-w-0 px-2 lg:px-4 2xl:px-6"
             style={{ gap: "clamp(16px, 2vw, 32px)" }}
           >
               {NAV_ITEMS.map((l) => (
@@ -101,7 +101,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                       go(l.view);
                     }
                   }}
-                  className="group relative py-1 text-[13px] xl:text-[14px] 2xl:text-[15px] font-medium whitespace-nowrap transition-colors duration-200 cursor-pointer"
+                  className="group relative py-1 text-[13px] xl:text-[14px] 2xl:text-[15px] font-medium whitespace-nowrap transition-colors duration-200 cursor-pointer shrink-0 flex-shrink-0"
                 >
                   <span
                     className={`transition-colors duration-200 ${current === l.view
@@ -111,8 +111,8 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                   >
                     {l.view === "rd" ? (
                       <>
-                        <span className="hidden xl:inline">{l.label}</span>
-                        <span className="inline xl:hidden">R&amp;D</span>
+                        <span className="hidden 2xl:inline">{l.label}</span>
+                        <span className="inline 2xl:hidden">R&amp;D</span>
                       </>
                     ) : (
                       l.label
@@ -130,12 +130,12 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
             </div>
 
             {/* Right CTA + Theme Toggle + mobile menu */}
-            <div className="flex items-center gap-1.5 min-[375px]:gap-2 sm:gap-3 shrink-0 flex-shrink-0">
+            <div className="flex items-center gap-1.5 min-[375px]:gap-2 sm:gap-2.5 2xl:gap-3 shrink-0 flex-shrink-0">
               {/* Dark Mode / Light Mode Toggle */}
               <button
                 onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
                 aria-label="Toggle theme"
-                className="w-9 h-9 min-[375px]:w-10 min-[375px]:h-10 rounded-full border border-[#E5E7EB] dark:border-[#1E293B] bg-white/70 dark:bg-[#111827]/70 backdrop-blur-md flex items-center justify-center text-[#101828] dark:text-[#F8FAFC] hover:border-[#4F46E5] dark:hover:border-[#00D2FF] hover:text-[#4F46E5] dark:hover:text-[#00D2FF] transition-all cursor-pointer shadow-sm hover:scale-105 shrink-0"
+                className="w-9 h-9 min-[375px]:w-10 min-[375px]:h-10 rounded-full border border-[#E5E7EB] dark:border-[#1E293B] bg-white/70 dark:bg-[#111827]/70 backdrop-blur-md flex items-center justify-center text-[#101828] dark:text-[#F8FAFC] hover:border-[#4F46E5] dark:hover:border-[#00D2FF] hover:text-[#4F46E5] dark:hover:text-[#00D2FF] transition-all cursor-pointer shadow-sm hover:scale-105 shrink-0 flex-shrink-0"
                 title={mounted && resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
               >
                 {mounted ? (
@@ -149,11 +149,11 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                 )}
               </button>
 
-              <div className="hidden sm:block shrink-0">
+              <div className="hidden sm:block shrink-0 flex-shrink-0">
                 <Magnetic
                   as="div"
                   strength={0.4}
-                  className="shrink-0"
+                  className="shrink-0 flex-shrink-0"
                 >
                   <a
                     href="/contact"
@@ -164,7 +164,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
                       }
                     }}
                     aria-label="Let's collaborate"
-                    className="inline-flex items-center gap-1.5 2xl:gap-2 h-[42px] rounded-full bg-[#4F46E5] dark:bg-[#0066FF] text-white text-[13.5px] 2xl:text-[14px] font-semibold px-5 hover:bg-[#4338CA] dark:hover:bg-[#0055DD] transition-all duration-300 shadow-[0_2px_12px_rgba(79,70,229,0.28)] dark:shadow-[0_0_24px_rgba(0,102,255,0.55)] cursor-pointer whitespace-nowrap shrink-0"
+                    className="inline-flex items-center gap-1.5 2xl:gap-2 h-[42px] rounded-full bg-[#4F46E5] dark:bg-[#0066FF] text-white text-[13.5px] 2xl:text-[14px] font-semibold px-4 min-[1366px]:px-5 hover:bg-[#4338CA] dark:hover:bg-[#0055DD] transition-all duration-300 shadow-[0_2px_12px_rgba(79,70,229,0.28)] dark:shadow-[0_0_24px_rgba(0,102,255,0.55)] cursor-pointer whitespace-nowrap shrink-0 flex-shrink-0"
                   >
                     Let&rsquo;s Collaborate
                     <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2.5} />
@@ -174,7 +174,7 @@ export default function Navbar({ current, onNavigate }: NavbarProps) {
 
               <button
                 onClick={() => setOpen(true)}
-                className="xl:hidden inline-flex items-center justify-center w-9 h-9 min-[375px]:w-10 min-[375px]:h-10 rounded-full bg-white/80 dark:bg-[#111827]/80 border border-[#E5E7EB] dark:border-[#1E293B] text-[#101828] dark:text-[#F8FAFC] hover:text-[#4F46E5] dark:hover:text-[#00D2FF] shadow-sm cursor-pointer shrink-0"
+                className="xl:hidden inline-flex items-center justify-center w-9 h-9 min-[375px]:w-10 min-[375px]:h-10 rounded-full bg-white/80 dark:bg-[#111827]/80 border border-[#E5E7EB] dark:border-[#1E293B] text-[#101828] dark:text-[#F8FAFC] hover:text-[#4F46E5] dark:hover:text-[#00D2FF] shadow-sm cursor-pointer shrink-0 flex-shrink-0"
                 aria-label="Open menu"
               >
                 <Menu className="w-4 h-4 min-[375px]:w-5 min-[375px]:h-5" />

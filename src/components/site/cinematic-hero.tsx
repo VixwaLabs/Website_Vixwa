@@ -69,12 +69,14 @@ function SpatialOrbitalDisplay() {
   return (
     <div className="relative w-full flex flex-col items-center justify-center select-none py-2">
       
-      {/* Ambient Electric Blue & Indigo radiance behind orbital system — purely circular radial gradients, no square clipping */}
+      {/* Ambient Electric Blue & Indigo radiance behind orbital system — purely circular radial gradients, zero square artifacts */}
       <div
         className="pointer-events-none absolute w-[260px] h-[260px] min-[360px]:w-[300px] min-[360px]:h-[300px] sm:w-[460px] sm:h-[460px] lg:w-[540px] lg:h-[540px] rounded-full opacity-50 dark:opacity-65"
         style={{
           background:
             "radial-gradient(circle closest-side, rgba(0, 102, 255, 0.40) 0%, rgba(0, 240, 255, 0.20) 45%, rgba(79, 70, 229, 0.10) 70%, transparent 100%)",
+          clipPath: "circle(50% at 50% 50%)",
+          WebkitClipPath: "circle(50% at 50% 50%)",
         }}
       />
       <div
@@ -82,11 +84,13 @@ function SpatialOrbitalDisplay() {
         style={{
           background:
             "radial-gradient(circle closest-side, rgba(0, 240, 255, 0.42) 0%, rgba(0, 102, 255, 0.22) 55%, transparent 100%)",
+          clipPath: "circle(50% at 50% 50%)",
+          WebkitClipPath: "circle(50% at 50% 50%)",
         }}
       />
 
       {/* Orbital Stage Container */}
-      <div className="relative flex items-center justify-center w-[270px] h-[270px] min-[360px]:w-[310px] min-[360px]:h-[310px] min-[420px]:w-[360px] min-[420px]:h-[360px] sm:w-[460px] sm:h-[460px] lg:w-[550px] lg:h-[550px]">
+      <div className="relative flex items-center justify-center rounded-full w-[270px] h-[270px] min-[360px]:w-[310px] min-[360px]:h-[310px] min-[420px]:w-[360px] min-[420px]:h-[360px] sm:w-[460px] sm:h-[460px] lg:w-[550px] lg:h-[550px]">
         
         {/* ============================================================
             LAYER 2: OUTER CIRCULAR ORBIT (Counter-Clockwise, 38s)
@@ -142,8 +146,13 @@ function SpatialOrbitalDisplay() {
         {/* ============================================================
             CENTER PEDESTAL: Elevated Spatial Glass Portal with Video
             ============================================================ */}
+        {/* Circular halo glow under pedestal (prevents GPU box-shadow square bounding box on clipPath) */}
         <div
-          className="group relative w-[185px] h-[185px] min-[360px]:w-[210px] min-[360px]:h-[210px] min-[420px]:w-[250px] min-[420px]:h-[250px] sm:w-[330px] sm:h-[330px] lg:w-[400px] lg:h-[400px] rounded-full flex items-center justify-center bg-[#070A12] border-2 border-[#4F46E5]/40 dark:border-[#00D2FF]/60 p-1.5 sm:p-2.5 shadow-[0_20px_60px_rgba(79,70,229,0.22),0_4px_20px_rgba(16,24,40,0.1)] dark:shadow-[0_0_60px_rgba(0,102,255,0.4),0_0_120px_rgba(0,240,255,0.18)] transition-all duration-500 hover:scale-[1.02] hover:border-[#4F46E5] dark:hover:border-[#00D2FF] z-20 overflow-hidden"
+          className="pointer-events-none absolute w-[185px] h-[185px] min-[360px]:w-[210px] min-[360px]:h-[210px] min-[420px]:w-[250px] min-[420px]:h-[250px] sm:w-[330px] sm:h-[330px] lg:w-[400px] lg:h-[400px] rounded-full shadow-[0_20px_60px_rgba(79,70,229,0.22),0_4px_20px_rgba(16,24,40,0.1)] dark:shadow-[0_0_60px_rgba(0,102,255,0.4),0_0_120px_rgba(0,240,255,0.18)] z-10"
+        />
+
+        <div
+          className="group relative w-[185px] h-[185px] min-[360px]:w-[210px] min-[360px]:h-[210px] min-[420px]:w-[250px] min-[420px]:h-[250px] sm:w-[330px] sm:h-[330px] lg:w-[400px] lg:h-[400px] rounded-full flex items-center justify-center bg-[#070A12] border-2 border-[#4F46E5]/40 dark:border-[#00D2FF]/60 p-1.5 sm:p-2.5 transition-all duration-500 hover:scale-[1.02] hover:border-[#4F46E5] dark:hover:border-[#00D2FF] z-20 overflow-hidden"
           style={{ clipPath: "circle(50% at 50% 50%)", WebkitClipPath: "circle(50% at 50% 50%)" }}
         >
           {/* Internal video chamber with circular mask & subtle inset glow */}
@@ -224,12 +233,14 @@ export default function CinematicHero() {
           }}
         />
 
-        {/* Ambient Electric Blue volumetric flare from top/pedestal — pure circular radial gradient, no blur clipping */}
+        {/* Ambient Electric Blue volumetric flare from top/pedestal — pure circular radial gradient, zero square clipping */}
         <div
           className="pointer-events-none absolute top-[-60px] right-[8%] w-[600px] h-[600px] rounded-full opacity-35 dark:opacity-50"
           style={{
             background:
               "radial-gradient(circle closest-side, rgba(0, 102, 255, 0.35) 0%, rgba(0, 210, 255, 0.15) 45%, transparent 100%)",
+            clipPath: "circle(50% at 50% 50%)",
+            WebkitClipPath: "circle(50% at 50% 50%)",
           }}
         />
 

@@ -8,3 +8,4 @@ export const metadata = {
 export default function AboutAliasPage() {
   return <AppShell initialView="home" />;
 }
+

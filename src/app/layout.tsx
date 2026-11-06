@@ -51,6 +51,32 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Great+Vibes&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
+        {/* Unregister any obsolete Service Workers and wipe stale browser caches from legacy WordPress / old prototypes */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                if (typeof window === 'undefined') return;
+                try {
+                  if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.getRegistrations().then(function(regs) {
+                      for (var i = 0; i < regs.length; i++) {
+                        regs[i].unregister();
+                      }
+                    });
+                  }
+                  if ('caches' in window) {
+                    caches.keys().then(function(names) {
+                      for (var i = 0; i < names.length; i++) {
+                        caches.delete(names[i]);
+                      }
+                    });
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
       </head>
       <body className="antialiased bg-background text-foreground transition-colors duration-300">
         <ThemeProvider

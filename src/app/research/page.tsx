@@ -8,3 +8,4 @@ export const metadata = {
 export default function ResearchAliasPage() {
   return <AppShell initialView="rd" />;
 }
+
