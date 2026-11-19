@@ -310,7 +310,7 @@ export default function ContactPage({
                 </p>
               )}
 
-              <div className="mt-2">
+              <div className="mt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <button
                   type="submit"
                   disabled={status === "loading"}
@@ -321,6 +321,16 @@ export default function ContactPage({
                     <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2.5} />
                   </span>
                 </button>
+                <p className="text-[11.5px] text-[#64748B] dark:text-[#94A3B8]">
+                  By submitting, you agree to our{" "}
+                  <a
+                    href="/privacy-policy"
+                    className="text-[#4F46E5] dark:text-[#00D2FF] hover:underline font-medium"
+                  >
+                    Privacy Policy
+                  </a>{" "}
+                  and DPDP Act data terms.
+                </p>
               </div>
             </form>
           </div>
@@ -365,27 +375,39 @@ export default function ContactPage({
                 </div>
               ) : (
                 <form
-                  className="flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-end"
+                  className="flex flex-col gap-2"
                   onSubmit={onNewsletterSubmit}
                 >
-                  <div className="flex-1 flex flex-col gap-1.5">
-                    <label className={fieldLabelClass}>Email Address</label>
-                    <input
-                      required
-                      name="email"
-                      type="email"
-                      placeholder="you@example.com"
-                      className="w-full bg-[#F8FAFC] dark:bg-[#070A12] border border-[#E5E7EB] dark:border-[#1E293B] rounded-xl focus:border-[#4F46E5] dark:focus:border-[#00D2FF] focus:ring-2 focus:ring-[#4F46E5]/20 dark:focus:ring-[#00D2FF]/20 transition-colors py-2.5 px-3.5 text-[#101828] dark:text-[#F8FAFC] placeholder:text-[#94A3B8] focus:outline-none text-sm h-11 shadow-sm"
-                    />
+                  <div className="flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-end">
+                    <div className="flex-1 flex flex-col gap-1.5">
+                      <label className={fieldLabelClass}>Email Address</label>
+                      <input
+                        required
+                        name="email"
+                        type="email"
+                        placeholder="you@example.com"
+                        className="w-full bg-[#F8FAFC] dark:bg-[#070A12] border border-[#E5E7EB] dark:border-[#1E293B] rounded-xl focus:border-[#4F46E5] dark:focus:border-[#00D2FF] focus:ring-2 focus:ring-[#4F46E5]/20 dark:focus:ring-[#00D2FF]/20 transition-colors py-2.5 px-3.5 text-[#101828] dark:text-[#F8FAFC] placeholder:text-[#94A3B8] focus:outline-none text-sm h-11 shadow-sm"
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={newsletterStatus === "loading"}
+                      className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[#101828] dark:bg-[#0066FF] text-white font-semibold text-xs sm:text-sm px-6 py-2.5 hover:bg-[#1F2937] dark:hover:bg-[#0052CC] shadow-sm transition-all duration-200 whitespace-nowrap h-11 shrink-0 cursor-pointer"
+                    >
+                      {newsletterStatus === "loading" ? "Subscribing..." : "Subscribe"}
+                      <ArrowUpRight className="w-4 h-4 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </button>
                   </div>
-                  <button
-                    type="submit"
-                    disabled={newsletterStatus === "loading"}
-                    className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[#101828] dark:bg-[#0066FF] text-white font-semibold text-xs sm:text-sm px-6 py-2.5 hover:bg-[#1F2937] dark:hover:bg-[#0052CC] shadow-sm transition-all duration-200 whitespace-nowrap h-11 shrink-0 cursor-pointer"
-                  >
-                    {newsletterStatus === "loading" ? "Subscribing..." : "Subscribe"}
-                    <ArrowUpRight className="w-4 h-4 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </button>
+                  <p className="text-[11px] text-[#64748B] dark:text-[#94A3B8]">
+                    Zero spam. Unsubscribe anytime. Read our{" "}
+                    <a
+                      href="/privacy-policy"
+                      className="text-[#4F46E5] dark:text-[#00D2FF] hover:underline font-medium"
+                    >
+                      Privacy Policy
+                    </a>
+                    .
+                  </p>
                 </form>
               )}
 

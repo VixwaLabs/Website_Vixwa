@@ -186,13 +186,7 @@ export default function Footer({ onNavigate }: FooterProps) {
             <ul className="flex flex-col gap-3">
               <li>
                 <a
-                  href="/intellectual-property"
-                  onClick={(e) => {
-                    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
-                      e.preventDefault();
-                      onNavigate("intellectual-property");
-                    }
-                  }}
+                  href="/privacy-policy"
                   className="text-[#CBD5E1] hover:text-[#FFFFFF] hover:translate-x-1 transition-all text-sm text-left block cursor-pointer"
                 >
                   Privacy Policy
@@ -200,13 +194,7 @@ export default function Footer({ onNavigate }: FooterProps) {
               </li>
               <li>
                 <a
-                  href="/intellectual-property"
-                  onClick={(e) => {
-                    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && e.button === 0) {
-                      e.preventDefault();
-                      onNavigate("intellectual-property");
-                    }
-                  }}
+                  href="/terms-and-conditions"
                   className="text-[#CBD5E1] hover:text-[#FFFFFF] hover:translate-x-1 transition-all text-sm text-left block cursor-pointer"
                 >
                   Terms &amp; Conditions
