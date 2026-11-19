@@ -32,7 +32,7 @@ export default function LegalPageShell({
   effectiveDate,
   draftNotice,
   sections,
-  accentColor = "#FF365D",
+  accentColor = "#FFFFFF",
   otherPageTitle,
   otherPageHref,
   spokeTheme = "black-white",
