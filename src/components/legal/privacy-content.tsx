@@ -25,9 +25,9 @@ export default function PrivacyContent() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-300">
               <div><strong className="text-white">Entity:</strong> Vixwa Labs Private Limited</div>
-              <div><strong className="text-white">Privacy Officer:</strong> privacy@vixwa.com</div>
-              <div><strong className="text-white">General Inquiries:</strong> labs@vixwa.com</div>
-              <div><strong className="text-white">Registered Jurisdiction:</strong> Bengaluru, Karnataka, India</div>
+              <div><strong className="text-white">Contact Email:</strong> labs@vixwa.com</div>
+              <div><strong className="text-white">Registered Address:</strong> Gutthalu, Mandya 571403, Karnataka, India</div>
+              <div><strong className="text-white">Governing Framework:</strong> DPDP Act, 2023 (India)</div>
             </div>
           </div>
           <p>
@@ -66,7 +66,7 @@ export default function PrivacyContent() {
               <ul className="text-slate-300 text-[13.5px] space-y-1">
                 <li><strong className="text-white">Data Collected:</strong> Email Address.</li>
                 <li><strong className="text-white">Specific Purpose:</strong> To distribute periodic laboratory findings, technical publications, research updates, and organizational announcements.</li>
-                <li><strong className="text-white">Opt-Out:</strong> Subscribers can revoke consent and unsubscribe at any time via a single-click link in dispatches or by emailing privacy@vixwa.com.</li>
+                <li><strong className="text-white">Opt-Out:</strong> Subscribers can revoke consent and unsubscribe at any time via a single-click link in dispatches or by emailing labs@vixwa.com.</li>
               </ul>
             </div>
 
@@ -197,7 +197,7 @@ export default function PrivacyContent() {
             </div>
           </div>
           <p>
-            To exercise any of these rights, please submit a written request to <strong className="text-indigo-400">privacy@vixwa.com</strong>. We will respond within thirty (30) business days.
+            To exercise any of these rights, please submit a written request to <strong className="text-indigo-400">labs@vixwa.com</strong>. We will respond within thirty (30) business days.
           </p>
         </div>
       ),
@@ -213,7 +213,7 @@ export default function PrivacyContent() {
           </p>
           <p>
             If a parent, guardian, or educator becomes aware that a minor has submitted personal data through our website without appropriate consent, please
-            contact us immediately at <strong className="text-white">privacy@vixwa.com</strong>. We will promptly delete such information from our records.
+            contact us immediately at <strong className="text-white">labs@vixwa.com</strong>. We will promptly delete such information from our records.
           </p>
         </div>
       ),
@@ -246,9 +246,8 @@ export default function PrivacyContent() {
           <div className="p-4 rounded-xl border border-white/[0.08] bg-white/[0.02] text-[13.5px] space-y-1 text-slate-300">
             <div><strong className="text-white">Designated Officer:</strong> Grievance Redressal Officer</div>
             <div><strong className="text-white">Entity:</strong> Vixwa Labs Private Limited</div>
-            <div><strong className="text-white">Direct Email:</strong> privacy@vixwa.com</div>
-            <div><strong className="text-white">Corporate Inquiries:</strong> labs@vixwa.com</div>
-            <div><strong className="text-white">Registered Office:</strong> Bengaluru, Karnataka, India</div>
+            <div><strong className="text-white">Contact Email:</strong> labs@vixwa.com</div>
+            <div><strong className="text-white">Registered Address:</strong> Gutthalu, Mandya 571403, Karnataka, India</div>
           </div>
           <p className="text-xs text-slate-400">
             If your grievance is not resolved to your satisfaction through our internal redressal channel, you have the right to lodge a formal complaint with

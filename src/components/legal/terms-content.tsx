@@ -15,7 +15,7 @@ export default function TermsContent() {
             These Terms and Conditions (“Terms”) govern access to and use of the public website accessible at{" "}
             <strong className="text-white">vixwa.com</strong> and all associated public sub-pages (collectively, the “Website”),
             operated by <strong className="text-white">Vixwa Labs Private Limited</strong> (“Vixwa”, “we”, “our”, or “us”), a company
-            incorporated under the laws of India, having its corporate and registered operations in Bangalore (Bengaluru), Karnataka, India.
+            incorporated under the laws of India, having its registered office at Gutthalu, Mandya 571403, Karnataka, India.
           </p>
           <div className="p-4 rounded-xl border border-indigo-500/20 bg-indigo-500/[0.04] text-[13.5px]">
             <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-indigo-400 font-semibold mb-1.5">
@@ -24,8 +24,8 @@ export default function TermsContent() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-300">
               <div><strong className="text-white">Entity:</strong> Vixwa Labs Private Limited</div>
-              <div><strong className="text-white">Corporate Inquiries:</strong> labs@vixwa.com</div>
-              <div><strong className="text-white">Jurisdiction:</strong> Bengaluru, Karnataka, India</div>
+              <div><strong className="text-white">Contact Email:</strong> labs@vixwa.com</div>
+              <div><strong className="text-white">Registered Address:</strong> Gutthalu, Mandya 571403, Karnataka, India</div>
               <div><strong className="text-white">Operational Scope:</strong> Informational Public Website</div>
             </div>
           </div>
@@ -185,11 +185,11 @@ export default function TermsContent() {
           <div className="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/[0.04] text-[13.5px]">
             <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-emerald-400 font-semibold mb-1.5">
               <Scale className="w-3.5 h-3.5" />
-              Exclusive Territorial Jurisdiction
+              Territorial Jurisdiction
             </div>
             <p className="text-slate-300">
-              Subject to mandatory statutory provisions, the competent courts situated at <strong className="text-white">Bengaluru (Bangalore), Karnataka, India</strong> shall
-              have sole and exclusive jurisdiction over any proceeding, suit, action, or litigation arising out of or concerning these Terms or the Website.
+              Subject to mandatory statutory provisions, the competent courts situated in <strong className="text-white">Karnataka, India</strong> shall
+              have jurisdiction over any proceeding, suit, action, or litigation arising out of or concerning these Terms or the Website.
             </p>
           </div>
         </div>
@@ -217,13 +217,12 @@ export default function TermsContent() {
       content: (
         <div className="space-y-4">
           <p>
-            For questions, legal notices, or formal clarifications regarding these Terms and Conditions, please contact our legal and administrative office:
+            For questions, legal notices, or formal clarifications regarding these Terms and Conditions, please contact our administrative office:
           </p>
           <div className="p-4 rounded-xl border border-white/[0.08] bg-white/[0.02] text-[13.5px] space-y-1 text-slate-300">
             <div><strong className="text-white">Entity:</strong> Vixwa Labs Private Limited</div>
-            <div><strong className="text-white">Corporate Email:</strong> labs@vixwa.com</div>
-            <div><strong className="text-white">Legal Notices:</strong> legal@vixwa.com / labs@vixwa.com</div>
-            <div><strong className="text-white">Location:</strong> Bengaluru, Karnataka, India</div>
+            <div><strong className="text-white">Contact Email:</strong> labs@vixwa.com</div>
+            <div><strong className="text-white">Registered Address:</strong> Gutthalu, Mandya 571403, Karnataka, India</div>
           </div>
         </div>
       ),
