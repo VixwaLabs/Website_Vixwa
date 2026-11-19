@@ -247,8 +247,8 @@ export default function LegalPageShell({
       {/* ── 1. Cosmic radial background glow ── */}
       <div className="bg-glow" aria-hidden="true" />
 
-      {/* ── 2. Fixed 403-Style Right-Side Radiant Burst Canvas ── */}
-      <ErrorCanvas accent={accentColor} showTrail={false} />
+      {/* ── 2. Fixed 403-Style Right-Side Radiant Burst Canvas with VIBGYOR Animated Spokes ── */}
+      <ErrorCanvas accent={accentColor} showTrail={false} vibgyor={true} />
 
       {/* ── 3. Top Navbar ── */}
       <header

@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 interface ErrorCanvasProps {
   accent: string;
   showTrail?: boolean;
+  vibgyor?: boolean;
 }
 
 interface RgbColor {
@@ -19,6 +20,7 @@ interface Ray {
   width: number;
   baseAlpha: number;
   color: RgbColor;
+  colorOffset: number;
   phase: number;
   speed: number;
   tipSize: number;
@@ -32,6 +34,35 @@ interface TrailPoint {
   t: number;
 }
 
+// 7 VIBGYOR spectral stops: Violet, Indigo, Blue, Green, Yellow, Orange, Red
+const VIBGYOR_STOPS: RgbColor[] = [
+  { r: 168, g: 85,  b: 247 }, // Violet (#A855F7)
+  { r: 99,  g: 102, b: 241 }, // Indigo (#6366F1)
+  { r: 14,  g: 165, b: 233 }, // Blue (#0EA5E9)
+  { r: 34,  g: 197, b: 94  }, // Green (#22C55E)
+  { r: 250, g: 204, b: 21  }, // Yellow (#FACC15)
+  { r: 255, g: 106, b: 0   }, // Orange (#FF6A00)
+  { r: 255, g: 54,  b: 93  }, // Red (#FF365D)
+];
+
+function getVibgyorColor(progress: number): RgbColor {
+  const norm = ((progress % 1) + 1) % 1;
+  const count = VIBGYOR_STOPS.length;
+  const scaled = norm * count;
+  const idx1 = Math.floor(scaled);
+  const idx2 = (idx1 + 1) % count;
+  const fraction = scaled - idx1;
+
+  const c1 = VIBGYOR_STOPS[idx1];
+  const c2 = VIBGYOR_STOPS[idx2];
+
+  return {
+    r: Math.round(c1.r + (c2.r - c1.r) * fraction),
+    g: Math.round(c1.g + (c2.g - c1.g) * fraction),
+    b: Math.round(c1.b + (c2.b - c1.b) * fraction),
+  };
+}
+
 function hexToRgb(hex: string): RgbColor {
   const clean = (hex || "#3685FF").replace("#", "");
   const num = parseInt(clean, 16);
@@ -43,7 +74,11 @@ function hexToRgb(hex: string): RgbColor {
   };
 }
 
-export default function ErrorCanvas({ accent, showTrail = false }: ErrorCanvasProps) {
+export default function ErrorCanvas({
+  accent,
+  showTrail = false,
+  vibgyor = false,
+}: ErrorCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -113,6 +148,7 @@ export default function ErrorCanvas({ accent, showTrail = false }: ErrorCanvasPr
           width: Math.random() < 0.86 ? rand(0.5, 1.0) : rand(1.1, 1.7),
           baseAlpha: rand(0.18, 0.85),
           color: c,
+          colorOffset: i / RAY_COUNT + Math.random() * 0.04,
           phase: Math.random() * Math.PI * 2,
           speed: rand(0.6, 1.8),
           tipSize: rand(1.1, 2.6),
@@ -200,7 +236,12 @@ export default function ErrorCanvas({ accent, showTrail = false }: ErrorCanvasPr
         origin.y,
         coreR
       );
-      if (showTrail) {
+      if (vibgyor) {
+        // Soft neutral cosmic core so only the spokes (lines) radiate VIBGYOR colors
+        coreGrad.addColorStop(0, "rgba(240, 245, 255, 0.6)");
+        coreGrad.addColorStop(0.35, "rgba(168, 130, 255, 0.22)");
+        coreGrad.addColorStop(1, "rgba(99, 102, 241, 0)");
+      } else if (showTrail) {
         coreGrad.addColorStop(0, "rgba(180, 200, 255, 0.55)");
         coreGrad.addColorStop(0.35, "rgba(99, 102, 241, 0.28)");
         coreGrad.addColorStop(1, "rgba(99, 102, 241, 0)");
@@ -230,8 +271,12 @@ export default function ErrorCanvas({ accent, showTrail = false }: ErrorCanvasPr
         const pulse = 0.5 + 0.5 * Math.sin(frame * 0.04 * r.speed + r.phase);
         const alpha = r.baseAlpha * (0.55 + 0.45 * pulse);
 
+        // When vibgyor is active, spokes radiate and animate across the VIBGYOR spectrum
+        const c = vibgyor
+          ? getVibgyorColor(r.colorOffset + frame * 0.0025 * r.speed)
+          : r.color;
+
         const grad = ctx.createLinearGradient(origin.x, origin.y, ex, ey);
-        const c = r.color;
         grad.addColorStop(0, "rgba(" + c.r + "," + c.g + "," + c.b + ",0)");
         grad.addColorStop(
           0.35,
@@ -341,7 +386,7 @@ export default function ErrorCanvas({ accent, showTrail = false }: ErrorCanvasPr
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(animId);
     };
-  }, [accent, showTrail]);
+  }, [accent, showTrail, vibgyor]);
 
   return (
     <canvas
