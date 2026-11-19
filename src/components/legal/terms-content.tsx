@@ -233,9 +233,9 @@ export default function TermsContent() {
     <LegalPageShell
       pageTitle="Terms & Conditions"
       pageSubtitle="Terms governing access to and use of vixwa.com and associated digital research materials."
-      heroIcon={<FileText className="w-7 h-7 text-indigo-400" />}
+      heroIcon={<FileText className="w-7 h-7 text-[#FF365D]" />}
       effectiveDate="19 November 2026"
-      accentColor="#4F46E5"
+      accentColor="#FF365D"
       otherPageTitle="View Privacy Policy"
       otherPageHref="/privacy-policy"
       draftNotice="This document establishes the binding terms governing public access to the Vixwa Labs informational website. Additional terms apply to proprietary platforms, pilot customer deployments, and research collaborations."
