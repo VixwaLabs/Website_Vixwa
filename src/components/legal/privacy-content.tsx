@@ -262,9 +262,10 @@ export default function PrivacyContent() {
     <LegalPageShell
       pageTitle="Privacy Policy"
       pageSubtitle="How Vixwa Labs Private Limited collects, safeguards, and respects your personal data under the DPDP Act, 2023."
-      heroIcon={<Shield className="w-7 h-7 text-[#FF365D]" />}
+      heroIcon={<Shield className="w-7 h-7 text-[#10B981]" />}
       effectiveDate="19 November 2026"
-      accentColor="#FF365D"
+      accentColor="#10B981"
+      spokeTheme="green-lavender"
       otherPageTitle="View Terms & Conditions"
       otherPageHref="/terms-and-conditions"
       draftNotice="This Privacy Policy governs data processing on the public vixwa.com website in compliance with the Digital Personal Data Protection Act, 2023 (DPDP Act) and DPDP Rules, 2025 of India."

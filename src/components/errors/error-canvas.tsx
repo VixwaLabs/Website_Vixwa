@@ -2,10 +2,13 @@
 
 import { useEffect, useRef } from "react";
 
+export type SpokeTheme = "default" | "black-white" | "green-lavender" | "vibgyor";
+
 interface ErrorCanvasProps {
   accent: string;
   showTrail?: boolean;
   vibgyor?: boolean;
+  spokeTheme?: SpokeTheme;
 }
 
 interface RgbColor {
@@ -34,7 +37,30 @@ interface TrailPoint {
   t: number;
 }
 
-// 7 VIBGYOR spectral stops: Violet, Indigo, Blue, Green, Yellow, Orange, Red
+// ── 1. Black & White (Monochrome / Silver / Platinum / White) Stops ──
+const BLACK_WHITE_STOPS: RgbColor[] = [
+  { r: 255, g: 255, b: 255 }, // pure brilliant white
+  { r: 215, g: 225, b: 235 }, // light metallic silver
+  { r: 130, g: 142, b: 158 }, // cool slate gray
+  { r: 35,  g: 42,  b: 54  }, // deep obsidian charcoal
+  { r: 75,  g: 85,  b: 100 }, // graphite
+  { r: 185, g: 195, b: 210 }, // luminous silver
+  { r: 255, g: 255, b: 255 }, // white diamond
+];
+
+// ── 2. Green & Lavender (Emerald, Mint, Spring Jade, Lavender, Lilac, Violet) Stops ──
+const GREEN_LAVENDER_STOPS: RgbColor[] = [
+  { r: 34,  g: 197, b: 94  }, // Emerald Green (#22C55E)
+  { r: 74,  g: 222, b: 128 }, // Bright Mint (#4ADE80)
+  { r: 16,  g: 185, b: 129 }, // Jade Green (#10B981)
+  { r: 196, g: 181, b: 253 }, // Soft Lavender (#C4B5FD)
+  { r: 168, g: 85,  b: 247 }, // Luminous Violet / Lavender (#A855F7)
+  { r: 139, g: 92,  b: 246 }, // Deep Lavender (#8B5CF6)
+  { r: 233, g: 213, b: 255 }, // Lilac Mist (#E9D5FF)
+  { r: 52,  g: 211, b: 153 }, // Seafoam Mint (#34D399)
+];
+
+// ── 3. VIBGYOR Spectral Stops ──
 const VIBGYOR_STOPS: RgbColor[] = [
   { r: 168, g: 85,  b: 247 }, // Violet (#A855F7)
   { r: 99,  g: 102, b: 241 }, // Indigo (#6366F1)
@@ -45,16 +71,16 @@ const VIBGYOR_STOPS: RgbColor[] = [
   { r: 255, g: 54,  b: 93  }, // Red (#FF365D)
 ];
 
-function getVibgyorColor(progress: number): RgbColor {
+function getSpectrumColor(stops: RgbColor[], progress: number): RgbColor {
   const norm = ((progress % 1) + 1) % 1;
-  const count = VIBGYOR_STOPS.length;
+  const count = stops.length;
   const scaled = norm * count;
   const idx1 = Math.floor(scaled);
   const idx2 = (idx1 + 1) % count;
   const fraction = scaled - idx1;
 
-  const c1 = VIBGYOR_STOPS[idx1];
-  const c2 = VIBGYOR_STOPS[idx2];
+  const c1 = stops[idx1];
+  const c2 = stops[idx2];
 
   return {
     r: Math.round(c1.r + (c2.r - c1.r) * fraction),
@@ -78,6 +104,7 @@ export default function ErrorCanvas({
   accent,
   showTrail = false,
   vibgyor = false,
+  spokeTheme,
 }: ErrorCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -224,6 +251,8 @@ export default function ErrorCanvas({
       frame++;
       rotation += 0.0009 * dt;
 
+      const effectiveTheme: SpokeTheme = spokeTheme || (vibgyor ? "vibgyor" : "default");
+
       ctx.clearRect(0, 0, W, H);
 
       // --- Soft core glow at origin ---
@@ -236,8 +265,17 @@ export default function ErrorCanvas({
         origin.y,
         coreR
       );
-      if (vibgyor) {
-        // Soft neutral cosmic core so only the spokes (lines) radiate VIBGYOR colors
+      if (effectiveTheme === "black-white") {
+        // Luminous silver-white cosmic core
+        coreGrad.addColorStop(0, "rgba(255, 255, 255, 0.65)");
+        coreGrad.addColorStop(0.35, "rgba(180, 190, 210, 0.22)");
+        coreGrad.addColorStop(1, "rgba(30, 40, 60, 0)");
+      } else if (effectiveTheme === "green-lavender") {
+        // Aurora mint & lavender mist core
+        coreGrad.addColorStop(0, "rgba(235, 255, 240, 0.55)");
+        coreGrad.addColorStop(0.35, "rgba(168, 85, 247, 0.24)");
+        coreGrad.addColorStop(1, "rgba(34, 197, 94, 0)");
+      } else if (effectiveTheme === "vibgyor") {
         coreGrad.addColorStop(0, "rgba(240, 245, 255, 0.6)");
         coreGrad.addColorStop(0.35, "rgba(168, 130, 255, 0.22)");
         coreGrad.addColorStop(1, "rgba(99, 102, 241, 0)");
@@ -271,10 +309,15 @@ export default function ErrorCanvas({
         const pulse = 0.5 + 0.5 * Math.sin(frame * 0.04 * r.speed + r.phase);
         const alpha = r.baseAlpha * (0.55 + 0.45 * pulse);
 
-        // When vibgyor is active, spokes radiate and animate across the VIBGYOR spectrum
-        const c = vibgyor
-          ? getVibgyorColor(r.colorOffset + frame * 0.0025 * r.speed)
-          : r.color;
+        // Spokes animate dynamically according to the chosen theme
+        let c = r.color;
+        if (effectiveTheme === "black-white") {
+          c = getSpectrumColor(BLACK_WHITE_STOPS, r.colorOffset + frame * 0.002 * r.speed);
+        } else if (effectiveTheme === "green-lavender") {
+          c = getSpectrumColor(GREEN_LAVENDER_STOPS, r.colorOffset + frame * 0.0025 * r.speed);
+        } else if (effectiveTheme === "vibgyor") {
+          c = getSpectrumColor(VIBGYOR_STOPS, r.colorOffset + frame * 0.0025 * r.speed);
+        }
 
         const grad = ctx.createLinearGradient(origin.x, origin.y, ex, ey);
         grad.addColorStop(0, "rgba(" + c.r + "," + c.g + "," + c.b + ",0)");
@@ -301,8 +344,12 @@ export default function ErrorCanvas({
         ctx.fill();
 
         // colored halo
-        ctx.fillStyle =
-          "rgba(" + c.r + "," + c.g + "," + c.b + "," + (tipAlpha * 0.35).toFixed(3) + ")";
+        if (effectiveTheme === "black-white") {
+          ctx.fillStyle = "rgba(220, 230, 255," + (tipAlpha * 0.35).toFixed(3) + ")";
+        } else {
+          ctx.fillStyle =
+            "rgba(" + c.r + "," + c.g + "," + c.b + "," + (tipAlpha * 0.35).toFixed(3) + ")";
+        }
         ctx.beginPath();
         ctx.arc(ex, ey, r.tipSize * 2.4, 0, Math.PI * 2);
         ctx.fill();
@@ -386,7 +433,7 @@ export default function ErrorCanvas({
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(animId);
     };
-  }, [accent, showTrail, vibgyor]);
+  }, [accent, showTrail, vibgyor, spokeTheme]);
 
   return (
     <canvas

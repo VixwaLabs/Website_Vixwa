@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, ShieldCheck, ChevronRight } from "lucide-react";
-import ErrorCanvas from "@/components/errors/error-canvas";
+import ErrorCanvas, { SpokeTheme } from "@/components/errors/error-canvas";
 
 interface LegalSection {
   number: string;
@@ -19,9 +19,10 @@ interface LegalPageProps {
   effectiveDate: string;
   draftNotice?: string;
   sections: LegalSection[];
-  accentColor?: string; // hex e.g. "#FF365D" (403 crimson) or "#00D9FF"
+  accentColor?: string; // hex e.g. "#FFFFFF" or "#10B981"
   otherPageTitle: string;
   otherPageHref: string;
+  spokeTheme?: SpokeTheme;
 }
 
 export default function LegalPageShell({
@@ -34,6 +35,7 @@ export default function LegalPageShell({
   accentColor = "#FF365D",
   otherPageTitle,
   otherPageHref,
+  spokeTheme = "black-white",
 }: LegalPageProps) {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string | null>("01");
@@ -247,8 +249,8 @@ export default function LegalPageShell({
       {/* ── 1. Cosmic radial background glow ── */}
       <div className="bg-glow" aria-hidden="true" />
 
-      {/* ── 2. Fixed 403-Style Right-Side Radiant Burst Canvas with VIBGYOR Animated Spokes ── */}
-      <ErrorCanvas accent={accentColor} showTrail={false} vibgyor={true} />
+      {/* ── 2. Fixed 403-Style Right-Side Radiant Burst Canvas (spokeTheme: black-white or green-lavender) ── */}
+      <ErrorCanvas accent={accentColor} showTrail={false} spokeTheme={spokeTheme} />
 
       {/* ── 3. Top Navbar ── */}
       <header
